@@ -59,8 +59,6 @@ SetTargetFPS(60)
 
 // Main game loop
 while !WindowShouldClose() {
-    // Update
-    // TODO: Update variables here
     
     // Draw
     BeginDrawing()
