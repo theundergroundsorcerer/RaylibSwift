@@ -1,0 +1,5 @@
+module CRaylib [system] {
+    umbrella header "shim.h"
+    link "raylib"
+    export *
+}
