@@ -68,9 +68,6 @@ public typealias Camera2D = CRaylib.Camera2D
 /// Mesh, vertex data and vao/vbo
 public typealias Mesh = CRaylib.Mesh
 
-/// Shader, shader program
-public typealias Shader = CRaylib.Shader
-
 /// MaterialMap, material texture map
 public typealias MaterialMap = CRaylib.MaterialMap
 
