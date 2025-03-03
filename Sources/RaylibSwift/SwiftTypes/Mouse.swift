@@ -1,23 +1,23 @@
-/**
- * Mouse related types and functionality
- *
- * This namespace contains enumerations for working with mouse input,
- * providing a Swift-friendly interface to raylib's mouse functionality.
- *
- * Example usage:
- * ```
- * // Check if a mouse button is pressed
- * if IsMouseButtonPressed(Mouse.MouseButtons.mouseButtonLeft) {
- *     // Handle left mouse button press
- * }
- * 
- * // Change cursor appearance
- * SetMouseCursor(Mouse.MouseCursors.pointingHand)
- * 
- * // Get mouse position
- * let mousePos = GetMousePosition()
- * ```
- */
+import CRaylib
+
+/// Mouse related types and functionality
+///
+/// This namespace contains enumerations for working with mouse input,
+/// providing a Swift-friendly interface to raylib's mouse functionality.
+///
+/// Example usage:
+/// ```
+/// // Check if a mouse button is pressed
+/// if IsMouseButtonPressed(Mouse.MouseButtons.mouseButtonLeft) {
+///     // Handle left mouse button press
+/// }
+///
+/// // Change cursor appearance
+/// SetMouseCursor(Mouse.MouseCursors.pointingHand)
+///
+/// // Get mouse position
+/// let mousePos = GetMousePosition()
+/// ```
 public enum Mouse {
     /**
      * Mouse buttons from Raylib library
@@ -29,7 +29,7 @@ public enum Mouse {
      * }
      * ```
      */
-    public enum MouseButtons: Int32 {
+    public enum Buttons: Int32 {
         /// Mouse button left
         case mouseButtonLeft = 0
 
@@ -65,7 +65,7 @@ public enum Mouse {
      * }
      * ```
      */
-    public enum MouseCursors: Int32 {
+    public enum Cursor: Int32 {
         /// Default pointer shape
         case defaultCursor = 0
 
@@ -98,6 +98,15 @@ public enum Mouse {
 
         /// Operation-not-allowed shape
         case notAllowed = 10
+    }
+    /**
+     * Set cursor type
+     *
+     * - Parameter cursorType: Type of cursor to set
+     */
+    @inlinable
+    public static func setCursor(_ cursorType: Mouse.Cursor) {
+        CRaylib.SetMouseCursor(cursorType.rawValue)
     }
 
 }
