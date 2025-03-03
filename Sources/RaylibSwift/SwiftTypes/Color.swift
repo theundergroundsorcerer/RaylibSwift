@@ -1,6 +1,5 @@
 import CRaylib
 
-public typealias Color = CRaylib.Color
 /**
  * Swift-friendly extensions for Raylib's Color type
  * 

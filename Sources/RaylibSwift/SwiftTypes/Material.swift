@@ -1,3 +1,4 @@
+import CRaylib
 /**
  * Material-related types and functionality
  *
@@ -13,7 +14,7 @@
  * let diffuseMap = material.maps[Material.MapIndex.diffuse.rawValue]
  * ```
  */
-public enum Material {
+public extension Material {
     /**
      * Material texture map indices for physically based rendering (PBR)
      *
@@ -24,7 +25,7 @@ public enum Material {
      * are provided as aliases for `albedo` and `metalness` respectively.
      */
     @frozen
-    public enum MapIndex: Int32 {
+    enum MapIndex: Int32 {
         /// Albedo material (same as: diffuse)
         case albedo = 0
         
