@@ -235,3 +235,131 @@ extension Shader {
         case vec4 = 3
     }
 }
+
+// Shader functions
+public extension Shader {
+    /**
+     * Load shader from files and bind default locations
+     *
+     * - Parameters:
+     *   - vsFileName: Path to vertex shader file (can be nil for default vertex shader)
+     *   - fsFileName: Path to fragment shader file (can be nil for default fragment shader)
+     * - Returns: Shader loaded and ready to use
+     */
+    @inlinable
+    static func load(vertexFile vsFileName: String?, fragmentFile fsFileName: String?) -> Shader {
+        let vsPtr = vsFileName?.withCString { $0 } ?? nil
+        let fsPtr = fsFileName?.withCString { $0 } ?? nil
+        return CRaylib.LoadShader(vsPtr, fsPtr)
+    }
+    
+    /**
+     * Load shader from code strings and bind default locations
+     *
+     * - Parameters:
+     *   - vsCode: Vertex shader code string (can be nil for default vertex shader)
+     *   - fsCode: Fragment shader code string (can be nil for default fragment shader)
+     * - Returns: Shader loaded and ready to use
+     */
+    @inlinable
+    static func loadFromMemory(vertexCode vsCode: String?, fragmentCode fsCode: String?) -> Shader {
+        let vsPtr = vsCode?.withCString { $0 } ?? nil
+        let fsPtr = fsCode?.withCString { $0 } ?? nil
+        return CRaylib.LoadShaderFromMemory(vsPtr, fsPtr)
+    }
+    
+    /**
+     * Check if a shader is valid (loaded on GPU)
+     *
+     * - Returns: True if shader is valid
+     */
+    @inlinable
+    var isValid: Bool {
+        CRaylib.IsShaderValid(self)
+    }
+    
+    /**
+     * Get shader uniform location
+     *
+     * - Parameter uniformName: Uniform variable name
+     * - Returns: Uniform location (index) or -1 if not found
+     */
+    @inlinable
+    func getLocation(uniform uniformName: String) -> Int32 {
+        uniformName.withCString { cString in
+            CRaylib.GetShaderLocation(self, cString)
+        }
+    }
+    
+    /**
+     * Get shader attribute location
+     *
+     * - Parameter attribName: Attribute variable name
+     * - Returns: Attribute location (index) or -1 if not found
+     */
+    @inlinable
+    func getLocationAttrib(attribute attribName: String) -> Int32 {
+        attribName.withCString { cString in
+            CRaylib.GetShaderLocationAttrib(self, cString)
+        }
+    }
+    
+    /**
+     * Set shader uniform value
+     *
+     * - Parameters:
+     *   - locIndex: Shader uniform location index
+     *   - value: Pointer to uniform value
+     *   - uniformType: Uniform data type
+     */
+    @inlinable
+    func setValue(at locIndex: Int32, value: UnsafeRawPointer, type uniformType: UniformDataType) {
+        CRaylib.SetShaderValue(self, locIndex, value, uniformType.rawValue)
+    }
+    
+    /**
+     * Set shader uniform value vector
+     *
+     * - Parameters:
+     *   - locIndex: Shader uniform location index
+     *   - value: Pointer to uniform values array
+     *   - uniformType: Uniform data type
+     *   - count: Number of elements in the array
+     */
+    @inlinable
+    func setValueV(at locIndex: Int32, value: UnsafeRawPointer, type uniformType: UniformDataType, count: Int32) {
+        CRaylib.SetShaderValueV(self, locIndex, value, uniformType.rawValue, count)
+    }
+    
+    /**
+     * Set shader uniform value (matrix 4x4)
+     *
+     * - Parameters:
+     *   - locIndex: Shader uniform location index
+     *   - mat: Matrix to set
+     */
+    @inlinable
+    func setValueMatrix(at locIndex: Int32, matrix mat: Matrix) {
+        CRaylib.SetShaderValueMatrix(self, locIndex, mat)
+    }
+    
+    /**
+     * Set shader uniform value for texture (sampler2d)
+     *
+     * - Parameters:
+     *   - locIndex: Shader uniform location index
+     *   - texture: Texture to set
+     */
+    @inlinable
+    func setValueTexture(at locIndex: Int32, texture: Texture2D) {
+        CRaylib.SetShaderValueTexture(self, locIndex, texture)
+    }
+    
+    /**
+     * Unload shader from GPU memory (VRAM)
+     */
+    @inlinable
+    func unload() {
+        CRaylib.UnloadShader(self)
+    }
+}

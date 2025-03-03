@@ -29,7 +29,7 @@ public enum Mouse {
      * }
      * ```
      */
-    public enum Buttons: Int32 {
+    public enum MouseButton: Int32 {
         /// Mouse button left
         case mouseButtonLeft = 0
 
@@ -53,19 +53,19 @@ public enum Mouse {
     }
 
     /**
-     * Mouse cursor shapes to be used with SetMouseCursor()
+     * Mouse cursor shapes to be used with Mouse.setCursor()
      *
      * Example usage:
      * ```swift
      * // Set the cursor to a pointing hand when hovering a button
      * if CheckCollisionPointRec(GetMousePosition(), buttonBounds) {
-     *     SetMouseCursor(MouseCursors.pointingHand)
+     *     Mouse.setCursor(.pointingHand)
      * } else {
-     *     SetMouseCursor(MouseCursors.defaultCursor)
+     *     Mouse.setCursor(.defaultCursor)
      * }
      * ```
      */
-    public enum Cursor: Int32 {
+    public enum MouseCursor: Int32 {
         /// Default pointer shape
         case defaultCursor = 0
 
@@ -105,8 +105,7 @@ public enum Mouse {
      * - Parameter cursorType: Type of cursor to set
      */
     @inlinable
-    public static func setCursor(_ cursorType: Mouse.Cursor) {
+    public static func setCursor(_ cursorType: Mouse.MouseCursor) {
         CRaylib.SetMouseCursor(cursorType.rawValue)
     }
-
 }
