@@ -99,7 +99,7 @@ public enum Window {
      * - Returns: True if the flag is enabled
      */
     @inlinable
-    public static func isState(_ flag: ConfigFlags) -> Bool {
+    public static func isState(_ flag: System.ConfigFlags) -> Bool {
         CRaylib.IsWindowState(flag.rawValue)
     }
 
@@ -109,7 +109,7 @@ public enum Window {
      * - Parameter flags: Configuration flags to set
      */
     @inlinable
-    public static func setState(_ flags: ConfigFlags) {
+    public static func setState(_ flags: System.ConfigFlags) {
         CRaylib.SetWindowState(flags.rawValue)
     }
 
@@ -119,7 +119,7 @@ public enum Window {
      * - Parameter flags: Configuration flags to clear
      */
     @inlinable
-    public static func clearState(_ flags: ConfigFlags) {
+    public static func clearState(_ flags: System.ConfigFlags) {
         CRaylib.ClearWindowState(flags.rawValue)
     }
 

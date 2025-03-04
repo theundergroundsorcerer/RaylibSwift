@@ -107,7 +107,7 @@ public enum Drawing {
      * - Parameter shader: Shader to use
      */
     @inline(__always)
-    public static func beginShaderMode(_ shader: Shader) {
+    public static func beginShaderMode(_ shader: borrowing Shader) {
         CRaylib.BeginShaderMode(shader.cShader)
     }
     

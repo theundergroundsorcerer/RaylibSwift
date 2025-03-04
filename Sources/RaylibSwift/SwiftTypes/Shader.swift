@@ -1,10 +1,50 @@
 import CRaylib
 
-public struct Shader {
+public struct Shader: ~Copyable {
     internal var cShader: CRaylib.Shader
+    private var isLoaded: Bool
 
-    internal init(shader: CRaylib.Shader) {
-        self.cShader = shader
+    internal init(_ cShader: CRaylib.Shader, _ isLoaded: Bool) {
+        self.cShader = cShader
+        self.isLoaded = isLoaded
+    }
+
+    public init() {
+        self.cShader = CRaylib.Shader(id: 0, locs: nil)
+        isLoaded = false
+    }
+
+    public init(vsFileName: String?, fsFileName: String?) {
+        self = Shader.load(vsFileName, fsFileName)
+    }
+
+    public init(vsCode: String?, fsCode: String?) {
+        self = Shader.loadFromMemory(vsCode, fsCode)
+    }
+
+    public mutating func load(vsFileName: String?, fsFileName: String?) {
+        reset()
+        self = Shader.load(vsFileName, fsFileName)
+    }
+
+    public mutating func loadFromMemory(vsCode: String?, fsCode: String?) {
+        reset()
+        self = Shader.loadFromMemory(vsCode, fsCode)
+    }
+
+    public func unload() {
+        if self.isLoaded {
+            CRaylib.UnloadShader(cShader)
+        }
+    }
+
+    public mutating func reset() {
+        unload()
+        isLoaded = false
+    }
+
+    deinit {
+        unload()
     }
 }
 
@@ -253,27 +293,27 @@ extension Shader {
      * - Returns: Shader loaded and ready to use
      */
     @inline(__always)
-    public static func load(vertexFile vsFileName: String?, fragmentFile fsFileName: String?)
-        -> Shader
-    {
-        switch (vsFileName, fsFileName) {
-        case (nil, nil):
-            return Shader(shader: CRaylib.LoadShader(nil, nil))
-        case (nil, let .some(fs)):
-            return fs.withCString { fsPtr in
-                Shader(shader: CRaylib.LoadShader(nil, fsPtr))
-            }
-        case (let .some(vs), nil):
-            return vs.withCString { vsPtr in
-                Shader(shader: CRaylib.LoadShader(vsPtr, nil))
-            }
-        case let (.some(vs), .some(fs)):
-            return vs.withCString { vsPtr in
+    public static func load(_ vsFileName: String?, _ fsFileName: String?) -> Shader {
+        let shader: CRaylib.Shader =
+            switch (vsFileName, fsFileName) {
+            case (nil, nil):
+                CRaylib.LoadShader(nil, nil)
+            case (nil, let .some(fs)):
                 fs.withCString { fsPtr in
-                    Shader(shader: CRaylib.LoadShader(vsPtr, fsPtr))
+                    CRaylib.LoadShader(nil, fsPtr)
+                }
+            case (let .some(vs), nil):
+                vs.withCString { vsPtr in
+                    CRaylib.LoadShader(vsPtr, nil)
+                }
+            case let (.some(vs), .some(fs)):
+                vs.withCString { vsPtr in
+                    fs.withCString { fsPtr in
+                        CRaylib.LoadShader(vsPtr, fsPtr)
+                    }
                 }
             }
-        }
+        return Shader(shader, true)
     }
 
     /**
@@ -285,29 +325,27 @@ extension Shader {
      * - Returns: Shader loaded and ready to use
      */
     @inline(__always)
-    public static func loadFromMemory(vertexCode vsCode: String?, fragmentCode fsCode: String?)
-        -> Shader
-    {
+    public static func loadFromMemory(_ vsCode: String?, _ fsCode: String?) -> Shader {
         switch (vsCode, fsCode) {
         case (nil, nil):
-            Shader(shader: CRaylib.LoadShaderFromMemory(nil, nil))
+            Shader(CRaylib.LoadShaderFromMemory(nil, nil), true)
         case (nil, let .some(fs)):
             Shader(
-                shader: fs.withCString { fsCstring in
+                fs.withCString { fsCstring in
                     CRaylib.LoadShaderFromMemory(nil, fsCstring)
-                })
+                }, true)
         case (let .some(vs), nil):
             Shader(
-                shader: vs.withCString { vsCString in
+                vs.withCString { vsCString in
                     CRaylib.LoadShaderFromMemory(vsCString, nil)
-                })
+                }, true)
         case let (.some(vs), .some(fs)):
             Shader(
-                shader: vs.withCString { vsCString in
+                vs.withCString { vsCString in
                     fs.withCString { fsCString in
                         CRaylib.LoadShaderFromMemory(vsCString, fsCString)
                     }
-                })
+                }, true)
 
         }
     }
@@ -329,10 +367,11 @@ extension Shader {
      * - Returns: Uniform location (index) or -1 if not found
      */
     @inline(__always)
-    public func getLocation(uniform uniformName: String) -> Int32 {
-        uniformName.withCString { cString in
-            CRaylib.GetShaderLocation(self.cShader, cString)
-        }
+    public func getLocation(_ uniformName: String) -> LocationIndex? {
+        LocationIndex(
+            rawValue: uniformName.withCString { cString in
+                CRaylib.GetShaderLocation(self.cShader, cString)
+            })
     }
 
     /**
@@ -342,10 +381,11 @@ extension Shader {
      * - Returns: Attribute location (index) or -1 if not found
      */
     @inline(__always)
-    public func getLocationAttrib(attribute attribName: String) -> Int32 {
-        attribName.withCString { cString in
-            CRaylib.GetShaderLocationAttrib(self.cShader, cString)
-        }
+    public func getLocationAttrib(_ attribName: String) -> LocationIndex? {
+        LocationIndex(
+            rawValue: attribName.withCString { cString in
+                CRaylib.GetShaderLocationAttrib(self.cShader, cString)
+            })
     }
 
     /**
@@ -357,8 +397,11 @@ extension Shader {
      *   - uniformType: Uniform data type
      */
     @inline(__always)
-    public func setValue( at locIndex: Int32, value: UnsafeRawPointer, type uniformType: UniformDataType) {
-        CRaylib.SetShaderValue(self.cShader, locIndex, value, uniformType.rawValue)
+    public func setValue(
+        _ locIndex: LocationIndex, _ value: UnsafeRawPointer,
+        _ uniformType: UniformDataType
+    ) {
+        CRaylib.SetShaderValue(self.cShader, locIndex.rawValue, value, uniformType.rawValue)
     }
 
     /**
@@ -371,9 +414,11 @@ extension Shader {
      *   - count: Number of elements in the array
      */
     @inline(__always)
-    public func setValueV(at locIndex: Int32, value: UnsafeRawPointer, 
-    type uniformType: UniformDataType, count: Int32) {
-        CRaylib.SetShaderValueV(self.cShader, locIndex, value, uniformType.rawValue, count)
+    public func setValueV(
+        _ locIndex: LocationIndex, _ value: UnsafeRawPointer,
+        _ uniformType: UniformDataType, _ count: Int32
+    ) {
+        CRaylib.SetShaderValueV(self.cShader, locIndex.rawValue, value, uniformType.rawValue, count)
     }
 
     /**
@@ -384,8 +429,8 @@ extension Shader {
      *   - mat: Matrix to set
      */
     @inline(__always)
-    public func setValueMatrix(at locIndex: Int32, matrix mat: Matrix) {
-        CRaylib.SetShaderValueMatrix(self.cShader, locIndex, mat)
+    public func setValueMatrix(_ locIndex: LocationIndex, _ mat: Matrix) {
+        CRaylib.SetShaderValueMatrix(cShader, locIndex.rawValue, mat)
     }
 
     /**
@@ -395,16 +440,9 @@ extension Shader {
      *   - locIndex: Shader uniform location index
      *   - texture: Texture to set
      */
-    @inlinable
-    public func setValueTexture(at locIndex: Int32, texture: Texture2D) {
-        CRaylib.SetShaderValueTexture(self, locIndex, texture)
+    @inline(__always)
+    public func setValueTexture(_ locIndex: LocationIndex, _ texture: Texture2D) {
+        CRaylib.SetShaderValueTexture(cShader, locIndex.rawValue, texture)
     }
 
-    /**
-     * Unload shader from GPU memory (VRAM)
-     */
-    @inline(__always)
-    public func unload() {
-        CRaylib.UnloadShader(cShader)
-    }
 }
