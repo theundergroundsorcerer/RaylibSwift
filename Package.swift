@@ -17,11 +17,16 @@ let package = Package(
     targets: [
         // Targets are the basic building blocks of a package, defining a module or a test suite.
         // Targets can depend on other targets in this package and products from dependencies.
-        .systemLibrary(
+        .target(
             name: "CRaylib",
-            pkgConfig: "raylib",
-            providers: [
-                .brew(["raylib"])
+            sources: ["shim.c"],  // Add your C source file
+            publicHeadersPath: "include",  // Path where your shim.h is located
+            cSettings: [
+                .unsafeFlags(["-I/opt/homebrew/include"]),  // Add raylib include path
+            ],
+            linkerSettings: [
+                .linkedLibrary("raylib"),  // Link against raylib
+                .unsafeFlags(["-L/opt/homebrew/lib"])  // Add raylib library path
             ]
         ),
         .target(

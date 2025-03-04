@@ -200,7 +200,7 @@ extension System {
     }
 
     @inlinable
-    public static func traceLog(_ logLevel: TraceLogLevel, format: String, args: CVarArg...) {
+    public static func traceLog(_ logLevel: TraceLogLevel, _ format: String, _ args: CVarArg...) {
         withVaList(args) { va_list in
             format.withCString { cFormat in
                 CRaylib.TraceLogV(logLevel.rawValue, cFormat, va_list)
