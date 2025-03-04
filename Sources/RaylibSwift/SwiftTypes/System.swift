@@ -1,4 +1,5 @@
 import CRaylib
+import CRaylibExtensions
 
 public enum System {
     /**
@@ -199,12 +200,20 @@ extension System {
         case none = 7
     }
 
+    /// Show trace log messages (LOG_DEBUG, LOG_INFO, LOG_WARNING, LOG_ERROR...)
     @inlinable
     public static func traceLog(_ logLevel: TraceLogLevel, _ format: String, _ args: CVarArg...) {
         withVaList(args) { va_list in
             format.withCString { cFormat in
-                CRaylib.TraceLogV(logLevel.rawValue, cFormat, va_list)
+                CRaylibExtensions.TraceLogV(logLevel.rawValue, cFormat, va_list)
             }
         }
+    }
+
+
+    /// Set the current threshold (minimum) log level
+    @inlinable
+    public static func setTraceLogLevel(_ logLevel: System.TraceLogLevel) {
+        CRaylib.SetTraceLogLevel(logLevel.rawValue)
     }
 }

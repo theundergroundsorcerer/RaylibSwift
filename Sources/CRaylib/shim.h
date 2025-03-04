@@ -11,9 +11,5 @@
 #else
 #error "raylib.h not found. Please install raylib with Homebrew."
 #endif
-#include <stdarg.h>
-#include <stdio.h>
-
-void TraceLogV(int logLevel, const char* format, va_list args);
 
 #endif 

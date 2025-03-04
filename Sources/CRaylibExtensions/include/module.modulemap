@@ -1,0 +1,7 @@
+module CRaylibExtensions {
+    umbrella header "raylib_extensions.h"
+    link "raylib"
+    export *
+
+    use CRaylib
+}
