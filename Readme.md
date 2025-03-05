@@ -23,9 +23,9 @@ This project differs from [STREGAsGate's Raylib](https://github.com/STREGAsGate/
 - **Pre-Alpha Stage**: The project is in very early development. Most functionality has not been implemented yet, and the library is not usable for production.
 - **Platform Support**: Currently works only on macOS with raylib installed via Homebrew.
 - **Future Plans**: 
-  - Bundle raylib files to make the package self-contained
-  - Add support for Linux and Windows platforms
-  - Note: No mobile platform support is planned at the moment. Swift currently lacks stable Android development capabilities, and there is no stable port of Raylib to iOS
+    - Bundle raylib files to make the package self-contained
+    - Add support for Linux and Windows platforms
+    - Note: No mobile platform support is planned at the moment. Swift currently lacks stable Android development capabilities, and there is no stable port of Raylib to iOS
 
 ## Requirements
 
@@ -51,20 +51,27 @@ Your Package.swift should look something like this:
 import PackageDescription
 
 let package = Package(
-    name: "MyProject",
-    dependencies: [
-        .package(url: "https://github.com/theundergroundsorcerer/RaylibSwift.git", branch: "v0.2.0-dev")
-    ],
-    targets: [
-        .executableTarget(
-            name: "MyProject",
-            dependencies: ["RaylibSwift"]),
-    ]
+        name: "MyProject",
+        dependencies: [
+                .package(url: "https://github.com/theundergroundsorcerer/RaylibSwift.git", branch: "v0.2.0-dev")
+        ],
+        targets: [
+                .executableTarget(
+                        name: "MyProject",
+                        dependencies: ["RaylibSwift"]),
+        ]
 )
 ```
 
 ## Usage
 This library is currently in pre-alpha stage and not ready for production use. Examples and usage documentation will be added once core functionality is implemented.
+
+### Version Notes
+
+### Version Notes
+
+- **v0.1.0 (master branch)**: The initial release that directly exposes the C API. This version is usable for projects that prefer working with the raw Raylib API. Please refer to Raylib documentation. It works in the same way as the C API - sometimes explicit type conversions are required, and a small subset of functionality is not exposed to Swift.
+- **v0.2.0-dev**: Current development version with Swift-idiomatic wrappers and improved API organization.
 
 ### Example program
 Coming soon! Check back after core functionality has been implemented.
