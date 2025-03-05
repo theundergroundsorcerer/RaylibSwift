@@ -12,8 +12,38 @@
 #error "raylib.h not found. Please install raylib with Homebrew."
 #endif
 
-void TraceLogV(int logLevel, const char* format, va_list args) {
+static TraceLogCallBackSwift currentSwiftCallback = NULL;
+
+void TraceLogSwift(int logLevel, const char *message)
+{
+    TraceLog(logLevel, "%s", message);
+}
+
+void CurrentCallbackWrapper(int logLevel, const char *text, va_list args)
+{
     char buffer[4096];
-    vsnprintf(buffer, sizeof(buffer), format, args);
-    TraceLog(logLevel, "%s", buffer);
+    vsnprintf(buffer, sizeof(buffer), text, args);
+
+    if (currentSwiftCallback)
+    {
+        currentSwiftCallback(logLevel, buffer);
+    }
+    else
+    {
+        TraceLogSwift(logLevel, buffer);
+    }
+}
+
+void SetTraceLogCallbackSwift(TraceLogCallBackSwift callback)
+{
+    currentSwiftCallback = callback;
+
+    if (callback == NULL)
+    {
+        SetTraceLogCallback(NULL);
+    }
+    else
+    {
+        SetTraceLogCallback(CurrentCallbackWrapper);
+    }
 }

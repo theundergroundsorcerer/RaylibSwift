@@ -1,7 +1,7 @@
 import CRaylib
 import CRaylibExtensions
 
-public enum System {
+public enum Utils {
     /**
      * System/Window configuration flags
      *
@@ -96,11 +96,12 @@ public enum System {
 
 }
 
-extension System {
-    
+extension Utils {
+    typealias TraceLogCallback = ()
+
 }
 
-extension System {
+extension Utils {
     /**
      * Set configuration flags
      *
@@ -142,7 +143,7 @@ extension System {
     }
 }
 
-extension System {
+extension Utils {
     public enum TraceLogLevel: Int32 {
         /// Display all logs
         case all = 0
@@ -171,18 +172,50 @@ extension System {
 
     /// Show trace log messages (LOG_DEBUG, LOG_INFO, LOG_WARNING, LOG_ERROR...)
     @inlinable
-    public static func traceLog(_ logLevel: TraceLogLevel, _ format: String, _ args: CVarArg...) {
-        withVaList(args) { va_list in
-            format.withCString { cFormat in
-                CRaylibExtensions.TraceLogV(logLevel.rawValue, cFormat, va_list)
-            }
+    public static func traceLog(_ logLevel: TraceLogLevel, _ message: String) {
+        message.withCString { cMessage in
+            CRaylibExtensions.TraceLogSwift(logLevel.rawValue, cMessage)
         }
-    }
 
+    }
 
     /// Set the current threshold (minimum) log level
     @inlinable
-    public static func setTraceLogLevel(_ logLevel: System.TraceLogLevel) {
+    public static func setTraceLogLevel(_ logLevel: Utils.TraceLogLevel) {
         CRaylib.SetTraceLogLevel(logLevel.rawValue)
     }
+
+    /// Internal memory allocator
+    @available(
+        *, deprecated,
+        message:
+            "Allocates memory manually, which is a rare usage pattern in Swift. May be removed in future versions."
+    )
+    @inlinable
+    public static func memAlloc(_ size: UInt32) -> UnsafeMutableRawPointer {
+        CRaylib.MemAlloc(size)
+    }
+
+    /// Internal memory reallocator
+    @available(
+        *, deprecated,
+        message:
+            "Reallocates memory manually, which is a rare usage pattern in Swift. May be removed in future versions."
+    )
+    @inlinable
+    public static func memRealloc(_ ptr: UnsafeMutableRawPointer, _ size: UInt32) {
+        CRaylib.MemRealloc(ptr, size)
+    }
+
+    /// Internal memory free
+    @available(
+        *, deprecated,
+        message:
+            "Frees memory manually, which is a rare usage patterin in Swift. May be removed in future"
+    )
+    @inlinable
+    public static func memFree(_ ptr: UnsafeMutableRawPointer) {
+        CRaylib.MemFree(ptr)
+    }
+
 }

@@ -1,11 +1,31 @@
-
 # RaylibSwift
 
-Experimental bindings for Raylib for modern Swift and recent versions of Raylib. At the moment of writing, this is used for personal hobby projects by the author. Features will be added when needed.
+Experimental bindings for Raylib for modern Swift and recent versions of Raylib. At the moment of writing, this is used for personal hobby projects by the author.
+
+## Acknowledgments
+
+- Special thanks to Ramon Santamaria ([@raysan5](https://github.com/raysan5)), the creator of Raylib, for developing the library that makes game programming more accessible.
+- This project was inspired by and partially mimics the work of [STREGAsGate's Raylib](https://github.com/STREGAsGate/Raylib) for Swift. 
+
+## Design Philosophy and Approach
+
+This project differs from [STREGAsGate's Raylib](https://github.com/STREGAsGate/Raylib) bindings in the following ways:
+
+- Up to date - has been tested against recent versions of Swift and Raylib.
+- The API is not a literal translation of C to Swift - functions and types are broken into several namespaces and there are Swift wrappers for native Raylib when I believe it is more convenient.
+- When there is no easy way to map Swift to C (like in logging functions), bridging utilities in C together with Swift wrappers are provided to achieve the same or practically equivalent functionality.
+- An attempt is made to make writing code more "Swift idiomatic."
+- A cheatsheet that translates C Raylib API to RaylibSwift will be provided (once most of raylib functionality has been ported).
+
 
 ## Current Status
-- Implemented color macros
-- Works for macOS and requires raylib to be installed with homebrew (however, other system-wide installations might work)
+
+- **Pre-Alpha Stage**: The project is in very early development. Most functionality has not been implemented yet, and the library is not usable for production.
+- **Platform Support**: Currently works only on macOS with raylib installed via Homebrew.
+- **Future Plans**: 
+  - Bundle raylib files to make the package self-contained
+  - Add support for Linux and Windows platforms
+  - Note: No mobile platform support is planned at the moment. Swift currently lacks stable Android development capabilities, and there is no stable port of Raylib to iOS
 
 ## Requirements
 
@@ -22,7 +42,7 @@ brew install raylib
 
 ### 2. Add the following dependency in your Package.swift file
 ```swift
-.package(url: "https://github.com/theundergroundsorcerer/RaylibSwift.git", from: "0.1.0")
+.package(url: "https://github.com/theundergroundsorcerer/RaylibSwift.git", branch: "v0.2.0-dev")
 ```
 
 Your Package.swift should look something like this:
@@ -33,7 +53,7 @@ import PackageDescription
 let package = Package(
     name: "MyProject",
     dependencies: [
-        .package(url: "https://github.com/theundergroundsorcerer/RaylibSwift.git", from: "0.1.0")
+        .package(url: "https://github.com/theundergroundsorcerer/RaylibSwift.git", branch: "v0.2.0-dev")
     ],
     targets: [
         .executableTarget(
@@ -44,35 +64,12 @@ let package = Package(
 ```
 
 ## Usage
-For now, just use it as if you'd use raylib, with the only difference being color macros replaced by 
-`Color.red` instead of `RED` or `Color.darkBrown` instead of `DARKBROWN`.
+This library is currently in pre-alpha stage and not ready for production use. Examples and usage documentation will be added once core functionality is implemented.
 
 ### Example program
-```swift
-import RaylibSwift
-
-// Initialize window
-let screenWidth = 800
-let screenHeight = 450
-InitWindow(Int32(screenWidth), Int32(screenHeight), "RaylibSwift Example")
-SetTargetFPS(60)
-
-// Main game loop
-while !WindowShouldClose() {
-    
-    // Draw
-    BeginDrawing()
-    
-    ClearBackground(Color.rayWhite)
-    DrawText("Welcome to RaylibSwift!", 190, 200, 20, Color.black)
-    
-    EndDrawing()
-}
-
-// Close window
-CloseWindow()
-```
+Coming soon! Check back after core functionality has been implemented.
 
 ## License
-Raylib itself is licensed under a zlib/libpng license.  
-The bindings are under MIT License.
+
+- **Raylib**: Licensed under [zlib/libpng license](https://github.com/raysan5/raylib/blob/master/LICENSE)  
+- **RaylibSwift**: Licensed under MIT License

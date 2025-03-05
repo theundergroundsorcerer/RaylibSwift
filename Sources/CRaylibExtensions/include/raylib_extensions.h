@@ -3,6 +3,9 @@
 
 #include <stdarg.h>
 
-void TraceLogV(int logLevel, const char* format, va_list args);
+typedef void (*TraceLogCallBackSwift)(int logLevel, const char* message);
+
+void TraceLogSwift(int logLevel, const char* format);
+void SetTraceLogCallbackSwift(TraceLogCallBackSwift callback);
 
 #endif

@@ -4,9 +4,9 @@ import RaylibSwift
 @Suite("Test Logging")
 struct name {
     @Test func testSetTraceLogLevel() {
-        System.setTraceLogLevel(.all)
+        Utils.setTraceLogLevel(.all)
     }
     @Test func testTraceLog() {
-        System.traceLog(.all, "high five, %d", 5)
+        Utils.traceLog(.all, "Logging message!")
     }
 }
