@@ -1,3 +1,4 @@
+import CRaylib
 /// Keyboard related types and functionality
 ///
 /// This namespace contains enumerations for working with keyboard input,
@@ -261,4 +262,63 @@ public enum Keyboard {
         /// Volume Down (Android)
         case volumeDown = 25
     }
+
+    /// Check if a key has been pressed once
+    @inlinable
+    public static func isKeyPressed(_ key: Key) -> Bool {
+        CRaylib.IsKeyPressed(key.rawValue)
+    }
+
+    /// Check if a key has been pressed again
+    @inlinable
+    public static func isKeyPressedRepeat(_ key: Key) -> Bool {
+        CRaylib.IsKeyPressedRepeat(key.rawValue)
+    }
+
+    /// Check if a key is being pressed
+    @inlinable
+    public static func isKeyDown(_ key: Key) -> Bool {
+        CRaylib.IsKeyDown(key.rawValue)
+    }
+
+    /// Check if a key has been released once
+    @inlinable
+    public static func isKeyReleased(_ key: Key) -> Bool {
+        CRaylib.IsKeyReleased(key.rawValue)
+    }
+
+    /// Check if a key is NOT being pressed
+    @inlinable
+    public static func isKeyUp(_ key: Key) -> Bool {
+        CRaylib.IsKeyUp(key.rawValue)
+    }
+
+    /// Get key pressed (keycode), call it multiple times for keys queued, 
+    /// returns 0 when the queue is empty
+    @inlinable
+    public static func getKeyPressed() -> Key {
+        let keyCode = CRaylib.GetKeyPressed()
+        return Key(rawValue: keyCode) ?? Key.null
+    }
+
+    /// Get char pressed (unicode), 
+    /// call it multiple times for chars queued, returns 0 when the queue is empty
+    @inlinable
+    public static func getCharPressed() -> Character? {
+        let charCode = CRaylib.GetCharPressed()
+
+        guard let unicodeScalar = UnicodeScalar(Int(charCode)) else {
+            return nil
+        }
+
+        return Character(unicodeScalar)
+    }
+
+    
+    /// Set a custom key to exit program (default is ESC)
+    @inlinable 
+    public static func setExitKey(_ key: Key) {
+        CRaylib.SetExitKey(key.rawValue)
+    }
+
 }

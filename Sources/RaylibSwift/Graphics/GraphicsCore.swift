@@ -1,47 +1,22 @@
 import CRaylib
 
 /// Drawing functionality
-///
-/// This namespace provides Swift wrappers for Raylib's drawing functions,
-/// including state management for various rendering modes and drawing contexts.
-///
-/// Example usage:
-/// ```swift
-/// // Basic drawing loop
-/// Drawing.begin()
-/// Drawing.clearBackground(.white)
-/// // Draw your content here
-/// Drawing.end()
-///
-/// // Using camera
-/// Drawing.beginMode2D(camera)
-/// // Draw 2D world elements
-/// Drawing.endMode2D()
-/// ```
-public enum Drawing {
-    /**
-     * Set background color (framebuffer clear color)
-     *
-     * - Parameter color: Color to clear background with
-     */
+public enum Graphics {
+    /// Set background color (framebuffer clear color)
     @inlinable
     public static func clearBackground(_ color: Color) {
         CRaylib.ClearBackground(color)
     }
 
-    /**
-     * Setup canvas (framebuffer) to start drawing
-     */
+    /// Setup canvas (framebuffer) to start drawing
     @inlinable
-    public static func begin() {
+    public static func beginDrawing() {
         CRaylib.BeginDrawing()
     }
 
-    /**
-     * End canvas drawing and swap buffers (double buffering)
-     */
+    /// End canvas drawing and swap buffers (double buffering)
     @inlinable
-    public static func end() {
+    public static func endDrawing() {
         CRaylib.EndDrawing()
     }
 
@@ -196,21 +171,6 @@ public enum Drawing {
         CRaylib.UnloadVrStereoConfig(config)
     }
 
-    // Text Drawing functions
-
-    /// Draw current FPS
-    @inlinable
-    public static func drawFPS(_ posX: Int32, posY: Int32) {
-        CRaylib.DrawFPS(posX, posY)
-    }
-
-    /// Draw text (using default font)
-    @inlinable
-    public static func drawText(
-        _ text: String, _ posX: Int32, _ posY: Int32, _ fontSize: Int32, _ color: Color
-    ) {
-        text.withCString { cText in
-            CRaylib.DrawText(cText, posX, posY, fontSize, color)
-        }
-    }
+    
 }
+
