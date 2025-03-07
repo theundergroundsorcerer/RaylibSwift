@@ -6,21 +6,6 @@ extension Input {
     public enum Keyboard {
 
         /// A Swift-friendly wrapper for keyboard key codes used in Raylib.
-        ///
-        /// This enum provides static constants for various keyboard keys to handle keyboard input
-        /// in a Raylib application.
-        ///
-        /// - Note: These constants match the US keyboard layout and include alphanumeric keys,
-        ///   special characters, function keys, navigation keys, modifiers, keypad keys,
-        ///   and Android-specific buttons.
-        ///
-        /// ## Example
-        /// ```swift
-        /// if IsKeyDown(Keyboard.Key.space) {
-        ///      // Handle space key press
-        /// }
-        /// ```
-
         public enum Key: Int32 {
             /// No key
             case null = 0
@@ -303,7 +288,7 @@ extension Input {
 
         /// Set a custom key to exit program (default is ESC)
         @inlinable
-        public static func setExitKey(_ key: Key) {
+        public static func setExitKey(to key: Key) {
             CRaylib.SetExitKey(key.rawValue)
         }
 
