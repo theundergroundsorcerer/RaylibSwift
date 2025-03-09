@@ -5,9 +5,6 @@ import PackageDescription
 
 let package = Package(
     name: "RaylibSwift",
-    platforms: [
-        .macOS(.v15)
-    ],
     products: [
         // Products define the executables and libraries a package produces, making them visible to other packages.
         .library(
@@ -19,10 +16,7 @@ let package = Package(
         // Targets can depend on other targets in this package and products from dependencies.
         .systemLibrary(
             name: "CRaylib",
-            pkgConfig: "raylib",
-            providers: [
-                .brew(["raylib"])
-            ]
+            pkgConfig: "raylib"
         ),
         .target(
             name: "CRaylibExtensions",

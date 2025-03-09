@@ -9,7 +9,7 @@
 #elif __has_include("/usr/local/include/raylib.h")
 #include "/usr/local/include/raylib.h"
 #else
-#error "raylib.h not found. Please install raylib with Homebrew."
+#error "raylib.h not found. Please install raylib with package manager or manually."
 #endif
 
 #endif 
