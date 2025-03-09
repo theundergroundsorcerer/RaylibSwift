@@ -1,7 +1,8 @@
 import CRaylib
 
-public enum Cursor {
-    /// Shows cursor
+extension Window {
+    public enum Cursor {
+        /// Shows cursor
         @inlinable
         public static func show() {
             CRaylib.ShowCursor()
@@ -42,4 +43,5 @@ public enum Cursor {
         public static var isOnScreen: Bool {
             CRaylib.IsCursorOnScreen()
         }
+    }
 }
