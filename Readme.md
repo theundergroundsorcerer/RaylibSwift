@@ -21,28 +21,33 @@ This project differs from [STREGAsGate's Raylib](https://github.com/STREGAsGate/
 ## Current Status
 
 - **Pre-Alpha Stage**: The project is in very early development. Most functionality has not been implemented yet, and the library is not usable for production.
-- **Platform Support**: Currently works only on macOS with raylib installed via Homebrew.
+- **Platform Support**: Works on macOS with raylib installed via Homebrew. Linux support is now available!
 - **Future Plans**: 
     - Bundle raylib files to make the package self-contained
-    - Add support for Linux and Windows platforms
+    - Add support for Windows platforms
     - Note: No mobile platform support is planned at the moment. Swift currently lacks stable Android development capabilities, and there is no stable port of Raylib to iOS
 
 ## Requirements
 
 - Swift 6.0+
-- raylib (installed via Homebrew)
+- raylib 5.5+ (installed via package manager or built manually)
+- For Linux: GLFW, OpenGL, and other raylib dependencies
 
 ## Installation
 
 ### 1. Install raylib
 
+**On macOS:**
 ```bash
 brew install raylib
 ```
 
+**On Linux or other platforms:**
+Install raylib manually by following the instructions on the [official raylib website](https://github.com/raysan5/raylib/wiki/Working-on-GNU-Linux). Make sure raylib is properly built and installed in your system paths.
+
 ### 2. Add the following dependency in your Package.swift file
 ```swift
-.package(url: "https://github.com/theundergroundsorcerer/RaylibSwift.git", branch: "v0.2.0-dev")
+.package(url: "https://github.com/theundergroundsorcerer/RaylibSwift.git", branch: "v0.2.0-with-linux-support")
 ```
 
 Your Package.swift should look something like this:
@@ -53,7 +58,7 @@ import PackageDescription
 let package = Package(
         name: "MyProject",
         dependencies: [
-                .package(url: "https://github.com/theundergroundsorcerer/RaylibSwift.git", branch: "v0.2.0-dev")
+                .package(url: "https://github.com/theundergroundsorcerer/RaylibSwift.git", branch: "v0.2.0-with-linux-support")
         ],
         targets: [
                 .executableTarget(
@@ -66,7 +71,6 @@ let package = Package(
 ## Usage
 This library is currently in pre-alpha stage and not ready for production use. Examples and usage documentation will be added once core functionality is implemented.
 
-### Version Notes
 
 ### Version Notes
 
