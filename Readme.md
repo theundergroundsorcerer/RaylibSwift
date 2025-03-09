@@ -58,7 +58,7 @@ import PackageDescription
 let package = Package(
         name: "MyProject",
         dependencies: [
-                .package(url: "https://github.com/theundergroundsorcerer/RaylibSwift.git", branch: "v0.2.0-with-linux-support")
+                .package(url: "https://github.com/theundergroundsorcerer/RaylibSwift.git", branch: "v0.2.0-dev")
         ],
         targets: [
                 .executableTarget(
