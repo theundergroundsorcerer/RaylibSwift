@@ -21,7 +21,9 @@ This project differs from [STREGAsGate's Raylib](https://github.com/STREGAsGate/
 ## Current Status
 
 - **Pre-Alpha Stage**: The project is in very early development. Most functionality has not been implemented yet, and the library is not usable for production.
-- **Platform Support**: Works on macOS with raylib installed via Homebrew. Linux support is now available!
+- **Platform Support**: 
+  - macOS with raylib installed via Homebrew
+  - Linux with manually installed raylib
 - **Future Plans**: 
     - Bundle raylib files to make the package self-contained
     - Add support for Windows platforms
@@ -44,6 +46,8 @@ brew install raylib
 
 **On Linux or other platforms:**
 Install raylib manually by following the instructions on the [official raylib website](https://github.com/raysan5/raylib/wiki/Working-on-GNU-Linux). Make sure raylib is properly built and installed in your system paths.
+
+⚠️ **Important Note for Linux Users**: The RaylibSwift package currently assumes raylib is installed in standard system paths (`/usr/local/include` and `/usr/local/lib`). If you've installed raylib in a custom location, you may need to modify the `shim.h` file in the Sources/CRaylib directory.
 
 ### 2. Add the following dependency in your Package.swift file
 ```swift
@@ -71,11 +75,11 @@ let package = Package(
 ## Usage
 This library is currently in pre-alpha stage and not ready for production use. Examples and usage documentation will be added once core functionality is implemented.
 
-
 ### Version Notes
 
 - **v0.1.0 (master branch)**: The initial release that directly exposes the C API. This version is usable for projects that prefer working with the raw Raylib API. Please refer to Raylib documentation. It works in the same way as the C API - sometimes explicit type conversions are required, and a small subset of functionality is not exposed to Swift.
 - **v0.2.0-dev**: Current development version with Swift-idiomatic wrappers and improved API organization.
+- **v0.2.0-with-linux-support**: Adds support for Linux platforms with manually installed raylib.
 
 ### Example program
 Coming soon! Check back after core functionality has been implemented.
