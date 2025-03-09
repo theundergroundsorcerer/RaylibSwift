@@ -2,7 +2,7 @@
 // The swift-tools-version declares the minimum version of Swift required to build this package.
 import PackageDescription
 
-
+/// Required for linking on linux at the moment
 #if os(Linux)
 let linkerSettings: [LinkerSetting] = [.linkedLibrary("m")]
 #else
