@@ -1,7 +1,14 @@
 // swift-tools-version: 6.0
 // The swift-tools-version declares the minimum version of Swift required to build this package.
-
 import PackageDescription
+
+
+#if os(Linux)
+let linkerSettings: [LinkerSetting] = [.linkedLibrary("m")]
+#else
+let linkerSettings: [LinkerSetting]? = nil
+#endif
+
 
 let package = Package(
     name: "RaylibSwift",
@@ -26,7 +33,8 @@ let package = Package(
         ),
         .target(
             name: "RaylibSwift",
-            dependencies: ["CRaylib", "CRaylibExtensions"]
+            dependencies: ["CRaylib", "CRaylibExtensions"],
+            linkerSettings: linkerSettings
         ),
         .testTarget(
             name: "RaylibSwiftTests",
