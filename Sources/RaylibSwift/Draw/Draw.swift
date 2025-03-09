@@ -36,7 +36,7 @@ public enum Draw {
 
     /// Set background color (framebuffer clear color)
     @inlinable
-    public static func clear(background color: Color) {
+    public static func clearBackground(_ color: Color) {
         CRaylib.ClearBackground(color)
     }
 
