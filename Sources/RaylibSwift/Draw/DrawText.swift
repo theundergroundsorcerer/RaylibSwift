@@ -1,15 +1,15 @@
 import CRaylib
 // Text Drawing functions
-extension Graphics {
+extension Draw {
     /// Draw current FPS
     @inlinable
-    public static func drawFPS(at position: (x: Int32, y: Int32)) {
+    public static func fps(at position: (x: Int32, y: Int32)) {
         CRaylib.DrawFPS(position.x, position.y)
     }
 
     /// Draw text (using default font)
     @inlinable
-    public static func drawText(
+    public static func text(
         _ text: String,
         at position: (x: Int32, y: Int32),
         fontSize: Int32,
@@ -22,7 +22,7 @@ extension Graphics {
 
     /// Draw text using font and additional parameters
     @inlinable
-    public static func drawText(
+    public static func text(
         _ text: String,
         using font: Font,
         at position: Vector2,
@@ -37,7 +37,7 @@ extension Graphics {
 
     /// Draw text using Font and pro parameters (rotation)
     @inlinable
-    public static func drawText(
+    public static func text(
         _ text: String,
         using font: Font,
         at position: Vector2,
@@ -54,7 +54,7 @@ extension Graphics {
 
     /// Draw one character (codepoint)
     @inlinable
-    public static func drawCodepoint(
+    public static func codepoint(
         _ codepoint: Int32,
         using font: Font,
         at position: Vector2,
@@ -66,7 +66,7 @@ extension Graphics {
 
     /// Draw multiple characters (codepoints)
     @inlinable
-    public static func drawCodepoints(
+    public static func codepoints(
         _ codepoints: [Int32],
         using font: Font,
         at position: Vector2,
@@ -89,7 +89,7 @@ extension Graphics {
 
     /// Draw multiple characters from array slice
     @inlinable
-    public static func drawCodepoints(
+    public static func codepoints(
         _ codepoints: ArraySlice<Int32>,
         using font: Font,
         at position: Vector2,
