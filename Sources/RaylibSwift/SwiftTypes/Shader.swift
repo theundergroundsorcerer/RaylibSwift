@@ -442,7 +442,7 @@ extension Shader {
      */
     @inline(__always)
     public func setValueTexture(_ locIndex: LocationIndex, _ texture: Texture2D) {
-        CRaylib.SetShaderValueTexture(cShader, locIndex.rawValue, texture)
+        CRaylib.SetShaderValueTexture(cShader, locIndex.rawValue, texture.cTexture)
     }
 
 }

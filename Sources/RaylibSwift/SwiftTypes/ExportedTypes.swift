@@ -32,8 +32,7 @@ public typealias Rectangle = CRaylib.Rectangle
 /// Image, pixel data stored in CPU memory (RAM)
 public typealias Image = CRaylib.Image
 
-/// Texture, texture data stored in GPU memory (VRAM)
-public typealias Texture = CRaylib.Texture
+
 
 /// Texture2D, same as Texture
 public typealias Texture2D = Texture

@@ -11,7 +11,7 @@ extension Draw {
         at position: (x: Int32, y: Int32),
         color: Color
     ) {
-        CRaylib.DrawTexture(texture, position.x, position.y, color)
+        CRaylib.DrawTexture(texture.cTexture, position.x, position.y, color)
     }
     
     /// Draw a texture with position defined as Vector2
@@ -21,7 +21,7 @@ extension Draw {
         at position: Vector2,
         color: Color
     ) {
-        CRaylib.DrawTextureV(texture, position, color)
+        CRaylib.DrawTextureV(texture.cTexture, position, color)
     }
     
     /// Draw a texture with extended parameters
@@ -33,7 +33,7 @@ extension Draw {
         scale: Float,
         color: Color
     ) {
-        CRaylib.DrawTextureEx(texture, position, rotation, scale, color)
+        CRaylib.DrawTextureEx(texture.cTexture, position, rotation, scale, color)
     }
     
     // MARK: - Texture regions and transformations
@@ -46,7 +46,7 @@ extension Draw {
         at position: Vector2,
         color: Color
     ) {
-        CRaylib.DrawTextureRec(texture, source, position, color)
+        CRaylib.DrawTextureRec(texture.cTexture, source, position, color)
     }
     
     /// Draw a part of a texture defined by a rectangle with advanced parameters
@@ -59,7 +59,7 @@ extension Draw {
         rotation: Float,
         color: Color
     ) {
-        CRaylib.DrawTexturePro(texture, source, destination, origin, rotation, color)
+        CRaylib.DrawTexturePro(texture.cTexture, source, destination, origin, rotation, color)
     }
     
     /// Draw a texture (or part of it) that stretches or shrinks nicely
@@ -72,6 +72,6 @@ extension Draw {
         rotation: Float,
         color: Color
     ) {
-        CRaylib.DrawTextureNPatch(texture, nPatchInfo, destination, origin, rotation, color)
+        CRaylib.DrawTextureNPatch(texture.cTexture, nPatchInfo, destination, origin, rotation, color)
     }
 }
