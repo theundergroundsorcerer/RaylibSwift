@@ -2,10 +2,10 @@ import CRaylib
 import Foundation
 
 /// Texture manipulation functions
-public extension Texture {
+extension Texture {
     /// Update GPU texture with new data from a Data object
     @inlinable
-    static func update(_ texture: Texture2D, with pixelData: Data) {
+    public static func update(_ texture: Texture2D, with pixelData: Data) {
         pixelData.withUnsafeBytes { rawBufferPointer in
             CRaylib.UpdateTexture(texture, rawBufferPointer.baseAddress)
         }
@@ -13,13 +13,13 @@ public extension Texture {
     
     /// Update GPU texture with new data from a raw pointer (advanced usage)
     @inlinable
-    static func update(_ texture: Texture2D, with pixels: UnsafeRawPointer) {
+    public static func update(_ texture: Texture2D, with pixels: UnsafeRawPointer) {
         CRaylib.UpdateTexture(texture, pixels)
     }
     
     /// Update GPU texture rectangle with new data from a Data object
     @inlinable
-    static func update(
+    public static func update(
         _ texture: Texture2D,
         rectangle: Rectangle,
         with pixelData: Data
@@ -31,7 +31,7 @@ public extension Texture {
     
     /// Update GPU texture rectangle with new data from a raw pointer (advanced usage)
     @inlinable
-    static func update(
+    public static func update(
         _ texture: Texture2D,
         rectangle: Rectangle,
         with pixels: UnsafeRawPointer
@@ -41,7 +41,7 @@ public extension Texture {
     
     /// Generate GPU mipmaps for a texture
     @inlinable
-    static func generateMipmaps(for texture: inout Texture2D) {
+    public static func generateMipmaps(for texture: inout Texture2D) {
         CRaylib.GenTextureMipmaps(&texture)
     }
 }
