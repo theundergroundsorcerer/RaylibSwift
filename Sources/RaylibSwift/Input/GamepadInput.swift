@@ -3,9 +3,9 @@ import CRaylib
 extension Input {
     /// Gamepad related types and functionality
     public enum Gamepad {
-    
+
         /// Gamepad axes
-   
+
         public enum Axis: Int32 {
             /// Gamepad left stick X axis
             /// Replaces: GAMEPAD_AXIS_LEFT_X
@@ -106,5 +106,96 @@ extension Input {
             /// Replaces: GAMEPAD_BUTTON_RIGHT_THUMB
             case rightThumb = 17
         }
+
+        /// Check if a gamepad is available
+        @inlinable
+        public static func isAvailable(on gamepad: Int32) -> Bool {
+            CRaylib.IsGamepadAvailable(gamepad)
+        }
+
+        /// Game gamepad internal name id
+        @inlinable
+        public static func name(on gamepad: Int32) -> String {
+            String(cString: CRaylib.GetGamepadName(gamepad))
+        }
+
+        /// Check if gamepad button has been pressed once
+        @inlinable
+        public static func isPressed(button: Gamepad.Button, on gamepad: Int32) -> Bool {
+            CRaylib.IsGamepadButtonPressed(gamepad, button.rawValue)
+        }
+
+        /// Check if gamepad button is being pressed
+        @inlinable
+        public static func isDown(button: Gamepad.Button, on gamepad: Int32) -> Bool {
+            CRaylib.IsGamepadButtonDown(gamepad, button.rawValue)
+        }
+
+        /// Check if a gamepad button has been released
+        @inlinable
+        public static func isReleased(button: Gamepad.Button, on gamepad: Int32) -> Bool {
+            CRaylib.IsGamepadButtonReleased(gamepad, button.rawValue)
+        }
+
+        /// Check if Gamepad button is NOT being pressed
+        @inlinable
+        public static func isUp(button: Gamepad.Button, on gamepad: Int32) -> Bool {
+            CRaylib.IsGamepadButtonUp(gamepad, button.rawValue)
+        }
+
+        /// Get the last gamepad button pressed
+        @inlinable
+        public static func lastPressedButton() -> Gamepad.Button {
+            Gamepad.Button(rawValue: CRaylib.GetGamepadButtonPressed()) ?? .unknown
+        }
+
+        /// Get gamepad axis count for a gamepad
+        @inlinable
+        public static func axisCount(on gamepad: Int32) -> Int32 {
+            CRaylib.GetGamepadAxisCount(gamepad)
+        }
+
+        /// Get axis movement value for a gamepad axis
+        @inlinable
+        public static func axisMovement(of axis: Gamepad.Axis, on gamepad: Int32) -> Float32 {
+            CRaylib.GetGamepadAxisMovement(gamepad, axis.rawValue)
+        }
+
+        /// Set internal gamepad mappings (SDL_GameControllerDB)
+        @inlinable
+        public static func setMappings(_ mappings: String) -> Int32 {
+            mappings.withCString { mappingsCStr in
+                CRaylib.SetGamepadMappings(mappingsCStr)
+            }
+        }
+
+        /// Set gamepad vibration for both motors (duration in seconds)
+        @inlinable
+        public static func setVibration(
+            leftMotor: Float32, 
+            rightMotor: Float32,
+            for duration: Float32,
+            on gamepad: Int32
+        ) {
+            CRaylib.SetGamepadVibration(gamepad, leftMotor, rightMotor, duration)
+        }
     }
 }
+
+public typealias GamepadButton = Input.Gamepad.Button
+public typealias GamepadAxis = Input.Gamepad.Axis
+
+/*
+// Input-related functions: gamepads
+RLAPI bool IsGamepadAvailable(int gamepad);                   // Check if a gamepad is available
+RLAPI const char *GetGamepadName(int gamepad);                // Get gamepad internal name id
+RLAPI bool IsGamepadButtonPressed(int gamepad, int button);   // Check if a gamepad button has been pressed once
+RLAPI bool IsGamepadButtonDown(int gamepad, int button);      // Check if a gamepad button is being pressed
+RLAPI bool IsGamepadButtonReleased(int gamepad, int button);  // Check if a gamepad button has been released once
+RLAPI bool IsGamepadButtonUp(int gamepad, int button);        // Check if a gamepad button is NOT being pressed
+RLAPI int GetGamepadButtonPressed(void);                      // Get the last gamepad button pressed
+RLAPI int GetGamepadAxisCount(int gamepad);                   // Get gamepad axis count for a gamepad
+RLAPI float GetGamepadAxisMovement(int gamepad, int axis);    // Get axis movement value for a gamepad axis
+RLAPI int SetGamepadMappings(const char *mappings);           // Set internal gamepad mappings (SDL_GameControllerDB)
+RLAPI void SetGamepadVibration(int gamepad, float leftMotor, float rightMotor, float duration); // Set gamepad vibration for both motors (duration in seconds)
+*/
