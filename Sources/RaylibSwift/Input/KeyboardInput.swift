@@ -294,3 +294,6 @@ extension Input {
 
     }
 }
+
+typealias KeyboardKey = Input.Keyboard.Key
+typealias Keyboard = Input.Keyboard

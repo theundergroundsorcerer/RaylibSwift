@@ -153,3 +153,7 @@ public enum Input {
 
     }
 }
+
+typealias Mouse = Input.Mouse
+typealias MouseButton = Mouse.Button
+typealias MouseCursor = Mouse.Cursor

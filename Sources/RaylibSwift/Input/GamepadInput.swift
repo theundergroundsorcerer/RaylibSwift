@@ -115,7 +115,7 @@ extension Input {
 
         /// Game gamepad internal name id
         @inlinable
-        public static func name(on gamepad: Int32) -> String {
+        public static func name(_ gamepad: Int32) -> String {
             String(cString: CRaylib.GetGamepadName(gamepad))
         }
 
@@ -182,6 +182,7 @@ extension Input {
     }
 }
 
-public typealias GamepadButton = Input.Gamepad.Button
-public typealias GamepadAxis = Input.Gamepad.Axis
 public typealias Gamepad = Input.Gamepad
+public typealias GamepadButton = Gamepad.Button
+public typealias GamepadAxis = Gamepad.Axis
+
