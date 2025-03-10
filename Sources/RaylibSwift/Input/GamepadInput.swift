@@ -109,7 +109,7 @@ extension Input {
 
         /// Check if a gamepad is available
         @inlinable
-        public static func isAvailable(on gamepad: Int32) -> Bool {
+        public static func isAvailable(_ gamepad: Int32) -> Bool {
             CRaylib.IsGamepadAvailable(gamepad)
         }
 
