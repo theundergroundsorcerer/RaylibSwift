@@ -45,6 +45,12 @@ public struct Texture {
     }
 }
 
+/// Texture2D, same as Texture
+public typealias Texture2D = Texture
+
+/// TextureCubemap, same as Texture
+public typealias TextureCubemap = Texture
+
 extension Texture: Equatable {
     @inlinable
     public static func == (lhs: Texture, rhs: Texture) -> Bool {
