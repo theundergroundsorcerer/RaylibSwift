@@ -89,7 +89,7 @@ public enum Draw {
         /// Begin drawing to render texture
         @inlinable
         public static func beginTexture(using texture: RenderTexture2D) {
-            CRaylib.BeginTextureMode(texture)
+            CRaylib.BeginTextureMode(texture.cRenderTexture)
         }
 
         /// Ends drawing to render texture

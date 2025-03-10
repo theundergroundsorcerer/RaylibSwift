@@ -32,16 +32,6 @@ public typealias Rectangle = CRaylib.Rectangle
 /// Image, pixel data stored in CPU memory (RAM)
 public typealias Image = CRaylib.Image
 
-
-
-
-
-/// RenderTexture, fbo for texture rendering
-public typealias RenderTexture = CRaylib.RenderTexture
-
-/// RenderTexture2D, same as RenderTexture
-public typealias RenderTexture2D = RenderTexture
-
 /// NPatchInfo, n-patch layout info
 public typealias NPatchInfo = CRaylib.NPatchInfo
 
