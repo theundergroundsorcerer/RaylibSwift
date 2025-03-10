@@ -34,11 +34,7 @@ public typealias Image = CRaylib.Image
 
 
 
-/// Texture2D, same as Texture
-public typealias Texture2D = Texture
 
-/// TextureCubemap, same as Texture
-public typealias TextureCubemap = Texture
 
 /// RenderTexture, fbo for texture rendering
 public typealias RenderTexture = CRaylib.RenderTexture
