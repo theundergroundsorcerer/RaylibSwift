@@ -45,3 +45,36 @@ extension Texture {
         CRaylib.GenTextureMipmaps(&texture.cTexture)
     }
 }
+
+/// Instance methods for texture manipulation
+extension Texture {
+    /// Update this texture with new data from a Data object
+    @inlinable
+    public func update(with pixelData: Data) {
+        Texture.update(self, with: pixelData)
+    }
+    
+    /// Update this texture with new data from a raw pointer (advanced usage)
+    @inlinable
+    public func update(with pixels: UnsafeRawPointer) {
+        Texture.update(self, with: pixels)
+    }
+    
+    /// Update a rectangular portion of this texture with new data from a Data object
+    @inlinable
+    public func update(rectangle: Rectangle, with pixelData: Data) {
+        Texture.update(self, rectangle: rectangle, with: pixelData)
+    }
+    
+    /// Update a rectangular portion of this texture with new data from a raw pointer (advanced usage)
+    @inlinable
+    public func update(rectangle: Rectangle, with pixels: UnsafeRawPointer) {
+        Texture.update(self, rectangle: rectangle, with: pixels)
+    }
+    
+    /// Generate GPU mipmaps for this texture
+    @inlinable
+    public mutating func generateMipmaps() {
+        Texture.generateMipmaps(for: &self)
+    }
+}

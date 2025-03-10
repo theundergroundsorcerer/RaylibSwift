@@ -14,3 +14,17 @@ extension Texture {
         CRaylib.SetTextureWrap(texture.cTexture, wrap.rawValue)
     }
 }
+
+extension Texture {
+    /// Set texture scaling filter mode for the texture
+    @inlinable
+    public func setFilter(using filter: Filter) {
+        Texture.setFilter(for: self, using: filter)
+    }
+
+    /// Set texture wrapping mode for the texture
+    @inlinable
+    public func setWrapMode(using wrap: Wrap) {
+        Texture.setWrapMode(for: self, using: wrap)
+    }
+}

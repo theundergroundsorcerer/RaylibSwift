@@ -45,10 +45,36 @@ extension Texture {
     public static func isRenderTextureValid(_ target: RenderTexture2D) -> Bool {
         CRaylib.IsRenderTextureValid(target)
     }
-    
+}
+
+extension Texture {    
     /// Unload render texture from GPU memory (VRAM)
     @inlinable
     public static func unloadRenderTexture(_ target: RenderTexture2D) {
         CRaylib.UnloadRenderTexture(target)
+    }
+    
+    /// Check if this texture is valid (loaded in GPU)
+    @inlinable
+    public var isValid: Bool {
+        Texture.isValid(self)
+    }
+    
+    /// Unload this texture from GPU memory (VRAM)
+    @inlinable
+    public func unload() {
+        Texture.unload(self)
+    }
+    
+    /// Create a texture initializer from a file
+    @inlinable
+    public init(fromFile fileName: String) {
+        self = Texture.load(from: fileName)
+    }
+    
+    /// Create a texture initializer from an image
+    @inlinable
+    public init(fromImage image: Image) {
+        self = Texture.load(from: image)
     }
 }
