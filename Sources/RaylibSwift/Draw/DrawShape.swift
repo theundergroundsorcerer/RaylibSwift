@@ -112,6 +112,12 @@ extension Draw {
         CRaylib.DrawCircleV(center, radius, color)
     }
 
+    /// Draws a filled circle at the specified center using coordinates
+    @inlinable
+    public static func circle(at center: (x: Int32, y: Int32), radius: Float, color: Color) {
+        CRaylib.DrawCircle(center.x, center.y, radius, color)
+    }
+
     /// Draws the outline of a circle at the specified center using coordinates.
     @inlinable
     public static func circleLines(at center: (x: Int32, y: Int32), radius: Float, color: Color)

@@ -6,8 +6,8 @@ extension Texture {
     
     /// Draw this texture at the specified position with integer coordinates
     @inlinable
-    public func draw(x: Int32, y: Int32, color: Color) {
-        Draw.texture(self, at: (x: x, y: y), color: color)
+    public func draw(at position: (x: Int32, y: Int32), color: Color) {
+        Draw.texture(self, at: position, color: color)
     }
     
     /// Draw this texture at the specified position

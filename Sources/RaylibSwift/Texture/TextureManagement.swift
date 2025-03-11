@@ -23,11 +23,7 @@ extension Texture {
         Texture2D(CRaylib.LoadTextureCubemap(image, layout.rawValue))
     }
 
-    /// Load texture for rendering (framebuffer)
-    @inlinable
-    public static func loadRenderTexture(width: Int32, height: Int32) -> RenderTexture2D {
-        RenderTexture(CRaylib.LoadRenderTexture(width, height) )
-    }
+    
 
     /// Check if a texture is valid (loaded in GPU)
     @inlinable
@@ -41,17 +37,7 @@ extension Texture {
         CRaylib.UnloadTexture(texture.cTexture)
     }
 
-    /// Check if a render texture is valid (loaded in GPU)
-    @inlinable
-    public static func isRenderTextureValid(_ target: RenderTexture2D) -> Bool {
-        CRaylib.IsRenderTextureValid(target.cRenderTexture)
-    }
-
-    /// Unload render texture from GPU memory (VRAM)
-    @inlinable
-    public static func unloadRenderTexture(_ target: RenderTexture2D) {
-        CRaylib.UnloadRenderTexture(target.cRenderTexture)
-    }
+   
 }
 
 extension Texture {
