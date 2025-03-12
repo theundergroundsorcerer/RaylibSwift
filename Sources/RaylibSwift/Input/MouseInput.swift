@@ -133,11 +133,13 @@ public enum Mouse {
     }
 
     /// Get mouse wheel movement for X or Y, whichever is larger
+    @inlinable
     public static var wheelMove: Float {
         CRaylib.GetMouseWheelMove()
     }
 
     /// Get mouse wheel movement for both X and Y
+    @inlinable
     public static var wheelMoveVector: Vector2 {
         CRaylib.GetMouseWheelMoveV()
     }
