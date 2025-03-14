@@ -80,7 +80,7 @@ public struct Gesture: OptionSet {
 
     /// Get gesture drag vector
     @inlinable
-    public static var dragVector: Point {
+    public static var dragVector: Vector2 {
         CRaylib.GetGestureDragVector()
     }
 
@@ -92,7 +92,7 @@ public struct Gesture: OptionSet {
 
     /// Get gesture pinch delta
     @inlinable
-    public static var pinchVector: Point {
+    public static var pinchVector: Vector2 {
         CRaylib.GetGesturePinchVector()
     }
 

@@ -314,7 +314,7 @@ public enum Window {
      * - Returns: Position as Vector2
      */
     @inlinable
-    public static func monitorPosition(_ monitor: Int32) -> Point {
+    public static func monitorPosition(_ monitor: Int32) -> Vector2 {
         CRaylib.GetMonitorPosition(monitor)
     }
 
@@ -375,13 +375,13 @@ public enum Window {
 
     /// Get window position XY on monitor
     @inlinable
-    public static var position: Point {
+    public static var position: Vector2 {
         CRaylib.GetWindowPosition()
     }
 
     /// Get window scale DPI factor
     @inlinable
-    public static var scaleDPI: Point {
+    public static var scaleDPI: Vector2 {
         CRaylib.GetWindowScaleDPI()
     }
 

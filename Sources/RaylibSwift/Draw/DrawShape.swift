@@ -13,7 +13,7 @@ extension Draw {
     /// Draws a single pixel at the specified position using a vector.
     /// - Note: This can be slow; use sparingly.
     @inlinable
-    public static func pixel(at position: Point, color: Color) {
+    public static func pixel(at position: Vector2, color: Color) {
         CRaylib.DrawPixelV(position, color)
     }
 
@@ -31,8 +31,8 @@ extension Draw {
     /// Draws a line between two points using vectors and OpenGL lines.
     @inlinable
     public static func line(
-        from startPosition: Point,
-        to endPosition: Point,
+        from startPosition: Vector2,
+        to endPosition: Vector2,
         color: Color
     ) {
         CRaylib.DrawLineV(startPosition, endPosition, color)
@@ -41,8 +41,8 @@ extension Draw {
     /// Draws a line between two points with a specified thickness using triangles or quads.
     @inlinable
     public static func line(
-        from startPosition: Point,
-        to endPosition: Point,
+        from startPosition: Vector2,
+        to endPosition: Vector2,
         thickness: Float,
         color: Color
     ) {
@@ -51,7 +51,7 @@ extension Draw {
 
     /// Draws a sequence of connected lines using OpenGL lines.
     @inlinable
-    public static func lineStrip(_ points: [Point], color: Color) {
+    public static func lineStrip(_ points: [Vector2], color: Color) {
         points.withUnsafeBufferPointer { buffer in
             CRaylib.DrawLineStrip(buffer.baseAddress, Int32(points.count), color)
         }
@@ -60,8 +60,8 @@ extension Draw {
     /// Draws a cubic-bezier line segment with in-out interpolation and specified thickness.
     @inlinable
     public static func lineBezier(
-        from startPosition: Point,
-        to endPosition: Point,
+        from startPosition: Vector2,
+        to endPosition: Vector2,
         thickness: Float,
         color: Color
     ) {
@@ -72,7 +72,7 @@ extension Draw {
     /// Draws a filled circular sector at the specified center.
     @inlinable
     public static func circleSector(
-        at center: Point,
+        at center: Vector2,
         radius: Float,
         startAngle: Float,
         endAngle: Float,
@@ -85,7 +85,7 @@ extension Draw {
     /// Draws the outline of a circular sector at the specified center.
     @inlinable
     public static func circleSectorLines(
-        at center: Point,
+        at center: Vector2,
         radius: Float,
         startAngle: Float,
         endAngle: Float,
@@ -108,7 +108,7 @@ extension Draw {
 
     /// Draws a filled circle at the specified center using a vector.
     @inlinable
-    public static func circle(at center: Point, radius: Float, color: Color) {
+    public static func circle(at center: Vector2, radius: Float, color: Color) {
         CRaylib.DrawCircleV(center, radius, color)
     }
 
@@ -127,7 +127,7 @@ extension Draw {
 
     /// Draws the outline of a circle at the specified center using a vector.
     @inlinable
-    public static func circleLines(at center: Point, radius: Float, color: Color) {
+    public static func circleLines(at center: Vector2, radius: Float, color: Color) {
         CRaylib.DrawCircleLinesV(center, radius, color)
     }
 
@@ -156,7 +156,7 @@ extension Draw {
     /// Draws a filled ring (annulus) at the specified center.
     @inlinable
     public static func ring(
-        at center: Point,
+        at center: Vector2,
         innerRadius: Float,
         outerRadius: Float,
         startAngle: Float,
@@ -170,7 +170,7 @@ extension Draw {
     /// Draws the outline of a ring (annulus) at the specified center.
     @inlinable
     public static func ringLines(
-        at center: Point,
+        at center: Vector2,
         innerRadius: Float,
         outerRadius: Float,
         startAngle: Float,
@@ -196,7 +196,7 @@ extension Draw {
 
     /// Draws a filled rectangle at the specified position using vectors.
     @inlinable
-    public static func rectangle(at position: Point, size: Point, color: Color) {
+    public static func rectangle(at position: Vector2, size: Vector2, color: Color) {
         CRaylib.DrawRectangleV(position, size, color)
     }
 
@@ -210,7 +210,7 @@ extension Draw {
     @inlinable
     public static func rectangle(
         _ rectangle: Rectangle,
-        origin: Point,
+        origin: Vector2,
         rotation: Float,
         color: Color
     ) {
@@ -302,9 +302,9 @@ extension Draw {
     /// Draws a filled triangle with vertices in counter-clockwise order.
     @inlinable
     public static func triangle(
-        vertex1: Point,
-        vertex2: Point,
-        vertex3: Point,
+        vertex1: Vector2,
+        vertex2: Vector2,
+        vertex3: Vector2,
         color: Color
     ) {
         CRaylib.DrawTriangle(vertex1, vertex2, vertex3, color)
@@ -313,9 +313,9 @@ extension Draw {
     /// Draws the outline of a triangle with vertices in counter-clockwise order.
     @inlinable
     public static func triangleLines(
-        vertex1: Point,
-        vertex2: Point,
-        vertex3: Point,
+        vertex1: Vector2,
+        vertex2: Vector2,
+        vertex3: Vector2,
         color: Color
     ) {
         CRaylib.DrawTriangleLines(vertex1, vertex2, vertex3, color)
@@ -323,7 +323,7 @@ extension Draw {
 
     /// Draws a filled triangle fan defined by a sequence of points, with the first point as the center.
     @inlinable
-    public static func triangleFan(_ points: [Point], color: Color) {
+    public static func triangleFan(_ points: [Vector2], color: Color) {
         points.withUnsafeBufferPointer { buffer in
             CRaylib.DrawTriangleFan(buffer.baseAddress, Int32(points.count), color)
         }
@@ -331,7 +331,7 @@ extension Draw {
 
     /// Draws a filled triangle strip defined by a sequence of points.
     @inlinable
-    public static func triangleStrip(_ points: [Point], color: Color) {
+    public static func triangleStrip(_ points: [Vector2], color: Color) {
         points.withUnsafeBufferPointer { buffer in
             CRaylib.DrawTriangleStrip(buffer.baseAddress, Int32(points.count), color)
         }
@@ -341,7 +341,7 @@ extension Draw {
     /// Draws a filled regular polygon with the specified number of sides.
     @inlinable
     public static func polygon(
-        center: Point,
+        center: Vector2,
         numberOfSides: Int32,
         radius: Float,
         rotation: Float,
@@ -353,7 +353,7 @@ extension Draw {
     /// Draws the outline of a regular polygon with the specified number of sides.
     @inlinable
     public static func polygonLines(
-        center: Point,
+        center: Vector2,
         numberOfSides: Int32,
         radius: Float,
         rotation: Float,
@@ -365,7 +365,7 @@ extension Draw {
     /// Draws the outline of a regular polygon with the specified thickness.
     @inlinable
     public static func polygonLines(
-        center: Point,
+        center: Vector2,
         numberOfSides: Int32,
         radius: Float,
         rotation: Float,

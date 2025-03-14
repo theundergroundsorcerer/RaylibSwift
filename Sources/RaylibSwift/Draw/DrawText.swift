@@ -25,7 +25,7 @@ extension Draw {
     public static func text(
         _ text: String,
         using font: Font,
-        at position: Point,
+        at position: Vector2,
         fontSize: Float,
         spacing: Float,
         color: Color
@@ -40,8 +40,8 @@ extension Draw {
     public static func text(
         _ text: String,
         using font: Font,
-        at position: Point,
-        origin: Point,
+        at position: Vector2,
+        origin: Vector2,
         rotation: Float,
         fontSize: Float,
         spacing: Float,
@@ -54,10 +54,10 @@ extension Draw {
 
     /// Draw one character (codepoint)
     @inlinable
-    public static func codepoint(
+    public static func codePoint(
         _ codepoint: Int32,
         using font: Font,
-        at position: Point,
+        at position: Vector2,
         fontSize: Float,
         color: Color
     ) {
@@ -69,7 +69,7 @@ extension Draw {
     public static func codepoints(
         _ codepoints: [Int32],
         using font: Font,
-        at position: Point,
+        at position: Vector2,
         fontSize: Float,
         spacing: Float,
         color: Color
@@ -92,7 +92,7 @@ extension Draw {
     public static func codepoints(
         _ codepoints: ArraySlice<Int32>,
         using font: Font,
-        at position: Point,
+        at position: Vector2,
         fontSize: Float,
         spacing: Float,
         color: Color

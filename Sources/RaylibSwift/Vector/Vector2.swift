@@ -2,7 +2,6 @@ import CRaylib
 
 /// A 2D vector type that represents points or directions with x and y components
 public typealias Vector2 = CRaylib.Vector2
-public typealias Point = Vector2
 
 extension Vector2 {
     /// Creates a Vector2 with specified float component values

@@ -393,7 +393,7 @@ extension Shader {
      *
      * - Parameters:
      *   - locIndex: Shader uniform location index
-     *   - value: Pointer to uniform value
+     *   - value: Vector2er to uniform value
      *   - uniformType: Uniform data type
      */
     @inline(__always)
@@ -409,7 +409,7 @@ extension Shader {
      *
      * - Parameters:
      *   - locIndex: Shader uniform location index
-     *   - value: Pointer to uniform values array
+     *   - value: Vector2er to uniform values array
      *   - uniformType: Uniform data type
      *   - count: Number of elements in the array
      */

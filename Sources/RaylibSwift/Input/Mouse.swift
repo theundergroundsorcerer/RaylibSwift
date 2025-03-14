@@ -99,7 +99,7 @@ public enum Mouse {
 
     /// Get mouse position XY
     @inlinable
-    public static var position: Point {
+    public static var position: Vector2 {
         get {
             CRaylib.GetMousePosition()
         }
@@ -110,7 +110,7 @@ public enum Mouse {
 
     /// Get mouse delta between frames
     @inlinable
-    public static var delta: Point {
+    public static var delta: Vector2 {
         CRaylib.GetMouseDelta()
     }
 
@@ -140,7 +140,7 @@ public enum Mouse {
 
     /// Get mouse wheel movement for both X and Y
     @inlinable
-    public static var wheelMoveVector: Point {
+    public static var wheelMoveVector: Vector2 {
         CRaylib.GetMouseWheelMoveV()
     }
 

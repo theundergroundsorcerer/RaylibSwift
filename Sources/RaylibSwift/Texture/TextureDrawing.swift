@@ -12,13 +12,13 @@ extension Texture {
     
     /// Draw this texture at the specified position
     @inlinable
-    public func draw(at position: Point, color: Color) {
+    public func draw(at position: Vector2, color: Color) {
         Draw.texture(self, at: position, color: color)
     }
     
     /// Draw this texture with extended parameters
     @inlinable
-    public func draw(at position: Point, rotation: Float, scale: Float, color: Color) {
+    public func draw(at position: Vector2, rotation: Float, scale: Float, color: Color) {
         Draw.texture(self, at: position, rotation: rotation, scale: scale, color: color)
     }
     
@@ -26,7 +26,7 @@ extension Texture {
     
     /// Draw a part of this texture defined by a rectangle
     @inlinable
-    public func drawRegion(source: Rectangle, at position: Point, color: Color) {
+    public func drawRegion(source: Rectangle, at position: Vector2, color: Color) {
         Draw.textureRegion(self, source: source, at: position, color: color)
     }
     
@@ -35,7 +35,7 @@ extension Texture {
     public func drawRegion(
         source: Rectangle,
         destination: Rectangle,
-        origin: Point,
+        origin: Vector2,
         rotation: Float,
         color: Color
     ) {
@@ -56,7 +56,7 @@ extension Texture {
     public func drawNPatch(
         nPatchInfo: NPatchInfo,
         destination: Rectangle,
-        origin: Point,
+        origin: Vector2,
         rotation: Float,
         color: Color
     ) {

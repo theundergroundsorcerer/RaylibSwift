@@ -65,7 +65,7 @@ public enum Shapes {
     @inlinable
     public static func isInside(
         of rectangle: Rectangle,
-        point: Point
+        point: Vector2
     ) -> Bool {
         CRaylib.CheckCollisionPointRec(point, rectangle)
     }
@@ -74,7 +74,7 @@ public enum Shapes {
     @inlinable
     public static func isInside(
         of circle: Circle,
-        point: Point
+        point: Vector2
     ) -> Bool {
         CRaylib.CheckCollisionPointCircle(point, circle.center, circle.radius)
     }
@@ -83,7 +83,7 @@ public enum Shapes {
     @inlinable
     public static func isInside(
         of triangle: Triangle,
-        point: Point
+        point: Vector2
     ) -> Bool {
         CRaylib.CheckCollisionPointTriangle(
             point,
@@ -97,7 +97,7 @@ public enum Shapes {
     @inlinable
     public static func isInside(
         of line: LineSegment,
-        point: Point,
+        point: Vector2,
         threshold: Int32
     ) -> Bool {
         CRaylib.CheckCollisionPointLine(point, line.start, line.end, threshold)
@@ -107,7 +107,7 @@ public enum Shapes {
     @inlinable
     public static func isInside(
         of polygon: Polygon,
-        point: Point
+        point: Vector2
     ) -> Bool {
         polygon.vertices.withUnsafeBufferPointer { pointsPtr in
             CRaylib.CheckCollisionPointPoly(point, pointsPtr.baseAddress, Int32(pointsPtr.count))
@@ -119,8 +119,8 @@ public enum Shapes {
     public static func intersection(
         of line1: LineSegment, 
         and line2: LineSegment
-    ) -> Point? {
-        var intersectionPoint = Point(0, 0)
+    ) -> Vector2? {
+        var intersectionPoint = Vector2(0, 0)
         guard
             CRaylib.CheckCollisionLines(
                 line1.start, line1.end, line2.start, line2.end, &intersectionPoint)
