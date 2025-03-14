@@ -289,4 +289,5 @@ public enum Keyboard {
     public static func setExitKey(to key: Key) {
         CRaylib.SetExitKey(key.rawValue)
     }
+
 }
