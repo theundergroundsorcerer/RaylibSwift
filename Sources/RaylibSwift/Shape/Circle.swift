@@ -30,7 +30,5 @@ extension Circle {
     @inlinable 
     public init(centerX: Float, centerY: Float, radius: Float) {
         self.init(Vector2(centerX, centerY), radius)
-    }
-
-    
+    } 
 }
