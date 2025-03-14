@@ -8,26 +8,13 @@ import CRaylib
  * direct imports of the C module.
  */
 
-/// Vector2, 2 components
-public typealias Vector2 = CRaylib.Vector2
 
-/// Vector3, 3 components
-public typealias Vector3 = CRaylib.Vector3
-
-/// Vector4, 4 components
-public typealias Vector4 = CRaylib.Vector4
-
-/// Quaternion, 4 components (Vector4 alias)
-public typealias Quaternion = Vector4
 
 /// Matrix, 4x4 components, column major, OpenGL style, right-handed
 public typealias Matrix = CRaylib.Matrix
 
 /// Color, 4 components, R8G8B8A8 (32bit)
 public typealias Color = CRaylib.Color
-
-/// Rectangle, 4 components
-public typealias Rectangle = CRaylib.Rectangle
 
 /// Image, pixel data stored in CPU memory (RAM)
 public typealias Image = CRaylib.Image

@@ -18,7 +18,7 @@ extension Draw {
     @inlinable
     public static func texture(
         _ texture: Texture2D,
-        at position: Vector2,
+        at position: Point,
         color: Color
     ) {
         CRaylib.DrawTextureV(texture.cTexture, position, color)
@@ -28,7 +28,7 @@ extension Draw {
     @inlinable
     public static func texture(
         _ texture: Texture2D,
-        at position: Vector2,
+        at position: Point,
         rotation: Float,
         scale: Float,
         color: Color
@@ -43,7 +43,7 @@ extension Draw {
     public static func textureRegion(
         _ texture: Texture2D,
         source: Rectangle,
-        at position: Vector2,
+        at position: Point,
         color: Color
     ) {
         CRaylib.DrawTextureRec(texture.cTexture, source, position, color)
@@ -55,7 +55,7 @@ extension Draw {
         _ texture: Texture2D,
         source: Rectangle,
         destination: Rectangle,
-        origin: Vector2,
+        origin: Point,
         rotation: Float,
         color: Color
     ) {
@@ -68,7 +68,7 @@ extension Draw {
         _ texture: Texture2D,
         nPatchInfo: NPatchInfo,
         destination: Rectangle,
-        origin: Vector2,
+        origin: Point,
         rotation: Float,
         color: Color
     ) {
