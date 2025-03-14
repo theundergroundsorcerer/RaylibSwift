@@ -54,7 +54,7 @@ extension Draw {
 
     /// Draw one character (codepoint)
     @inlinable
-    public static func codepoint(
+    public static func codePoint(
         _ codepoint: Int32,
         using font: Font,
         at position: Vector2,
