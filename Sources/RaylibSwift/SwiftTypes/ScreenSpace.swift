@@ -19,7 +19,7 @@ public enum ScreenSpace {
 
     /// Get the screen space position for a 3d world space position
     @inlinable
-    public static func getWorldToScreen(_ position: Vector3, _ camera: Camera) -> Vector2 {
+    public static func getWorldToScreen(_ position: Vector3, _ camera: Camera) -> Point {
         CRaylib.GetWorldToScreen(position, camera)
     }
 
@@ -27,19 +27,19 @@ public enum ScreenSpace {
     @inlinable
     public static func getWorldToScreenEx(
         _ position: Vector3, _ camera: Camera, _ width: Int32, _ height: Int32
-    ) -> Vector2 {
+    ) -> Point {
         CRaylib.GetWorldToScreenEx(position, camera, width, height)
     }
 
     /// Get the screen space position for a 2d camera world space position
     @inlinable
-    public static func getWorldToScreen2D(_ position: Vector2, _ camera: Camera2D) -> Vector2 {
+    public static func getWorldToScreen2D(_ position: Vector2, _ camera: Camera2D) -> Point {
         CRaylib.GetWorldToScreen2D(position, camera)
     }
 
     /// Get the world space position for a 2d camera screen space position
     @inlinable
-    public static func getScreenToWorld2D(_ position: Vector2, _ camera: Camera2D) -> Vector2 {
+    public static func getScreenToWorld2D(_ position: Vector2, _ camera: Camera2D) -> Point {
         CRaylib.GetScreenToWorld2D(position, camera)
     }
 

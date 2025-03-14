@@ -51,7 +51,7 @@ extension Draw {
 
     /// Draws a sequence of connected lines using OpenGL lines.
     @inlinable
-    public static func lineStrip(_ points: [Vector2], color: Color) {
+    public static func lineStrip(_ points: [Point], color: Color) {
         points.withUnsafeBufferPointer { buffer in
             CRaylib.DrawLineStrip(buffer.baseAddress, Int32(points.count), color)
         }
@@ -323,7 +323,7 @@ extension Draw {
 
     /// Draws a filled triangle fan defined by a sequence of points, with the first point as the center.
     @inlinable
-    public static func triangleFan(_ points: [Vector2], color: Color) {
+    public static func triangleFan(_ points: [Point], color: Color) {
         points.withUnsafeBufferPointer { buffer in
             CRaylib.DrawTriangleFan(buffer.baseAddress, Int32(points.count), color)
         }
@@ -331,7 +331,7 @@ extension Draw {
 
     /// Draws a filled triangle strip defined by a sequence of points.
     @inlinable
-    public static func triangleStrip(_ points: [Vector2], color: Color) {
+    public static func triangleStrip(_ points: [Point], color: Color) {
         points.withUnsafeBufferPointer { buffer in
             CRaylib.DrawTriangleStrip(buffer.baseAddress, Int32(points.count), color)
         }
