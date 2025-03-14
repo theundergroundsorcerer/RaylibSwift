@@ -119,8 +119,8 @@ public enum Shapes {
     public static func intersection(
         of line1: LineSegment, 
         and line2: LineSegment
-    ) -> Point? {
-        var intersectionPoint = Point(0, 0)
+    ) -> Vector2? {
+        var intersectionPoint = Vector2(0, 0)
         guard
             CRaylib.CheckCollisionLines(
                 line1.start, line1.end, line2.start, line2.end, &intersectionPoint)

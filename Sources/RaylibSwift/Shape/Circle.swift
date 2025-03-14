@@ -23,12 +23,12 @@ extension Circle {
     /// Creates a circle with a Float tuple center point and radius
     @inlinable
     public init (center: (x: Float, y: Float), radius: Float) {
-        self.init(Point(center.x, center.y), radius)
+        self.init(Vector2(center.x, center.y), radius)
     }
 
     /// Creates a circle with separate x/y coordinates and radius
     @inlinable 
     public init(centerX: Float, centerY: Float, radius: Float) {
-        self.init(Point(centerX, centerY), radius)
+        self.init(Vector2(centerX, centerY), radius)
     }
 }

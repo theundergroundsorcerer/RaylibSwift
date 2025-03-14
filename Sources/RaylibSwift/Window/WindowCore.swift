@@ -314,7 +314,7 @@ public enum Window {
      * - Returns: Position as Vector2
      */
     @inlinable
-    public static func monitorPosition(_ monitor: Int32) -> Point {
+    public static func monitorPosition(_ monitor: Int32) -> Vector2 {
         CRaylib.GetMonitorPosition(monitor)
     }
 

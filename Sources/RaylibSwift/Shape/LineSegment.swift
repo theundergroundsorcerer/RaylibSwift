@@ -17,10 +17,10 @@ extension LineSegment {
 
     @inlinable 
     public init(_ point1: (x: Float, y: Float), _ point2: (x: Float, y: Float)) {
-        self.init(Point(point1.x, point1.y), Point(point2.x, point2.y))
+        self.init(Vector2(point1.x, point1.y), Vector2(point2.x, point2.y))
     }
 
     @inlinable init(x1: Float, y1: Float, x2: Float, y2: Float) {
-        self.init(Point(x1, y1), Point(x2, y2))
+        self.init(Vector2(x1, y1), Vector2(x2, y2))
     }
 }

@@ -25,11 +25,11 @@ extension Triangle {
         _ v2: (x: Float, y: Float),
         _ v3: (x: Float, y: Float)
     ) {
-        self.init(Point(v1.x, v1.y), Point(v2.x, v2.y), Point(v3.x, v3.y) )
+        self.init(Vector2(v1.x, v1.y), Vector2(v2.x, v2.y), Vector2(v3.x, v3.y) )
     }
 
     @inlinable
     public init(x1: Float, y1: Float, x2: Float, y2: Float, x3: Float, y3: Float) {
-        self.init(Point(x1, y1), Point(x2, y2), Point(x3, y3))
+        self.init(Vector2(x1, y1), Vector2(x2, y2), Vector2(x3, y3))
     }
 }
