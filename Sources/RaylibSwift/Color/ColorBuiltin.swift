@@ -17,6 +17,7 @@ import CRaylib
 
  /// Color, 4 components, R8G8B8A8 (32bit)
 public typealias Color = CRaylib.Color
+
 public extension Color {
     /// Light gray color (200, 200, 200, 255)
     /// Replaces: LIGHTGRAY
