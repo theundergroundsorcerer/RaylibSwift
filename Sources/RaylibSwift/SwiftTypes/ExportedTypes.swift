@@ -13,8 +13,7 @@ import CRaylib
 /// Matrix, 4x4 components, column major, OpenGL style, right-handed
 public typealias Matrix = CRaylib.Matrix
 
-/// Color, 4 components, R8G8B8A8 (32bit)
-public typealias Color = CRaylib.Color
+
 
 /// Image, pixel data stored in CPU memory (RAM)
 public typealias Image = CRaylib.Image
