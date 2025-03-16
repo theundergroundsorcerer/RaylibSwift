@@ -34,7 +34,7 @@ extension Circle {
 
     /// Draws using specified color
     @inlinable
-    public func draw(using color: Color) {
-        Draw.circle(self, color: color)
+    public func draw(usingColor: Color) {
+        Draw.circle(self, color: usingColor)
     } 
 }
