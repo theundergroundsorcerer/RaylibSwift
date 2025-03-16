@@ -37,6 +37,16 @@ public enum Window {
             CRaylib.InitWindow(width, height, cString)
         }
     }
+
+    /// Runs game loop in the window
+    @inlinable
+    public static func loop(fps: Int32, _ body: () -> ()) {
+        Time.setTargetFPS(fps)
+        while !shouldClose {
+            body()
+        }
+        close()
+    } 
     
     /// Close window and unload OpenGL context
     @inlinable

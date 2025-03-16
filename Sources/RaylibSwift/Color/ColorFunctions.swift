@@ -68,7 +68,7 @@ extension Color {
 
     /// Get color multiplied with another color
     @inlinable
-    public static func tint(_ color: Color, using tint: Color) -> Color {
+    public static func tint(_ color: Color, with tint: Color) -> Color {
         CRaylib.ColorTint(color, tint)
     }
 
@@ -92,8 +92,8 @@ extension Color {
 
     /// Get src alpha-blended into dst color with tint
     @inlinable
-    public static func alphaBlend(desitnation: Color, source: Color, tint: Color) -> Color {
-        CRaylib.ColorAlphaBlend(desitnation, source, tint)
+    public static func alphaBlend(destination: Color, source: Color, tint: Color) -> Color {
+        CRaylib.ColorAlphaBlend(destination, source, tint)
     }
 
     /// Get color lerp (linear interpolation) between two colors, factor [0.0f..1.0f]
@@ -126,7 +126,7 @@ extension Color {
 
     /// Get pixel data size in bytes for certain format
     @inlinable 
-    public static  func pixelDataSize(
+    public static func pixelDataSize(
         width: Int32, 
         height: Int32, 
         format: Pixel.Format) -> Int32 {
@@ -134,27 +134,8 @@ extension Color {
     }
 }
 
-/*
-// Color/pixel related functions
-RLAPI bool ColorIsEqual(Color col1, Color col2);                            // Check if two colors are equal
-RLAPI Color Fade(Color color, float alpha);                                 // Get color with alpha applied, alpha goes from 0.0f to 1.0f
-RLAPI int ColorToInt(Color color);                                          // Get hexadecimal value for a Color (0xRRGGBBAA)
-RLAPI Vector4 ColorNormalize(Color color);                                  // Get Color normalized as float [0..1]
-RLAPI Color ColorFromNormalized(Vector4 normalized);                        // Get Color from normalized values [0..1]
-RLAPI Vector3 ColorToHSV(Color color);                                      // Get HSV values for a Color, hue [0..360], saturation/value [0..1]
-RLAPI Color ColorFromHSV(float hue, float saturation, float value);         // Get a Color from HSV values, hue [0..360], saturation/value [0..1]
-RLAPI Color ColorTint(Color color, Color tint);                             // Get color multiplied with another color
-RLAPI Color ColorBrightness(Color color, float factor);                     // Get color with brightness correction, brightness factor goes from -1.0f to 1.0f
-RLAPI Color ColorContrast(Color color, float contrast);                     // Get color with contrast correction, contrast values between -1.0f and 1.0f
-RLAPI Color ColorAlpha(Color color, float alpha);                           // Get color with alpha applied, alpha goes from 0.0f to 1.0f
-RLAPI Color ColorAlphaBlend(Color dst, Color src, Color tint);              // Get src alpha-blended into dst color with tint
-RLAPI Color ColorLerp(Color color1, Color color2, float factor);            // Get color lerp interpolation between two colors, factor [0.0f..1.0f]
-RLAPI Color GetColor(unsigned int hexValue);                                // Get Color structure from hexadecimal value
-RLAPI Color GetPixelColor(void *srcPtr, int format);                        // Get Color from a source pixel pointer of certain format
-RLAPI void SetPixelColor(void *dstPtr, Color color, int format);            // Set color formatted into destination pixel pointer
-RLAPI int GetPixelDataSize(int width, int height, int format);              // Get pixel data size in bytes for certain format
-*/
-
+/// Enables conversion from Colors to Int32 hexadecimal values
+/// Returns color as packed 32-bit RGBA value (0xRRGGBBAA)
 extension Int32 {
     @inlinable
     public init(_ color: Color) {
