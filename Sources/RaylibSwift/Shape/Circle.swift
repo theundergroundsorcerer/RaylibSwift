@@ -30,5 +30,11 @@ extension Circle {
     @inlinable 
     public init(centerX: Float, centerY: Float, radius: Float) {
         self.init(Vector2(centerX, centerY), radius)
+    }
+
+    /// Draws using specified color
+    @inlinable
+    public func draw(using color: Color) {
+        Draw.circle(self, color: color)
     } 
 }
