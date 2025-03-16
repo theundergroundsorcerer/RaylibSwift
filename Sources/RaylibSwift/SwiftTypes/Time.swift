@@ -5,30 +5,30 @@ import CRaylib
 
         /// Set target FPS (maximum)
         @inlinable
-        public static func setTargetFPS(_ fps: Int32) {
+        public static func setFps(_ fps: Int32) {
             CRaylib.SetTargetFPS(fps)
         }
 
         /// Get current FPS
         @inlinable
-        public static var getFPS: Int32 {
+        public static var fps: Int32 {
             CRaylib.GetFPS()
         }
 
         /// Get time in seconds for last frame drawn (delta time)
         @inlinable
-        public static var frameTime: Float {
+        public static var frame: Float {
             CRaylib.GetFrameTime()
         }
 
         /// Get elapsed time in seconds since InitWindow()
         @inlinable
-        public static func getTime() -> Double {
+        public static func get() -> Double {
             CRaylib.GetTime()
         }
 
         /// Wait for some (halt program execution)
-        @inlinable public static func waitTime(_ seconds: Double) {
+        @inlinable public static func wait(_ seconds: Double) {
             CRaylib.WaitTime(seconds)
         }
     }
