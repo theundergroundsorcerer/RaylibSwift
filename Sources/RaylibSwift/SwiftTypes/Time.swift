@@ -17,13 +17,13 @@ import CRaylib
 
         /// Get time in seconds for last frame drawn (delta time)
         @inlinable
-        public static var frame: Float {
+        public static var lastFrameDuration: Float {
             CRaylib.GetFrameTime()
         }
 
         /// Get elapsed time in seconds since InitWindow()
         @inlinable
-        public static func get() -> Double {
+        public static var elapsed: Double {
             CRaylib.GetTime()
         }
 
