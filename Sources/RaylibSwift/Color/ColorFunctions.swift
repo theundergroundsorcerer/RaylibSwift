@@ -56,13 +56,13 @@ extension Color {
 
     /// Get HSV values for a Color, hue [0..360], saturation/value [0..1]
     @inlinable
-    public static func toHSV(_ color: Color) -> Vector3 {
+    public static func toHsv(_ color: Color) -> Vector3 {
         CRaylib.ColorToHSV(color)
     }
 
     /// Get a Color from HSV values, hue [0..360], saturation/value [0..1]
     @inlinable
-    public static func fromHSV(hue: Float, saturation: Float, value: Float) -> Color {
+    public static func fromHsv(hue: Float, saturation: Float, value: Float) -> Color {
         CRaylib.ColorFromHSV(hue, saturation, value)
     }
 
