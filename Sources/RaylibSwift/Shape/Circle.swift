@@ -8,7 +8,7 @@ public struct Circle {
     public var radius: Float
 
     /// Creates a circle with a center point and radius
-    public init(_ center: Vector2, _ radius: Float) {
+    public init(center: Vector2, radius: Float) {
         self.center = center
         self.radius = radius
     }
@@ -18,8 +18,8 @@ public struct Circle {
 extension Circle {
     /// Creates a circle with a named center point and radius
     @inlinable
-    public init(center: Vector2, radius: Float) {
-        self.init(center, radius)
+    public init(_ center: Vector2, _ radius: Float) {
+        self.init(center: center, radius: radius)
     }
 
     /// Creates a circle with a Int32 tuple center point and radius
@@ -28,10 +28,16 @@ extension Circle {
         self.init(Vector2(Float(center.x), Float(center.y)), radius)
     }
 
+    /// Creates a circle with a Int32 tuple center point and radius
+    @inlinable
+    public init(center: (x: Float, y: Float), radius: Float) {
+        self.init(center: Vector2(center.x, center.y), radius: radius)
+    }
+
     /// Creates a circle with separate x/y coordinates and radius
     @inlinable
     public init(centerX: Float, centerY: Float, radius: Float) {
-        self.init(Vector2(centerX, centerY), radius)
+        self.init(center: Vector2(centerX, centerY), radius: radius)
     }
 
     /// Draws using specified color
