@@ -11,12 +11,31 @@ extension Vector2 {
     }
 }
 
+/// Adds equality comparison for Vector2 instances
+extension Vector2: @retroactive Equatable {
+    /// Checks if two vectors have the same component values
+    @inlinable
+    public static func == (lhs: Vector2, rhs: Vector2) -> Bool {
+        return lhs.x == rhs.x && lhs.y == rhs.y
+    }
+}
+
+/// Adds hashing support for Vector2 to use in dictionaries and sets
+extension Vector2: @retroactive Hashable {
+    /// Creates a hash value that reflects the vector's component values
+    public func hash(into hasher: inout Hasher) {
+        hasher.combine(self.x)
+        hasher.combine(self.y)
+    }
+}
+
 /// Creates a Vector2 using a function-style constructor with float values
 @inlinable
 public func Vector(_ x: Float, _ y: Float) -> Vector2 {
     Vector2(x: x, y: y)  // For consistency with Vector3 and Vector4
 }
 
+/// Basic vector arithmetic operations
 extension Vector2 {
     /// Adds two vectors component-wise
     @inlinable
@@ -83,6 +102,7 @@ extension Vector2 {
     }
 }
 
+/// Additional vector operations and properties
 extension Vector2 {
     /// Calculates dot product with another vector
     @inlinable 
@@ -103,15 +123,17 @@ extension Vector2 {
     }
 
     /// Returns normalized copy of vector (unit length)
+    /// Returns zero vector if magnitude is near zero
     @inlinable 
     public var normalized: Vector2 {
         if self.magnitude < Float.ulpOfOne {
-            return self
+            return Vector2(x: 0, y: 0)
         }
         return self / magnitude
     }
 
     /// Normalizes this vector in-place to unit length
+    /// Does nothing if magnitude is near zero
     @inlinable 
     public mutating func normalize() {
         if self.magnitude < Float.ulpOfOne {

@@ -205,4 +205,32 @@ extension Circle {
         let base = Int32((pixelLength / safePixelsPerLength).rounded())
         return max(safeMinimum, min(base, safeMaximum))
     }
+
+    /// Checks if this circle collides with another circle
+    /// Maps to CheckCollisionCircles() in raylib
+    @inlinable
+    public func collides(with other: Circle) -> Bool {
+        return Shapes.areColliding(self, and: other)
+    }
+
+    /// Checks if this circle collides with a rectangle
+    /// Maps to CheckCollisionCircleRec() in raylib
+    @inlinable
+    public func collides(with rectangle: Rectangle) -> Bool {
+        return Shapes.areColliding(self, and: rectangle)
+    }
+
+    /// Checks if this circle intersects with a line
+    /// Maps to CheckCollisionCircleLine() in raylib
+    @inlinable
+    public func intersects(with line: Line) -> Bool {
+        return Shapes.areColliding(self, and: line)
+    }
+
+    /// Checks if this circle contains a point
+    /// Maps to CheckCollisionPointCircle() in raylib
+    @inlinable
+    public func contains(_ point: Vector2) -> Bool {
+        return Shapes.isInside(of: self, point: point)
+    }
 }

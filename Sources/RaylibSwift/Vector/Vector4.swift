@@ -132,3 +132,23 @@ extension Vector4 {
         }
     }
 }
+
+/// Adds equality comparison for Vector4 instances
+extension Vector4: @retroactive Equatable {
+    /// Checks if two vectors have the same component values
+    @inlinable
+    public static func == (lhs: Vector4, rhs: Vector4) -> Bool {
+        return lhs.x == rhs.x && lhs.y == rhs.y && lhs.z == rhs.z && lhs.w == rhs.w
+    }
+}
+
+/// Adds hashing support for Vector4 to use in dictionaries and sets
+extension Vector4: @retroactive Hashable {
+    /// Creates a hash value that reflects the vector's component values
+    public func hash(into hasher: inout Hasher) {
+        hasher.combine(self.x)
+        hasher.combine(self.y)
+        hasher.combine(self.z)
+        hasher.combine(self.w)
+    }
+}

@@ -47,7 +47,7 @@ public enum Shapes {
     @inlinable
     public static func areColliding(
         _ circle: Circle,
-        and line: LineSegment
+        and line: Line
     ) -> Bool {
         CRaylib.CheckCollisionCircleLine(circle.center, circle.radius, line.start, line.end)
     }
@@ -55,7 +55,7 @@ public enum Shapes {
     /// Check if line collides with a circle (symmetric version)
     @inlinable
     public static func areColliding(
-        _ line: LineSegment,
+        _ line: Line,
         and circle: Circle
     ) -> Bool {
         CRaylib.CheckCollisionCircleLine(circle.center, circle.radius, line.start, line.end)
@@ -96,7 +96,7 @@ public enum Shapes {
     /// Check if point belongs to line with defined margin in pixels
     @inlinable
     public static func isInside(
-        of line: LineSegment,
+        of line: Line,
         point: Vector2,
         threshold: Int32
     ) -> Bool {
@@ -117,8 +117,8 @@ public enum Shapes {
     /// Check intersection between two lines, returns intersection point
     @inlinable
     public static func intersection(
-        of line1: LineSegment, 
-        and line2: LineSegment
+        of line1: Line, 
+        and line2: Line
     ) -> Vector2? {
         var intersectionPoint = Vector2(0, 0)
         guard
