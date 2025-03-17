@@ -43,44 +43,92 @@ extension Circle {
     /// Draws a filled circular sector
     @inlinable
     public func drawSector(
-        fromAngle start: Float,
-        toAngle end: Float, 
-        segments: Int32, 
+        startAngle: Float,
+        endAngle: Float,
+        segments: Int32,
         color: Color
     ) {
         CRaylib.DrawCircleSector(
             self.center,
             self.radius,
-            start,
-            end,
+            startAngle,
+            endAngle,
             segments,
             color
         )
     }
 
     /// Draws the outline of a circular sector
+    @inlinable
     public func drawSectorLines(
-        fromAngle start: Float, 
-        toAngle end: Float, 
-        segments: Int32, 
+        startAngle: Float,
+        endAngle: Float,
+        segments: Int32,
         color: Color
     ) {
         CRaylib.DrawCircleSectorLines(
             self.center,
             self.radius,
-            start,
-            end,
+            startAngle,
+            endAngle,
             segments,
             color)
     }
 
     /// Draws gradient filled circle with inner and outer colors
+    @inlinable
     public func drawGradient(innerColor: Color, outerColor: Color) {
         CRaylib.DrawCircleGradient(
-            Int32(self.center.x), 
+            Int32(self.center.x),
             Int32(self.center.y),
-            radius, 
-            innerColor, 
-            outerColor)
+            radius,
+            innerColor,
+            outerColor
+        )
+    }
+
+    /// Draws outline of the circle
+    @inlinable
+    public func drawOutline(color: Color) {
+        CRaylib.DrawCircleLinesV(self.center, self.radius, color)
+    }
+
+    /// Draws a filled ring segment
+    @inlinable
+    public func drawRing(
+        innerRadius: Float,
+        startAngle: Float,
+        endAngle: Float,
+        segments: Int32,
+        color: Color
+    ) {
+        CRaylib.DrawRing(
+            self.center,
+            innerRadius,
+            self.radius,
+            startAngle, 
+            endAngle,
+            segments,
+            color
+        )
+    }
+
+    /// Draws the outline of the ring segment
+    @inlinable func drawRingOutline(
+        innerRadius: Float,
+        startAngle: Float,
+        endAngle: Float,
+        segments: Int32,
+        color: Color
+    ) {
+        CRaylib.DrawRingLines(
+            self.center,
+            innerRadius,
+            self.radius,
+            startAngle,
+            endAngle,
+            segments,
+            color
+        )
     }
 }
