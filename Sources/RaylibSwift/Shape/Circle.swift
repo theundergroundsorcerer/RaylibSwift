@@ -28,12 +28,6 @@ extension Circle {
         self.init(Vector2(Float(center.x), Float(center.y)), radius)
     }
 
-    /// Creates a circle with a Int32 tuple center point and radius
-    @inlinable
-    public init(center: (x: Float, y: Float), radius: Float) {
-        self.init(center: Vector2(center.x, center.y), radius: radius)
-    }
-
     /// Creates a circle with separate x/y coordinates and radius
     @inlinable
     public init(centerX: Float, centerY: Float, radius: Float) {
