@@ -16,9 +16,3 @@ extension Vector3 {
 public func Vector(_ x: Float, _ y: Float, _ z: Float) -> Vector3 {
     Vector3(x: x, y: y, z: z)
 }
-
-/// Creates a Vector3 using a function-style constructor with integer values
-@inlinable
-public func Vector(_ x: Int32, _ y: Int32, _ z: Int32) -> Vector3 {
-    Vector3(x: Float(x), y: Float(y), z: Float(z))  // Fixed: was using x for all
-}
