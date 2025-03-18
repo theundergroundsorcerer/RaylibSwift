@@ -274,7 +274,7 @@ extension Draw {
 
     /// Draws a rectangle with a vertical gradient fill.
     @inlinable
-    public static func rectangleGradientVertical(
+    public static func rectangleGradient(
         at position: (x: Int32, y: Int32),
         width: Int32,
         height: Int32,
@@ -286,7 +286,7 @@ extension Draw {
 
     /// Draws a rectangle with a horizontal gradient fill.
     @inlinable
-    public static func rectangleGradientHorizontal(
+    public static func rectangleGradient(
         at position: (x: Int32, y: Int32),
         width: Int32,
         height: Int32,

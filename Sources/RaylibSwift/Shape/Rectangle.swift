@@ -17,21 +17,21 @@ extension Rectangle {
     /// Maps to DrawRectangleRec() in raylib
     @inlinable
     public func draw(color: Color) {
-        CRaylib.DrawRectangleRec(self, color)
+        Draw.rectangle(self, color: color)
     }
     
     /// Draws the outline of a rectangle
     /// Maps to DrawRectangleLinesEx() in raylib
     @inlinable
-    public func drawOutline(thickness: Float = 1.0, color: Color) {
-        CRaylib.DrawRectangleLinesEx(self, thickness, color)
+    public func drawOutline(color: Color, thickness: Float = 1.0) {
+        Draw.rectangleLines(self, thickness: thickness, color: color)
     }
     
     /// Draws a rectangle with rotation around an origin point
     /// Maps to DrawRectanglePro() in raylib
     @inlinable
     public func draw(origin: Vector2, rotation: Float, color: Color) {
-        CRaylib.DrawRectanglePro(self, origin, rotation, color)
+        Draw.rectangle(self, origin: origin, rotation: rotation, color: color)
     }
     
     /// Draws a rectangle with a custom gradient fill
@@ -43,27 +43,128 @@ extension Rectangle {
         topRightColor: Color,
         bottomRightColor: Color
     ) {
-        CRaylib.DrawRectangleGradientEx(
-            self, topLeftColor, bottomLeftColor, topRightColor, bottomRightColor)
+        Draw.rectangleGradient(
+            self,
+            topLeftColor: topLeftColor,
+            bottomLeftColor: bottomLeftColor,
+            topRightColor: topRightColor,
+            bottomRightColor: bottomRightColor)
+    }
+    
+    /// Draws a rectangle with a vertical gradient fill
+    /// Maps to DrawRectangleGradientV() in raylib
+    @inlinable
+    public func drawGradient(topColor: Color, bottomColor: Color) {
+        Draw.rectangleGradient(
+            at: (Int32(x), Int32(y)),
+            width: Int32(width),
+            height: Int32(height),
+            topColor: topColor,
+            bottomColor: bottomColor)
+    }
+    
+    /// Draws a rectangle with a horizontal gradient fill
+    /// Maps to DrawRectangleGradientH() in raylib
+    @inlinable
+    public func drawGradient(leftColor: Color, rightColor: Color) {
+        Draw.rectangleGradient(
+            at: (Int32(x), Int32(y)),
+            width: Int32(width),
+            height: Int32(height),
+            leftColor: leftColor,
+            rightColor: rightColor)
     }
     
     /// Draws a filled rectangle with rounded corners
     /// Maps to DrawRectangleRounded() in raylib
     @inlinable
-    public func drawRounded(roundness: Float, segments: Int32, color: Color) {
-        CRaylib.DrawRectangleRounded(self, roundness, segments, color)
+    public func drawRounded(roundness: Float, color: Color, segments: Int32 = 9) {
+        Draw.rectangleRounded(self, roundness: roundness, color: color, segments: segments)
     }
     
     /// Draws the outline of a rectangle with rounded corners
+    /// Maps to DrawRectangleRoundedLines() in raylib
+    @inlinable
+    public func drawRoundedOutline(
+        roundness: Float,
+        color: Color,
+        segments: Int32 = 9
+    ) {
+        Draw.rectangleRoundedLines(
+            self,
+            roundness: roundness,
+            color: color,
+            segments: segments)
+    }
+    
+    /// Draws the outline of a rectangle with rounded corners and specified thickness
     /// Maps to DrawRectangleRoundedLinesEx() in raylib
     @inlinable
     public func drawRoundedOutline(
         roundness: Float,
-        segments: Int32, 
         thickness: Float,
-        color: Color
+        color: Color,
+        segments: Int32 = 9
     ) {
-        CRaylib.DrawRectangleRoundedLinesEx(self, roundness, segments, thickness, color)
+        Draw.rectangleRoundedLines(
+            self,
+            roundness: roundness,
+            thickness: thickness,
+            color: color,
+            segments: segments)
+    }
+
+    /// Draws a filled rectangle with rounded corners using optimized segment count
+    /// Uses precise pixel-based calculation for segment count
+    @inlinable
+    public func drawRounded(
+        roundness: Float,
+        color: Color,
+        segmentPixelLength: Float,
+        scale: Float = 1.0
+    ) {
+        Draw.rectangleRounded(
+            self,
+            roundness: roundness,
+            color: color,
+            segmentPixelLength: segmentPixelLength,
+            scale: scale)
+    }
+
+    /// Draws the outline of a rectangle with rounded corners using optimized segment count
+    /// Uses precise pixel-based calculation for segment count
+    @inlinable
+    public func drawRoundedOutline(
+        roundness: Float,
+        color: Color,
+        segmentPixelLength: Float,
+        scale: Float = 1.0
+    ) {
+        Draw.rectangleRoundedLines(
+            self,
+            roundness: roundness,
+            color: color,
+            segmentPixelLength: segmentPixelLength,
+            scale: scale)
+    }
+
+    /// Draws the outline of a rectangle with rounded corners and specified thickness using optimized segment count
+    /// Uses precise pixel-based calculation for segment count
+    @inlinable
+    public func drawRoundedOutline(
+        roundness: Float,
+        thickness: Float,
+        color: Color,
+        segmentPixelLength: Float,
+        scale: Float = 1.0
+    ) {
+        Draw.rectangleRoundedLines(
+            self,
+            roundness: roundness,
+            thickness: thickness,
+            color: color,
+            segmentPixelLength: segmentPixelLength,
+            scale: scale)
     }
 
     /// Checks if this rectangle collides with another rectangle
