@@ -76,10 +76,20 @@ extension Draw {
         radius: Float,
         startAngle: Float,
         endAngle: Float,
-        segments: Int32,
-        color: Color
+        color: Color,
+        segments: Int32? = nil
     ) {
-        CRaylib.DrawCircleSector(center, radius, startAngle, endAngle, segments, color)
+        // Zero or near-zero angle check
+        if abs(endAngle - startAngle) < Float.ulpOfOne {
+            return  // Nothing to draw for zero angle
+        }
+        
+        let calculatedSegments = segments ?? defaultSegmentCount(
+            startAngle: startAngle, 
+            endAngle: endAngle
+        )
+        
+        CRaylib.DrawCircleSector(center, radius, startAngle, endAngle, calculatedSegments, color)
     }
 
     /// Draws the outline of a circular sector at the specified center.
@@ -89,10 +99,20 @@ extension Draw {
         radius: Float,
         startAngle: Float,
         endAngle: Float,
-        segments: Int32,
-        color: Color
+        color: Color,
+        segments: Int32? = nil
     ) {
-        CRaylib.DrawCircleSectorLines(center, radius, startAngle, endAngle, segments, color)
+        // Zero or near-zero angle check
+        if abs(endAngle - startAngle) < Float.ulpOfOne {
+            return  // Nothing to draw for zero angle
+        }
+        
+        let calculatedSegments = segments ?? defaultSegmentCount(
+            startAngle: startAngle, 
+            endAngle: endAngle
+        )
+        
+        CRaylib.DrawCircleSectorLines(center, radius, startAngle, endAngle, calculatedSegments, color)
     }
 
     /// Draws a gradient-filled circle with inner and outer colors.
@@ -168,10 +188,20 @@ extension Draw {
         outerRadius: Float,
         startAngle: Float,
         endAngle: Float,
-        segments: Int32,
-        color: Color
+        color: Color,
+        segments: Int32? = nil
     ) {
-        CRaylib.DrawRing(center, innerRadius, outerRadius, startAngle, endAngle, segments, color)
+        // Zero or near-zero angle check
+        if abs(endAngle - startAngle) < Float.ulpOfOne {
+            return  // Nothing to draw for zero angle
+        }
+        
+        let calculatedSegments = segments ?? defaultSegmentCount(
+            startAngle: startAngle, 
+            endAngle: endAngle
+        )
+        
+        CRaylib.DrawRing(center, innerRadius, outerRadius, startAngle, endAngle, calculatedSegments, color)
     }
 
     /// Draws the outline of a ring (annulus) at the specified center.
@@ -182,11 +212,20 @@ extension Draw {
         outerRadius: Float,
         startAngle: Float,
         endAngle: Float,
-        segments: Int32,
-        color: Color
+        color: Color,
+        segments: Int32? = nil
     ) {
-        CRaylib.DrawRingLines(
-            center, innerRadius, outerRadius, startAngle, endAngle, segments, color)
+        // Zero or near-zero angle check
+        if abs(endAngle - startAngle) < Float.ulpOfOne {
+            return  // Nothing to draw for zero angle
+        }
+        
+        let calculatedSegments = segments ?? defaultSegmentCount(
+            startAngle: startAngle, 
+            endAngle: endAngle
+        )
+        
+        CRaylib.DrawRingLines(center, innerRadius, outerRadius, startAngle, endAngle, calculatedSegments, color)
     }
 
     // MARK: - Rectangles
@@ -293,6 +332,17 @@ extension Draw {
         CRaylib.DrawRectangleRounded(rectangle, roundness, segments, color)
     }
 
+    /// Draw rectangle lines with rounded edges
+    @inlinable
+    public static func rectangleRoundedLines(
+        _ rectangle: Rectangle,
+        roundness: Float,
+        segments: Int32,
+        color: Color
+    ) {
+        CRaylib.DrawRectangleRoundedLines(rectangle, roundness, segments, color)
+    }
+
     /// Draws the outline of a rectangle with rounded corners and specified thickness.
     @inlinable
     public static func rectangleRoundedLines(
@@ -380,5 +430,203 @@ extension Draw {
         color: Color
     ) {
         CRaylib.DrawPolyLinesEx(center, numberOfSides, radius, rotation, thickness, color)
+    }
+
+    /// Calculates optimal number of segments for drawing curved shapes
+    /// Custom Swift implementation that balances visual quality with performance
+    /// Uses curve length and scale to determine appropriate segment count
+    @inlinable
+    public static func optimalSegmentCount(
+        radius: Float,
+        arcAngle: Float,
+        segmentPixelLength: Float = 4.0,
+        scale: Float = 1.0,
+        minimum: Int32 = 1,
+        maximum: Int32 = 100
+    ) -> Int32 {
+        // Zero or near-zero angle special case
+        if abs(arcAngle) < Float.ulpOfOne {
+            return 0  // Return 0 segments for zero angle (nothing to draw)
+        }
+        
+        // For very small arcs, we need fewer segments
+        let correctedScale = scale >= 0.1 && scale <= 10 ? scale : 1
+        let correctedSegmentLength = 
+            segmentPixelLength >= 1 && segmentPixelLength <= 20 ? segmentPixelLength : 4
+
+        // Calculate arc length 
+        let arcLength = abs(arcAngle) * Float.pi / 180.0 * radius * correctedScale
+        
+        // Calculate segments based on pixel length
+        let rawSegmentCount = Int32((arcLength / correctedSegmentLength).rounded(.up))
+        return max(minimum, min(rawSegmentCount, maximum))
+    }
+    
+    /// Calculates optimal segment count for a specific arc range
+    /// Variation that takes start and end angles instead of arc angle
+    @inlinable
+    public static func optimalSegmentCount(
+        radius: Float,
+        startAngle: Float,
+        endAngle: Float,
+        segmentPixelLength: Float = 4.0,
+        scale: Float = 1.0,
+        minimum: Int32 = 1,
+        maximum: Int32 = 100
+    ) -> Int32 {
+        let arcAngle = abs(endAngle - startAngle)
+        return optimalSegmentCount(
+            radius: radius,
+            arcAngle: arcAngle,
+            segmentPixelLength: segmentPixelLength,
+            scale: scale,
+            minimum: minimum,
+            maximum: maximum
+        )
+    }
+    
+    /// Calculates default number of segments for drawing curved shapes
+    /// Uses raylib's convention of 36 segments for a full circle
+    /// Scales proportionally based on the angle of the arc
+    @usableFromInline
+    internal static func defaultSegmentCount(
+        arcAngle: Float,
+        segmentsPerFullCircle: Int32 = 36
+    ) -> Int32 {
+        // Zero or near-zero angle special case
+        if abs(arcAngle) < Float.ulpOfOne {
+            return 0  // Return 0 segments for zero angle (nothing to draw)
+        }
+        
+        // Calculate segments proportionally to angle
+        // Full circle (360°) gets segmentsPerFullCircle segments
+        let segmentCount = 
+        Int32((abs(arcAngle) / 360.0 * Float(segmentsPerFullCircle)).rounded(.up))
+        
+        // Ensure at least 1 segment
+        return max(1, segmentCount)
+    }
+    
+    /// Calculates default segment count for a specific arc range
+    /// Variation that takes start and end angles instead of arc angle
+    @usableFromInline
+    internal static func defaultSegmentCount(
+        startAngle: Float,
+        endAngle: Float,
+        segmentsPerFullCircle: Int32 = 36
+    ) -> Int32 {
+        let arcAngle = abs(endAngle - startAngle)
+        return defaultSegmentCount(
+            arcAngle: arcAngle,
+            segmentsPerFullCircle: segmentsPerFullCircle
+        )
+    }
+
+    // MARK: - Optimized Segment Drawing Methods
+
+    /// Draws a filled circular sector with optimized segment count
+    /// Uses precise pixel-based calculation for segment count
+    @inlinable
+    public static func circleSector(
+        at center: Vector2,
+        radius: Float,
+        startAngle: Float,
+        endAngle: Float,
+        color: Color,
+        segmentPixelLength: Float,
+        scale: Float = 1.0
+    ) {
+        let segments = optimalSegmentCount(
+            radius: radius,
+            startAngle: startAngle,
+            endAngle: endAngle,
+            segmentPixelLength: segmentPixelLength,
+            scale: scale
+        )
+        
+        if segments > 0 {
+            CRaylib.DrawCircleSector(center, radius, startAngle, endAngle, segments, color)
+        }
+    }
+
+    /// Draws the outline of a circular sector with optimized segment count
+    /// Uses precise pixel-based calculation for segment count
+    @inlinable
+    public static func circleSectorLines(
+        at center: Vector2,
+        radius: Float,
+        startAngle: Float,
+        endAngle: Float,
+        color: Color,
+        segmentPixelLength: Float,
+        scale: Float = 1.0
+    ) {
+        let segments = optimalSegmentCount(
+            radius: radius,
+            startAngle: startAngle,
+            endAngle: endAngle,
+            segmentPixelLength: segmentPixelLength,
+            scale: scale
+        )
+        
+        if segments > 0 {
+            CRaylib.DrawCircleSectorLines(center, radius, startAngle, endAngle, segments, color)
+        }
+    }
+
+    /// Draws a filled ring (annulus) with optimized segment count
+    /// Uses precise pixel-based calculation for segment count
+    @inlinable
+    public static func ring(
+        at center: Vector2,
+        innerRadius: Float,
+        outerRadius: Float,
+        startAngle: Float,
+        endAngle: Float,
+        color: Color,
+        segmentPixelLength: Float,
+        scale: Float = 1.0
+    ) {
+        // Use the larger radius for segment calculation
+        let maxRadius = max(innerRadius, outerRadius)
+        let segments = optimalSegmentCount(
+            radius: maxRadius,
+            startAngle: startAngle,
+            endAngle: endAngle,
+            segmentPixelLength: segmentPixelLength,
+            scale: scale
+        )
+        
+        if segments > 0 {
+            CRaylib.DrawRing(center, innerRadius, outerRadius, startAngle, endAngle, segments, color)
+        }
+    }
+
+    /// Draws the outline of a ring (annulus) with optimized segment count
+    /// Uses precise pixel-based calculation for segment count
+    @inlinable
+    public static func ringLines(
+        at center: Vector2,
+        innerRadius: Float,
+        outerRadius: Float,
+        startAngle: Float,
+        endAngle: Float,
+        color: Color,
+        segmentPixelLength: Float,
+        scale: Float = 1.0
+    ) {
+        // Use the larger radius for segment calculation
+        let maxRadius = max(innerRadius, outerRadius)
+        let segments = optimalSegmentCount(
+            radius: maxRadius,
+            startAngle: startAngle,
+            endAngle: endAngle,
+            segmentPixelLength: segmentPixelLength,
+            scale: scale
+        )
+        
+        if segments > 0 {
+            CRaylib.DrawRingLines(center, innerRadius, outerRadius, startAngle, endAngle, segments, color)
+        }
     }
 }

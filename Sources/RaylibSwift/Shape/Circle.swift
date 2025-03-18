@@ -92,13 +92,13 @@ extension Circle {
         color: Color,
         segments: Int32? = nil
     ) {
-        CRaylib.DrawCircleSector(
-            self.center,
-            self.radius,
-            startAngle,
-            endAngle,
-            segments ?? optimalSegmentCount(startAngle: startAngle, endAngle: endAngle),
-            color
+        Draw.circleSector(
+            at: self.center,
+            radius: self.radius,
+            startAngle: startAngle,
+            endAngle: endAngle,
+            color: color,
+            segments: segments
         )
     }
 
@@ -111,25 +111,25 @@ extension Circle {
         color: Color,
         segments: Int32? = nil
     ) {
-        CRaylib.DrawCircleSectorLines(
-            self.center,
-            self.radius,
-            startAngle,
-            endAngle,
-            segments ?? optimalSegmentCount(startAngle: startAngle, endAngle: endAngle),
-            color)
+        Draw.circleSectorLines(
+            at: self.center,
+            radius: self.radius,
+            startAngle: startAngle,
+            endAngle: endAngle,
+            color: color,
+            segments: segments
+        )
     }
 
     /// Draws gradient filled circle with inner and outer colors
     /// Maps to DrawCircleGradient() in raylib
     @inlinable
     public func drawGradient(innerColor: Color, outerColor: Color) {
-        CRaylib.DrawCircleGradient(
-            Int32(self.center.x),
-            Int32(self.center.y),
-            radius,
-            innerColor,
-            outerColor
+        Draw.circleGradient(
+            at: (Int32(self.center.x), Int32(self.center.y)),
+            radius: radius,
+            innerColor: innerColor,
+            outerColor: outerColor
         )
     }
 
@@ -137,7 +137,7 @@ extension Circle {
     /// Maps to DrawCircleLinesV() in raylib
     @inlinable
     public func drawOutline(color: Color) {
-        CRaylib.DrawCircleLinesV(self.center, self.radius, color)
+        Draw.circleLines(at: self.center, radius: self.radius, color: color)
     }
 
     /// Draws a filled ring segment (like a donut section)
@@ -150,14 +150,14 @@ extension Circle {
         color: Color,
         segments: Int32? = nil
     ) {
-        CRaylib.DrawRing(
-            self.center,
-            innerRadius,
-            self.radius,
-            startAngle,
-            endAngle,
-            segments ?? optimalSegmentCount(startAngle: startAngle, endAngle: endAngle),
-            color
+        Draw.ring(
+            at: self.center,
+            innerRadius: innerRadius,
+            outerRadius: self.radius,
+            startAngle: startAngle,
+            endAngle: endAngle,
+            color: color,
+            segments: segments
         )
     }
 
@@ -171,39 +171,15 @@ extension Circle {
         color: Color,
         segments: Int32? = nil
     ) {
-        CRaylib.DrawRingLines(
-            self.center,
-            innerRadius,
-            self.radius,
-            startAngle,
-            endAngle,
-            segments ?? optimalSegmentCount(startAngle: startAngle, endAngle: endAngle),
-            color
+        Draw.ringLines(
+            at: self.center,
+            innerRadius: innerRadius,
+            outerRadius: self.radius,
+            startAngle: startAngle,
+            endAngle: endAngle,
+            color: color,
+            segments: segments
         )
-    }
-
-    /// Calculates optimal number of segments for drawing circular arcs
-    /// Custom Swift implementation that balances visual quality with performance
-    /// Uses arc length and display scale to determine appropriate segment count
-    @usableFromInline
-    internal func optimalSegmentCount(
-        startAngle: Float,
-        endAngle: Float,
-        pixelsPerLength: Float = 4.0,
-        scale: Float = 1.0,
-        minimum: Int32 = 12,
-        maximum: Int32 = 72
-    ) -> Int32 {
-        let safeMinimum = minimum > 0 ? minimum : 12
-        let safeMaximum = maximum > safeMinimum ? maximum : 72
-        let safeScale = scale >= 0.1 && scale <= 10 ? scale : 1
-        let safePixelsPerLength =
-            pixelsPerLength >= 1 && pixelsPerLength <= 20 ? pixelsPerLength : 4
-
-        let arcFraction = min(abs(endAngle - startAngle) / 360, 1)
-        let pixelLength = arcFraction * 2 * Float.pi * radius * safeScale
-        let base = Int32((pixelLength / safePixelsPerLength).rounded())
-        return max(safeMinimum, min(base, safeMaximum))
     }
 
     /// Checks if this circle collides with another circle
@@ -234,3 +210,5 @@ extension Circle {
         return Shapes.isInside(of: self, point: point)
     }
 }
+
+
