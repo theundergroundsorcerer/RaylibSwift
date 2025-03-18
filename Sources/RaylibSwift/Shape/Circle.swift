@@ -102,6 +102,27 @@ extension Circle {
         )
     }
 
+    /// Draws a filled circular sector (a "pie slice") with optimized segment count
+    /// Uses precise pixel-based calculation for segment count
+    @inlinable
+    public func drawSector(
+        startAngle: Float,
+        endAngle: Float,
+        color: Color,
+        segmentPixelLength: Float,
+        scale: Float = 1.0
+    ) {
+        Draw.circleSector(
+            at: self.center,
+            radius: self.radius,
+            startAngle: startAngle,
+            endAngle: endAngle,
+            color: color,
+            segmentPixelLength: segmentPixelLength,
+            scale: scale
+        )
+    }
+
     /// Draws the outline of a circular sector
     /// Maps to DrawCircleSectorLines() in raylib
     @inlinable
@@ -118,6 +139,27 @@ extension Circle {
             endAngle: endAngle,
             color: color,
             segments: segments
+        )
+    }
+
+    /// Draws the outline of a circular sector with optimized segment count
+    /// Uses precise pixel-based calculation for segment count
+    @inlinable
+    public func drawSectorLines(
+        startAngle: Float,
+        endAngle: Float,
+        color: Color,
+        segmentPixelLength: Float,
+        scale: Float = 1.0
+    ) {
+        Draw.circleSectorLines(
+            at: self.center,
+            radius: self.radius,
+            startAngle: startAngle,
+            endAngle: endAngle,
+            color: color,
+            segmentPixelLength: segmentPixelLength,
+            scale: scale
         )
     }
 
@@ -161,6 +203,29 @@ extension Circle {
         )
     }
 
+    /// Draws a filled ring segment (like a donut section) with optimized segment count
+    /// Uses precise pixel-based calculation for segment count
+    @inlinable
+    public func drawRing(
+        innerRadius: Float,
+        startAngle: Float,
+        endAngle: Float,
+        color: Color,
+        segmentPixelLength: Float,
+        scale: Float = 1.0
+    ) {
+        Draw.ring(
+            at: self.center,
+            innerRadius: innerRadius,
+            outerRadius: self.radius,
+            startAngle: startAngle,
+            endAngle: endAngle,
+            color: color,
+            segmentPixelLength: segmentPixelLength,
+            scale: scale
+        )
+    }
+
     /// Draws the outline of the ring segment
     /// Maps to DrawRingLines() in raylib
     @inlinable
@@ -179,6 +244,29 @@ extension Circle {
             endAngle: endAngle,
             color: color,
             segments: segments
+        )
+    }
+
+    /// Draws the outline of a ring segment with optimized segment count
+    /// Uses precise pixel-based calculation for segment count
+    @inlinable
+    public func drawRingOutline(
+        innerRadius: Float,
+        startAngle: Float,
+        endAngle: Float,
+        color: Color,
+        segmentPixelLength: Float,
+        scale: Float = 1.0
+    ) {
+        Draw.ringLines(
+            at: self.center,
+            innerRadius: innerRadius,
+            outerRadius: self.radius,
+            startAngle: startAngle,
+            endAngle: endAngle,
+            color: color,
+            segmentPixelLength: segmentPixelLength,
+            scale: scale
         )
     }
 
