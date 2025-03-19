@@ -80,13 +80,13 @@ extension RenderTexture {
     /// Begin drawing to this render texture
     @inlinable
     public func beginMode() {
-        Draw.Mode.beginTexture(using: self)
+        Graphics.Mode.beginTexture(using: self)
     }
 
     /// End drawing to this render texture
     @inlinable
     public func endMode() {
-        Draw.Mode.endTexture()
+        Graphics.Mode.endTexture()
     }
 
     /// Execute drawing commands within this render texture's mode

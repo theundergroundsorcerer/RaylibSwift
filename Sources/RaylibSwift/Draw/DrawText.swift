@@ -1,6 +1,6 @@
 import CRaylib
 // Text Drawing functions
-extension Draw {
+extension Graphics {
     /// Draw current FPS
     @inlinable
     public static func fps(at position: (x: Int32, y: Int32)) {

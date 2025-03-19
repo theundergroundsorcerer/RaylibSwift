@@ -1,7 +1,7 @@
 import CRaylib
 
 /// A namespace for drawing basic geometric shapes using Raylib.
-extension Draw {
+extension Graphics {
     // MARK: - Pixels
     
     /// Draws a single pixel at the specified position using geometry.

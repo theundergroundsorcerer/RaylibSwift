@@ -80,7 +80,7 @@ extension Circle {
     /// Maps to DrawCircleV() in raylib with automated parameter passing
     @inlinable
     public func draw(color: Color) {
-        Draw.circle(self, color: color)
+        Graphics.circle(self, color: color)
     }
 
     /// Draws a filled circular sector (a "pie slice")
@@ -92,7 +92,7 @@ extension Circle {
         color: Color,
         segments: Int32? = nil
     ) {
-        Draw.circleSector(
+        Graphics.circleSector(
             at: self.center,
             radius: self.radius,
             startAngle: startAngle,
@@ -112,7 +112,7 @@ extension Circle {
         segmentPixelLength: Float,
         scale: Float = 1.0
     ) {
-        Draw.circleSector(
+        Graphics.circleSector(
             at: self.center,
             radius: self.radius,
             startAngle: startAngle,
@@ -132,7 +132,7 @@ extension Circle {
         color: Color,
         segments: Int32? = nil
     ) {
-        Draw.circleSectorLines(
+        Graphics.circleSectorLines(
             at: self.center,
             radius: self.radius,
             startAngle: startAngle,
@@ -152,7 +152,7 @@ extension Circle {
         segmentPixelLength: Float,
         scale: Float = 1.0
     ) {
-        Draw.circleSectorLines(
+        Graphics.circleSectorLines(
             at: self.center,
             radius: self.radius,
             startAngle: startAngle,
@@ -167,7 +167,7 @@ extension Circle {
     /// Maps to DrawCircleGradient() in raylib
     @inlinable
     public func drawGradient(innerColor: Color, outerColor: Color) {
-        Draw.circleGradient(
+        Graphics.circleGradient(
             at: (Int32(self.center.x), Int32(self.center.y)),
             radius: radius,
             innerColor: innerColor,
@@ -179,7 +179,7 @@ extension Circle {
     /// Maps to DrawCircleLinesV() in raylib
     @inlinable
     public func drawOutline(color: Color) {
-        Draw.circleLines(at: self.center, radius: self.radius, color: color)
+        Graphics.circleLines(at: self.center, radius: self.radius, color: color)
     }
 
     /// Draws a filled ring segment (like a donut section)
@@ -192,7 +192,7 @@ extension Circle {
         color: Color,
         segments: Int32? = nil
     ) {
-        Draw.ring(
+        Graphics.ring(
             at: self.center,
             innerRadius: innerRadius,
             outerRadius: self.radius,
@@ -214,7 +214,7 @@ extension Circle {
         segmentPixelLength: Float,
         scale: Float = 1.0
     ) {
-        Draw.ring(
+        Graphics.ring(
             at: self.center,
             innerRadius: innerRadius,
             outerRadius: self.radius,
@@ -236,7 +236,7 @@ extension Circle {
         color: Color,
         segments: Int32? = nil
     ) {
-        Draw.ringLines(
+        Graphics.ringLines(
             at: self.center,
             innerRadius: innerRadius,
             outerRadius: self.radius,
@@ -258,7 +258,7 @@ extension Circle {
         segmentPixelLength: Float,
         scale: Float = 1.0
     ) {
-        Draw.ringLines(
+        Graphics.ringLines(
             at: self.center,
             innerRadius: innerRadius,
             outerRadius: self.radius,

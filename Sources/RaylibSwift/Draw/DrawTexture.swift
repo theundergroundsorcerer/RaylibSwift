@@ -1,7 +1,7 @@
 import CRaylib
 
 /// Drawing functions for textures
-extension Draw {
+extension Graphics {
     // MARK: - Basic texture drawing
 
     /// Draw a texture

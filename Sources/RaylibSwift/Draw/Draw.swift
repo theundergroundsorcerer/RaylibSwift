@@ -1,7 +1,7 @@
 import CRaylib
 
 /// Drawing functionality
-public enum Draw {
+public enum Graphics {
     /**
      * Color blending modes (pre-defined)
      *
