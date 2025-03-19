@@ -138,6 +138,4 @@ public enum Shapes {
     ) -> Rectangle {
         CRaylib.GetCollisionRec(rectangle1, rectangle2)
     }
-
-    
 }

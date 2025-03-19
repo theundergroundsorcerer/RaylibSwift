@@ -42,22 +42,22 @@ public enum Graphics {
 
     /// Setup canvas (framebuffer) to start drawing
     @inlinable
-    public static func begin() {
+    public static func beginDrawing() {
         CRaylib.BeginDrawing()
     }
 
     /// End canvas drawing and swap buffers (double buffering)
     @inlinable
-    public static func end() {
+    public static func endDrawing() {
         CRaylib.EndDrawing()
     }
 
     /// Draws a frame
     @inlinable
-    public static func frame(_ body: () -> Void ) {
-        begin()
+    public static func draw(_ body: () -> Void ) {
+        beginDrawing()
         body()
-        end()
+        endDrawing()
     }
     
     /// Namespace for rendering modes and contexts

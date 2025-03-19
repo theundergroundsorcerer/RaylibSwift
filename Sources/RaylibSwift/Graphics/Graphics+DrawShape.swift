@@ -673,6 +673,22 @@ extension Graphics {
         CRaylib.DrawPoly(center, numberOfSides, radius, rotation, color)
     }
 
+    /// Draws a filled regular polygon based on a RegularPolygon struct.
+    /// Convenience method that passes the polygon's properties to the underlying implementation.
+    /// - Maps to: DrawPoly
+    @inlinable 
+    public static func drawPolygon(
+        _ polygon: RegularPolygon,
+        color: Color
+    ) {
+        Self.drawPolygon(
+            center: polygon.center,
+            numberOfSides: polygon.numberOfSides,
+            radius: polygon.radius,
+            rotation: polygon.rotation,
+            color: color)
+    }
+
     /// Draws the outline of a regular polygon with the specified number of sides.
     /// - Maps to: DrawPolyLines
     @inlinable
@@ -684,6 +700,22 @@ extension Graphics {
         color: Color
     ) {
         CRaylib.DrawPolyLines(center, numberOfSides, radius, rotation, color)
+    }
+
+    /// Draws the outline of a regular polygon based on a RegularPolygon struct.
+    /// Convenience method that passes the polygon's properties to the underlying implementation.
+    /// - Maps to: DrawPolyLines 
+    @inlinable
+    public static func drawPolygonLines(
+        _ polygon: RegularPolygon,
+        color: Color
+    ) {
+        Self.drawPolygonLines(
+            center: polygon.center,
+            numberOfSides: polygon.numberOfSides,
+            radius: polygon.radius,
+            rotation: polygon.rotation,
+            color: color)
     }
 
     /// Draws the outline of a regular polygon with the specified thickness.
@@ -698,6 +730,25 @@ extension Graphics {
         color: Color
     ) {
         CRaylib.DrawPolyLinesEx(center, numberOfSides, radius, rotation, thickness, color)
+    }
+
+    /// Draws the outline of a regular polygon with specified thickness.
+    /// Convenience method that passes the polygon's properties to the underlying implementation.
+    /// - Maps to: DrawPolyLinesEx
+    @inlinable
+    public static func drawPolygonLines(
+        _ polygon: RegularPolygon,
+        thickness: Float,
+        color: Color
+    ) {
+        Self.drawPolygonLines(
+            center: polygon.center,
+            numberOfSides: polygon.numberOfSides,
+            radius: polygon.radius,
+            rotation: polygon.rotation,
+            thickness: thickness,
+            color: color
+        )
     }
 
     // MARK: - Segment Count Utility Methods
