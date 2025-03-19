@@ -3,8 +3,10 @@ import CRaylib
 /// A namespace for drawing basic geometric shapes using Raylib.
 extension Draw {
     // MARK: - Pixels
+    
     /// Draws a single pixel at the specified position using geometry.
     /// - Note: This can be slow; use sparingly.
+    /// - Maps to: DrawPixel
     @inlinable
     public static func pixel(at position: (x: Int32, y: Int32), color: Color) {
         CRaylib.DrawPixel(position.x, position.y, color)
@@ -12,13 +14,16 @@ extension Draw {
 
     /// Draws a single pixel at the specified position using a vector.
     /// - Note: This can be slow; use sparingly.
+    /// - Maps to: DrawPixelV
     @inlinable
     public static func pixel(at position: Vector2, color: Color) {
         CRaylib.DrawPixelV(position, color)
     }
 
     // MARK: - Lines
+
     /// Draws a line between two points specified by coordinates.
+    /// - Maps to: DrawLine
     @inlinable
     public static func line(
         from startPosition: (x: Int32, y: Int32),
@@ -29,6 +34,7 @@ extension Draw {
     }
 
     /// Draws a line between two points using vectors and OpenGL lines.
+    /// - Maps to: DrawLineV
     @inlinable
     public static func line(
         from startPosition: Vector2,
@@ -39,6 +45,7 @@ extension Draw {
     }
 
     /// Draws a line between two points with a specified thickness using triangles or quads.
+    /// - Maps to: DrawLineEx
     @inlinable
     public static func line(
         from startPosition: Vector2,
@@ -48,16 +55,9 @@ extension Draw {
     ) {
         CRaylib.DrawLineEx(startPosition, endPosition, thickness, color)
     }
-
-    /// Draws a sequence of connected lines using OpenGL lines.
-    @inlinable
-    public static func lineStrip(_ points: [Vector2], color: Color) {
-        points.withUnsafeBufferPointer { buffer in
-            CRaylib.DrawLineStrip(buffer.baseAddress, Int32(points.count), color)
-        }
-    }
-
+    
     /// Draws a cubic-bezier line segment with in-out interpolation and specified thickness.
+    /// - Maps to: DrawLineBezier
     @inlinable
     public static func lineBezier(
         from startPosition: Vector2,
@@ -68,8 +68,66 @@ extension Draw {
         CRaylib.DrawLineBezier(startPosition, endPosition, thickness, color)
     }
 
+    /// Draws a sequence of connected lines using OpenGL lines.
+    /// - Maps to: DrawLineStrip
+    @inlinable
+    public static func lineStrip(_ points: [Vector2], color: Color) {
+        points.withUnsafeBufferPointer { buffer in
+            CRaylib.DrawLineStrip(buffer.baseAddress, Int32(points.count), color)
+        }
+    }
+
     // MARK: - Circles and Ellipses
+
+    /// Draws a filled circle at the specified center using coordinates.
+    /// - Maps to: DrawCircle
+    @inlinable
+    public static func circle(at center: (x: Int32, y: Int32), radius: Float, color: Color) {
+        CRaylib.DrawCircle(center.x, center.y, radius, color)
+    }
+
+    /// Draws a filled circle at the specified center using a vector.
+    /// - Maps to: DrawCircleV
+    @inlinable
+    public static func circle(at center: Vector2, radius: Float, color: Color) {
+        CRaylib.DrawCircleV(center, radius, color)
+    }
+
+    /// Draws a circle of specified color.
+    /// - Maps to: DrawCircleV
+    @inlinable
+    public static func circle(_ circle: Circle, color: Color) {
+        CRaylib.DrawCircleV(circle.center, circle.radius, color)
+    }
+
+    /// Draws the outline of a circle at the specified center using coordinates.
+    /// - Maps to: DrawCircleLines
+    @inlinable
+    public static func circleLines(at center: (x: Int32, y: Int32), radius: Float, color: Color) {
+        CRaylib.DrawCircleLines(center.x, center.y, radius, color)
+    }
+
+    /// Draws the outline of a circle at the specified center using a vector.
+    /// - Maps to: DrawCircleLinesV
+    @inlinable
+    public static func circleLines(at center: Vector2, radius: Float, color: Color) {
+        CRaylib.DrawCircleLinesV(center, radius, color)
+    }
+
+    /// Draws a gradient-filled circle with inner and outer colors.
+    /// - Maps to: DrawCircleGradient
+    @inlinable
+    public static func circleGradient(
+        at center: (x: Int32, y: Int32),
+        radius: Float,
+        innerColor: Color,
+        outerColor: Color
+    ) {
+        CRaylib.DrawCircleGradient(center.x, center.y, radius, innerColor, outerColor)
+    }
+
     /// Draws a filled circular sector at the specified center.
+    /// - Maps to: DrawCircleSector
     @inlinable
     public static func circleSector(
         at center: Vector2,
@@ -93,8 +151,35 @@ extension Draw {
 
         CRaylib.DrawCircleSector(center, radius, startAngle, endAngle, calculatedSegments, color)
     }
+    
+    /// Draws a filled circular sector with optimized segment count.
+    /// Uses precise pixel-based calculation for segment count.
+    /// - Maps to: DrawCircleSector
+    @inlinable
+    public static func circleSector(
+        at center: Vector2,
+        radius: Float,
+        startAngle: Float,
+        endAngle: Float,
+        color: Color,
+        segmentPixelLength: Float,
+        scale: Float = 1.0
+    ) {
+        let segments = optimalSegmentCount(
+            radius: radius,
+            startAngle: startAngle,
+            endAngle: endAngle,
+            segmentPixelLength: segmentPixelLength,
+            scale: scale
+        )
+
+        if segments > 0 {
+            CRaylib.DrawCircleSector(center, radius, startAngle, endAngle, segments, color)
+        }
+    }
 
     /// Draws the outline of a circular sector at the specified center.
+    /// - Maps to: DrawCircleSectorLines
     @inlinable
     public static func circleSectorLines(
         at center: Vector2,
@@ -119,49 +204,37 @@ extension Draw {
         CRaylib.DrawCircleSectorLines(
             center, radius, startAngle, endAngle, calculatedSegments, color)
     }
-
-    /// Draws a gradient-filled circle with inner and outer colors.
+    
+    /// Draws the outline of a circular sector with optimized segment count.
+    /// Uses precise pixel-based calculation for segment count.
+    /// - Maps to: DrawCircleSectorLines
     @inlinable
-    public static func circleGradient(
-        at center: (x: Int32, y: Int32),
+    public static func circleSectorLines(
+        at center: Vector2,
         radius: Float,
-        innerColor: Color,
-        outerColor: Color
+        startAngle: Float,
+        endAngle: Float,
+        color: Color,
+        segmentPixelLength: Float,
+        scale: Float = 1.0
     ) {
-        CRaylib.DrawCircleGradient(center.x, center.y, radius, innerColor, outerColor)
-    }
+        let segments = optimalSegmentCount(
+            radius: radius,
+            startAngle: startAngle,
+            endAngle: endAngle,
+            segmentPixelLength: segmentPixelLength,
+            scale: scale
+        )
 
-    /// Draws a filled circle at the specified center using a vector.
-    @inlinable
-    public static func circle(at center: Vector2, radius: Float, color: Color) {
-        CRaylib.DrawCircleV(center, radius, color)
+        if segments > 0 {
+            CRaylib.DrawCircleSectorLines(center, radius, startAngle, endAngle, segments, color)
+        }
     }
-
-    /// Draws a filled circle at the specified center using coordinates
-    @inlinable
-    public static func circle(at center: (x: Int32, y: Int32), radius: Float, color: Color) {
-        CRaylib.DrawCircle(center.x, center.y, radius, color)
-    }
-
-    /// Draws a circle of specified color
-    @inlinable
-    public static func circle(_ circle: Circle, color: Color) {
-        CRaylib.DrawCircleV(circle.center, circle.radius, color)
-    }
-
-    /// Draws the outline of a circle at the specified center using coordinates.
-    @inlinable
-    public static func circleLines(at center: (x: Int32, y: Int32), radius: Float, color: Color) {
-        CRaylib.DrawCircleLines(center.x, center.y, radius, color)
-    }
-
-    /// Draws the outline of a circle at the specified center using a vector.
-    @inlinable
-    public static func circleLines(at center: Vector2, radius: Float, color: Color) {
-        CRaylib.DrawCircleLinesV(center, radius, color)
-    }
-
+    
+    // MARK: - Ellipses
+    
     /// Draws a filled ellipse at the specified center.
+    /// - Maps to: DrawEllipse
     @inlinable
     public static func ellipse(
         at center: (x: Int32, y: Int32),
@@ -173,6 +246,7 @@ extension Draw {
     }
 
     /// Draws the outline of an ellipse at the specified center.
+    /// - Maps to: DrawEllipseLines
     @inlinable
     public static func ellipseLines(
         at center: (x: Int32, y: Int32),
@@ -182,8 +256,11 @@ extension Draw {
     ) {
         CRaylib.DrawEllipseLines(center.x, center.y, horizontalRadius, verticalRadius, color)
     }
-
+    
+    // MARK: - Rings
+    
     /// Draws a filled ring (annulus) at the specified center.
+    /// - Maps to: DrawRing
     @inlinable
     public static func ring(
         at center: Vector2,
@@ -209,8 +286,39 @@ extension Draw {
         CRaylib.DrawRing(
             center, innerRadius, outerRadius, startAngle, endAngle, calculatedSegments, color)
     }
+    
+    /// Draws a filled ring (annulus) with optimized segment count.
+    /// Uses precise pixel-based calculation for segment count.
+    /// - Maps to: DrawRing
+    @inlinable
+    public static func ring(
+        at center: Vector2,
+        innerRadius: Float,
+        outerRadius: Float,
+        startAngle: Float,
+        endAngle: Float,
+        color: Color,
+        segmentPixelLength: Float,
+        scale: Float = 1.0
+    ) {
+        // Use the larger radius for segment calculation
+        let maxRadius = max(innerRadius, outerRadius)
+        let segments = optimalSegmentCount(
+            radius: maxRadius,
+            startAngle: startAngle,
+            endAngle: endAngle,
+            segmentPixelLength: segmentPixelLength,
+            scale: scale
+        )
+
+        if segments > 0 {
+            CRaylib.DrawRing(
+                center, innerRadius, outerRadius, startAngle, endAngle, segments, color)
+        }
+    }
 
     /// Draws the outline of a ring (annulus) at the specified center.
+    /// - Maps to: DrawRingLines
     @inlinable
     public static func ringLines(
         at center: Vector2,
@@ -236,12 +344,44 @@ extension Draw {
         CRaylib.DrawRingLines(
             center, innerRadius, outerRadius, startAngle, endAngle, calculatedSegments, color)
     }
+    
+    /// Draws the outline of a ring (annulus) with optimized segment count.
+    /// Uses precise pixel-based calculation for segment count.
+    /// - Maps to: DrawRingLines
+    @inlinable
+    public static func ringLines(
+        at center: Vector2,
+        innerRadius: Float,
+        outerRadius: Float,
+        startAngle: Float,
+        endAngle: Float,
+        color: Color,
+        segmentPixelLength: Float,
+        scale: Float = 1.0
+    ) {
+        // Use the larger radius for segment calculation
+        let maxRadius = max(innerRadius, outerRadius)
+        let segments = optimalSegmentCount(
+            radius: maxRadius,
+            startAngle: startAngle,
+            endAngle: endAngle,
+            segmentPixelLength: segmentPixelLength,
+            scale: scale
+        )
+
+        if segments > 0 {
+            CRaylib.DrawRingLines(
+                center, innerRadius, outerRadius, startAngle, endAngle, segments, color)
+        }
+    }
 
     // MARK: - Rectangles
+    
     /// Draws a filled rectangle at the specified position using coordinates.
+    /// - Maps to: DrawRectangle
     @inlinable
     public static func rectangle(
-        at position: (x: Int32, y: Int32),
+        topLeft position: (x: Int32, y: Int32),
         width: Int32,
         height: Int32,
         color: Color
@@ -250,18 +390,21 @@ extension Draw {
     }
 
     /// Draws a filled rectangle at the specified position using vectors.
+    /// - Maps to: DrawRectangleV
     @inlinable
-    public static func rectangle(at position: Vector2, size: Vector2, color: Color) {
+    public static func rectangle(topLeft position: Vector2, size: Vector2, color: Color) {
         CRaylib.DrawRectangleV(position, size, color)
     }
 
     /// Draws a filled rectangle defined by a Rectangle struct.
+    /// - Maps to: DrawRectangleRec
     @inlinable
     public static func rectangle(_ rectangle: Rectangle, color: Color) {
         CRaylib.DrawRectangleRec(rectangle, color)
     }
 
     /// Draws a filled rectangle with rotation and origin offset.
+    /// - Maps to: DrawRectanglePro
     @inlinable
     public static func rectangle(
         _ rectangle: Rectangle,
@@ -272,10 +415,34 @@ extension Draw {
         CRaylib.DrawRectanglePro(rectangle, origin, rotation, color)
     }
 
+    /// Draws the outline of a rectangle using coordinates.
+    /// - Maps to: DrawRectangleLines
+    @inlinable
+    public static func rectangleLines(
+        topLeft position: (x: Int32, y: Int32),
+        width: Int32,
+        height: Int32,
+        color: Color
+    ) {
+        CRaylib.DrawRectangleLines(position.x, position.y, width, height, color)
+    }
+
+    /// Draws the outline of a rectangle with a specified thickness.
+    /// - Maps to: DrawRectangleLinesEx
+    @inlinable
+    public static func rectangleLines(
+        _ rectangle: Rectangle,
+        thickness: Float,
+        color: Color
+    ) {
+        CRaylib.DrawRectangleLinesEx(rectangle, thickness, color)
+    }
+    
     /// Draws a rectangle with a vertical gradient fill.
+    /// - Maps to: DrawRectangleGradientV
     @inlinable
     public static func rectangleGradient(
-        at position: (x: Int32, y: Int32),
+        topLeft position: (x: Int32, y: Int32),
         width: Int32,
         height: Int32,
         topColor: Color,
@@ -285,9 +452,10 @@ extension Draw {
     }
 
     /// Draws a rectangle with a horizontal gradient fill.
+    /// - Maps to: DrawRectangleGradientH
     @inlinable
     public static func rectangleGradient(
-        at position: (x: Int32, y: Int32),
+        topLeft position: (x: Int32, y: Int32),
         width: Int32,
         height: Int32,
         leftColor: Color,
@@ -297,6 +465,7 @@ extension Draw {
     }
 
     /// Draws a rectangle with a custom gradient fill using vertex colors.
+    /// - Maps to: DrawRectangleGradientEx
     @inlinable
     public static func rectangleGradient(
         _ rectangle: Rectangle,
@@ -309,28 +478,8 @@ extension Draw {
             rectangle, topLeftColor, bottomLeftColor, topRightColor, bottomRightColor)
     }
 
-    /// Draws the outline of a rectangle using coordinates.
-    @inlinable
-    public static func rectangleLines(
-        at position: (x: Int32, y: Int32),
-        width: Int32,
-        height: Int32,
-        color: Color
-    ) {
-        CRaylib.DrawRectangleLines(position.x, position.y, width, height, color)
-    }
-
-    /// Draws the outline of a rectangle with a specified thickness.
-    @inlinable
-    public static func rectangleLines(
-        _ rectangle: Rectangle,
-        thickness: Float,
-        color: Color
-    ) {
-        CRaylib.DrawRectangleLinesEx(rectangle, thickness, color)
-    }
-
     /// Draws a filled rectangle with rounded corners.
+    /// - Maps to: DrawRectangleRounded
     @inlinable
     public static func rectangleRounded(
         _ rectangle: Rectangle,
@@ -340,33 +489,9 @@ extension Draw {
     ) {
         CRaylib.DrawRectangleRounded(rectangle, roundness, segments, color)
     }
-
-    /// Draw rectangle lines with rounded edges
-    @inlinable
-    public static func rectangleRoundedLines(
-        _ rectangle: Rectangle,
-        roundness: Float,
-        color: Color,
-        segments: Int32 = 9
-    ) {
-        CRaylib.DrawRectangleRoundedLines(rectangle, roundness, segments, color)
-    }
-
-    /// Draws the outline of a rectangle with rounded corners and specified thickness.
-    @inlinable
-    public static func rectangleRoundedLines(
-        _ rectangle: Rectangle,
-        roundness: Float,
-        thickness: Float,
-        color: Color,
-        segments: Int32 = 9
-    ) {
-        CRaylib.DrawRectangleRoundedLinesEx(rectangle, roundness, segments, thickness, color)
-    }
-
     
-
-    /// Draws a filled rectangle with rounded corners using optimized segment count
+    /// Draws a filled rectangle with rounded corners using optimized segment count.
+    /// - Maps to: DrawRectangleRounded
     @inlinable
     public static func rectangleRounded(
         _ rectangle: Rectangle,
@@ -396,7 +521,20 @@ extension Draw {
         CRaylib.DrawRectangleRounded(rectangle, roundness, segments, color)
     }
 
-    /// Draws the outline of a rectangle with rounded corners using optimized segment count
+    /// Draw rectangle lines with rounded edges.
+    /// - Maps to: DrawRectangleRoundedLines
+    @inlinable
+    public static func rectangleRoundedLines(
+        _ rectangle: Rectangle,
+        roundness: Float,
+        color: Color,
+        segments: Int32 = 9
+    ) {
+        CRaylib.DrawRectangleRoundedLines(rectangle, roundness, segments, color)
+    }
+    
+    /// Draws the outline of a rectangle with rounded corners using optimized segment count.
+    /// - Maps to: DrawRectangleRoundedLines
     @inlinable
     public static func rectangleRoundedLines(
         _ rectangle: Rectangle,
@@ -409,7 +547,7 @@ extension Draw {
         if roundness < Float.ulpOfOne {
             // Fall back to regular rectangle outlines for zero roundness
             rectangleLines(
-                at: (Int32(rectangle.x), Int32(rectangle.y)),
+                topLeft: (Int32(rectangle.x), Int32(rectangle.y)),
                 width: Int32(rectangle.width),
                 height: Int32(rectangle.height),
                 color: color
@@ -431,8 +569,21 @@ extension Draw {
         CRaylib.DrawRectangleRoundedLines(rectangle, roundness, segments, color)
     }
 
+    /// Draws the outline of a rectangle with rounded corners and specified thickness.
+    /// - Maps to: DrawRectangleRoundedLinesEx
+    @inlinable
+    public static func rectangleRoundedLines(
+        _ rectangle: Rectangle,
+        roundness: Float,
+        thickness: Float,
+        color: Color,
+        segments: Int32 = 9
+    ) {
+        CRaylib.DrawRectangleRoundedLinesEx(rectangle, roundness, segments, thickness, color)
+    }
 
-    /// Draws the outline of a rectangle with rounded corners and specified thickness using optimized segment count
+    /// Draws the outline of a rectangle with rounded corners and specified thickness using optimized segment count.
+    /// - Maps to: DrawRectangleRoundedLinesEx
     @inlinable
     public static func rectangleRoundedLines(
         _ rectangle: Rectangle,
@@ -464,7 +615,9 @@ extension Draw {
     }
 
     // MARK: - Triangles
+    
     /// Draws a filled triangle with vertices in counter-clockwise order.
+    /// - Maps to: DrawTriangle
     @inlinable
     public static func triangle(
         vertex1: Vector2,
@@ -476,6 +629,7 @@ extension Draw {
     }
 
     /// Draws the outline of a triangle with vertices in counter-clockwise order.
+    /// - Maps to: DrawTriangleLines
     @inlinable
     public static func triangleLines(
         vertex1: Vector2,
@@ -487,6 +641,7 @@ extension Draw {
     }
 
     /// Draws a filled triangle fan defined by a sequence of points, with the first point as the center.
+    /// - Maps to: DrawTriangleFan
     @inlinable
     public static func triangleFan(_ points: [Vector2], color: Color) {
         points.withUnsafeBufferPointer { buffer in
@@ -495,6 +650,7 @@ extension Draw {
     }
 
     /// Draws a filled triangle strip defined by a sequence of points.
+    /// - Maps to: DrawTriangleStrip
     @inlinable
     public static func triangleStrip(_ points: [Vector2], color: Color) {
         points.withUnsafeBufferPointer { buffer in
@@ -503,7 +659,9 @@ extension Draw {
     }
 
     // MARK: - Polygons
+    
     /// Draws a filled regular polygon with the specified number of sides.
+    /// - Maps to: DrawPoly
     @inlinable
     public static func polygon(
         center: Vector2,
@@ -516,6 +674,7 @@ extension Draw {
     }
 
     /// Draws the outline of a regular polygon with the specified number of sides.
+    /// - Maps to: DrawPolyLines
     @inlinable
     public static func polygonLines(
         center: Vector2,
@@ -528,6 +687,7 @@ extension Draw {
     }
 
     /// Draws the outline of a regular polygon with the specified thickness.
+    /// - Maps to: DrawPolyLinesEx
     @inlinable
     public static func polygonLines(
         center: Vector2,
@@ -540,9 +700,11 @@ extension Draw {
         CRaylib.DrawPolyLinesEx(center, numberOfSides, radius, rotation, thickness, color)
     }
 
-    /// Calculates optimal number of segments for drawing curved shapes
-    /// Custom Swift implementation that balances visual quality with performance
-    /// Uses curve length and scale to determine appropriate segment count
+    // MARK: - Segment Count Utility Methods
+    
+    /// Calculates optimal number of segments for drawing curved shapes.
+    /// Custom Swift implementation that balances visual quality with performance.
+    /// Uses curve length and scale to determine appropriate segment count.
     @inlinable
     public static func optimalSegmentCount(
         radius: Float,
@@ -570,8 +732,8 @@ extension Draw {
         return max(minimum, min(rawSegmentCount, maximum))
     }
 
-    /// Calculates optimal segment count for a specific arc range
-    /// Variation that takes start and end angles instead of arc angle
+    /// Calculates optimal segment count for a specific arc range.
+    /// Variation that takes start and end angles instead of arc angle.
     @inlinable
     public static func optimalSegmentCount(
         radius: Float,
@@ -593,9 +755,9 @@ extension Draw {
         )
     }
 
-    /// Calculates default number of segments for drawing curved shapes
-    /// Uses raylib's convention of 36 segments for a full circle
-    /// Scales proportionally based on the angle of the arc
+    /// Calculates default number of segments for drawing curved shapes.
+    /// Uses raylib's convention of 36 segments for a full circle.
+    /// Scales proportionally based on the angle of the arc.
     @usableFromInline
     internal static func defaultSegmentCount(
         arcAngle: Float,
@@ -615,8 +777,8 @@ extension Draw {
         return max(1, segmentCount)
     }
 
-    /// Calculates default segment count for a specific arc range
-    /// Variation that takes start and end angles instead of arc angle
+    /// Calculates default segment count for a specific arc range.
+    /// Variation that takes start and end angles instead of arc angle.
     @usableFromInline
     internal static func defaultSegmentCount(
         startAngle: Float,
@@ -628,115 +790,5 @@ extension Draw {
             arcAngle: arcAngle,
             segmentsPerFullCircle: segmentsPerFullCircle
         )
-    }
-
-    // MARK: - Optimized Segment Drawing Methods
-
-    /// Draws a filled circular sector with optimized segment count
-    /// Uses precise pixel-based calculation for segment count
-    @inlinable
-    public static func circleSector(
-        at center: Vector2,
-        radius: Float,
-        startAngle: Float,
-        endAngle: Float,
-        color: Color,
-        segmentPixelLength: Float,
-        scale: Float = 1.0
-    ) {
-        let segments = optimalSegmentCount(
-            radius: radius,
-            startAngle: startAngle,
-            endAngle: endAngle,
-            segmentPixelLength: segmentPixelLength,
-            scale: scale
-        )
-
-        if segments > 0 {
-            CRaylib.DrawCircleSector(center, radius, startAngle, endAngle, segments, color)
-        }
-    }
-
-    /// Draws the outline of a circular sector with optimized segment count
-    /// Uses precise pixel-based calculation for segment count
-    @inlinable
-    public static func circleSectorLines(
-        at center: Vector2,
-        radius: Float,
-        startAngle: Float,
-        endAngle: Float,
-        color: Color,
-        segmentPixelLength: Float,
-        scale: Float = 1.0
-    ) {
-        let segments = optimalSegmentCount(
-            radius: radius,
-            startAngle: startAngle,
-            endAngle: endAngle,
-            segmentPixelLength: segmentPixelLength,
-            scale: scale
-        )
-
-        if segments > 0 {
-            CRaylib.DrawCircleSectorLines(center, radius, startAngle, endAngle, segments, color)
-        }
-    }
-
-    /// Draws a filled ring (annulus) with optimized segment count
-    /// Uses precise pixel-based calculation for segment count
-    @inlinable
-    public static func ring(
-        at center: Vector2,
-        innerRadius: Float,
-        outerRadius: Float,
-        startAngle: Float,
-        endAngle: Float,
-        color: Color,
-        segmentPixelLength: Float,
-        scale: Float = 1.0
-    ) {
-        // Use the larger radius for segment calculation
-        let maxRadius = max(innerRadius, outerRadius)
-        let segments = optimalSegmentCount(
-            radius: maxRadius,
-            startAngle: startAngle,
-            endAngle: endAngle,
-            segmentPixelLength: segmentPixelLength,
-            scale: scale
-        )
-
-        if segments > 0 {
-            CRaylib.DrawRing(
-                center, innerRadius, outerRadius, startAngle, endAngle, segments, color)
-        }
-    }
-
-    /// Draws the outline of a ring (annulus) with optimized segment count
-    /// Uses precise pixel-based calculation for segment count
-    @inlinable
-    public static func ringLines(
-        at center: Vector2,
-        innerRadius: Float,
-        outerRadius: Float,
-        startAngle: Float,
-        endAngle: Float,
-        color: Color,
-        segmentPixelLength: Float,
-        scale: Float = 1.0
-    ) {
-        // Use the larger radius for segment calculation
-        let maxRadius = max(innerRadius, outerRadius)
-        let segments = optimalSegmentCount(
-            radius: maxRadius,
-            startAngle: startAngle,
-            endAngle: endAngle,
-            segmentPixelLength: segmentPixelLength,
-            scale: scale
-        )
-
-        if segments > 0 {
-            CRaylib.DrawRingLines(
-                center, innerRadius, outerRadius, startAngle, endAngle, segments, color)
-        }
     }
 }

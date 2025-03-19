@@ -56,7 +56,7 @@ extension Rectangle {
     @inlinable
     public func drawGradient(topColor: Color, bottomColor: Color) {
         Draw.rectangleGradient(
-            at: (Int32(x), Int32(y)),
+            topLeft: (Int32(x), Int32(y)),
             width: Int32(width),
             height: Int32(height),
             topColor: topColor,
@@ -68,7 +68,7 @@ extension Rectangle {
     @inlinable
     public func drawGradient(leftColor: Color, rightColor: Color) {
         Draw.rectangleGradient(
-            at: (Int32(x), Int32(y)),
+            topLeft: (Int32(x), Int32(y)),
             width: Int32(width),
             height: Int32(height),
             leftColor: leftColor,
