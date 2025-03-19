@@ -6,7 +6,7 @@ extension Graphics {
 
     /// Draw a texture
     @inlinable
-    public static func texture(
+    public static func drawTexture(
         _ texture: Texture2D,
         at position: (x: Int32, y: Int32),
         color: Color
@@ -16,7 +16,7 @@ extension Graphics {
     
     /// Draw a texture with position defined as Vector2
     @inlinable
-    public static func texture(
+    public static func drawTexture(
         _ texture: Texture2D,
         at position: Vector2,
         color: Color
@@ -26,7 +26,7 @@ extension Graphics {
     
     /// Draw a texture with extended parameters
     @inlinable
-    public static func texture(
+    public static func drawTexture(
         _ texture: Texture2D,
         at position: Vector2,
         rotation: Float,
@@ -40,7 +40,7 @@ extension Graphics {
     
     /// Draw a part of a texture defined by a rectangle
     @inlinable
-    public static func textureRegion(
+    public static func drawTextureRegion(
         _ texture: Texture2D,
         source: Rectangle,
         at position: Vector2,
@@ -51,7 +51,7 @@ extension Graphics {
     
     /// Draw a part of a texture defined by a rectangle with advanced parameters
     @inlinable
-    public static func textureRegion(
+    public static func drawTextureRegion(
         _ texture: Texture2D,
         source: Rectangle,
         destination: Rectangle,
@@ -64,7 +64,7 @@ extension Graphics {
     
     /// Draw a texture (or part of it) that stretches or shrinks nicely
     @inlinable
-    public static func textureNPatch(
+    public static func drawTextureNPatch(
         _ texture: Texture2D,
         nPatchInfo: NPatchInfo,
         destination: Rectangle,

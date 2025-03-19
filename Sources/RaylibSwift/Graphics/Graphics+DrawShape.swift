@@ -8,7 +8,7 @@ extension Graphics {
     /// - Note: This can be slow; use sparingly.
     /// - Maps to: DrawPixel
     @inlinable
-    public static func pixel(at position: (x: Int32, y: Int32), color: Color) {
+    public static func drawPixel(at position: (x: Int32, y: Int32), color: Color) {
         CRaylib.DrawPixel(position.x, position.y, color)
     }
 
@@ -16,7 +16,7 @@ extension Graphics {
     /// - Note: This can be slow; use sparingly.
     /// - Maps to: DrawPixelV
     @inlinable
-    public static func pixel(at position: Vector2, color: Color) {
+    public static func drawPixel(at position: Vector2, color: Color) {
         CRaylib.DrawPixelV(position, color)
     }
 
@@ -25,7 +25,7 @@ extension Graphics {
     /// Draws a line between two points specified by coordinates.
     /// - Maps to: DrawLine
     @inlinable
-    public static func line(
+    public static func drawLine(
         from startPosition: (x: Int32, y: Int32),
         to endPosition: (x: Int32, y: Int32),
         color: Color
@@ -36,7 +36,7 @@ extension Graphics {
     /// Draws a line between two points using vectors and OpenGL lines.
     /// - Maps to: DrawLineV
     @inlinable
-    public static func line(
+    public static func drawLine(
         from startPosition: Vector2,
         to endPosition: Vector2,
         color: Color
@@ -47,7 +47,7 @@ extension Graphics {
     /// Draws a line between two points with a specified thickness using triangles or quads.
     /// - Maps to: DrawLineEx
     @inlinable
-    public static func line(
+    public static func drawLine(
         from startPosition: Vector2,
         to endPosition: Vector2,
         thickness: Float,
@@ -59,7 +59,7 @@ extension Graphics {
     /// Draws a cubic-bezier line segment with in-out interpolation and specified thickness.
     /// - Maps to: DrawLineBezier
     @inlinable
-    public static func lineBezier(
+    public static func drawLineBezier(
         from startPosition: Vector2,
         to endPosition: Vector2,
         thickness: Float,
@@ -71,7 +71,7 @@ extension Graphics {
     /// Draws a sequence of connected lines using OpenGL lines.
     /// - Maps to: DrawLineStrip
     @inlinable
-    public static func lineStrip(_ points: [Vector2], color: Color) {
+    public static func drawLineStrip(_ points: [Vector2], color: Color) {
         points.withUnsafeBufferPointer { buffer in
             CRaylib.DrawLineStrip(buffer.baseAddress, Int32(points.count), color)
         }
@@ -82,42 +82,42 @@ extension Graphics {
     /// Draws a filled circle at the specified center using coordinates.
     /// - Maps to: DrawCircle
     @inlinable
-    public static func circle(at center: (x: Int32, y: Int32), radius: Float, color: Color) {
+    public static func drawCircle(at center: (x: Int32, y: Int32), radius: Float, color: Color) {
         CRaylib.DrawCircle(center.x, center.y, radius, color)
     }
 
     /// Draws a filled circle at the specified center using a vector.
     /// - Maps to: DrawCircleV
     @inlinable
-    public static func circle(at center: Vector2, radius: Float, color: Color) {
+    public static func drawCircle(at center: Vector2, radius: Float, color: Color) {
         CRaylib.DrawCircleV(center, radius, color)
     }
 
     /// Draws a circle of specified color.
     /// - Maps to: DrawCircleV
     @inlinable
-    public static func circle(_ circle: Circle, color: Color) {
+    public static func drawCircle(_ circle: Circle, color: Color) {
         CRaylib.DrawCircleV(circle.center, circle.radius, color)
     }
 
     /// Draws the outline of a circle at the specified center using coordinates.
     /// - Maps to: DrawCircleLines
     @inlinable
-    public static func circleLines(at center: (x: Int32, y: Int32), radius: Float, color: Color) {
+    public static func drawCircleLines(at center: (x: Int32, y: Int32), radius: Float, color: Color) {
         CRaylib.DrawCircleLines(center.x, center.y, radius, color)
     }
 
     /// Draws the outline of a circle at the specified center using a vector.
     /// - Maps to: DrawCircleLinesV
     @inlinable
-    public static func circleLines(at center: Vector2, radius: Float, color: Color) {
+    public static func drawCircleLines(at center: Vector2, radius: Float, color: Color) {
         CRaylib.DrawCircleLinesV(center, radius, color)
     }
 
     /// Draws a gradient-filled circle with inner and outer colors.
     /// - Maps to: DrawCircleGradient
     @inlinable
-    public static func circleGradient(
+    public static func drawCircleGradient(
         at center: (x: Int32, y: Int32),
         radius: Float,
         innerColor: Color,
@@ -129,7 +129,7 @@ extension Graphics {
     /// Draws a filled circular sector at the specified center.
     /// - Maps to: DrawCircleSector
     @inlinable
-    public static func circleSector(
+    public static func drawCircleSector(
         at center: Vector2,
         radius: Float,
         startAngle: Float,
@@ -156,7 +156,7 @@ extension Graphics {
     /// Uses precise pixel-based calculation for segment count.
     /// - Maps to: DrawCircleSector
     @inlinable
-    public static func circleSector(
+    public static func drawCircleSector(
         at center: Vector2,
         radius: Float,
         startAngle: Float,
@@ -181,7 +181,7 @@ extension Graphics {
     /// Draws the outline of a circular sector at the specified center.
     /// - Maps to: DrawCircleSectorLines
     @inlinable
-    public static func circleSectorLines(
+    public static func drawCircleSectorLines(
         at center: Vector2,
         radius: Float,
         startAngle: Float,
@@ -209,7 +209,7 @@ extension Graphics {
     /// Uses precise pixel-based calculation for segment count.
     /// - Maps to: DrawCircleSectorLines
     @inlinable
-    public static func circleSectorLines(
+    public static func drawCircleSectorLines(
         at center: Vector2,
         radius: Float,
         startAngle: Float,
@@ -236,7 +236,7 @@ extension Graphics {
     /// Draws a filled ellipse at the specified center.
     /// - Maps to: DrawEllipse
     @inlinable
-    public static func ellipse(
+    public static func drawEllipse(
         at center: (x: Int32, y: Int32),
         horizontalRadius: Float,
         verticalRadius: Float,
@@ -248,7 +248,7 @@ extension Graphics {
     /// Draws the outline of an ellipse at the specified center.
     /// - Maps to: DrawEllipseLines
     @inlinable
-    public static func ellipseLines(
+    public static func drawEllipseLines(
         at center: (x: Int32, y: Int32),
         horizontalRadius: Float,
         verticalRadius: Float,
@@ -262,7 +262,7 @@ extension Graphics {
     /// Draws a filled ring (annulus) at the specified center.
     /// - Maps to: DrawRing
     @inlinable
-    public static func ring(
+    public static func drawRing(
         at center: Vector2,
         innerRadius: Float,
         outerRadius: Float,
@@ -291,7 +291,7 @@ extension Graphics {
     /// Uses precise pixel-based calculation for segment count.
     /// - Maps to: DrawRing
     @inlinable
-    public static func ring(
+    public static func drawRing(
         at center: Vector2,
         innerRadius: Float,
         outerRadius: Float,
@@ -320,7 +320,7 @@ extension Graphics {
     /// Draws the outline of a ring (annulus) at the specified center.
     /// - Maps to: DrawRingLines
     @inlinable
-    public static func ringLines(
+    public static func drawRingLines(
         at center: Vector2,
         innerRadius: Float,
         outerRadius: Float,
@@ -349,7 +349,7 @@ extension Graphics {
     /// Uses precise pixel-based calculation for segment count.
     /// - Maps to: DrawRingLines
     @inlinable
-    public static func ringLines(
+    public static func drawRingLines(
         at center: Vector2,
         innerRadius: Float,
         outerRadius: Float,
@@ -380,7 +380,7 @@ extension Graphics {
     /// Draws a filled rectangle at the specified position using coordinates.
     /// - Maps to: DrawRectangle
     @inlinable
-    public static func rectangle(
+    public static func drawRectangle(
         topLeft position: (x: Int32, y: Int32),
         width: Int32,
         height: Int32,
@@ -392,21 +392,21 @@ extension Graphics {
     /// Draws a filled rectangle at the specified position using vectors.
     /// - Maps to: DrawRectangleV
     @inlinable
-    public static func rectangle(topLeft position: Vector2, size: Vector2, color: Color) {
+    public static func drawRectangle(topLeft position: Vector2, size: Vector2, color: Color) {
         CRaylib.DrawRectangleV(position, size, color)
     }
 
     /// Draws a filled rectangle defined by a Rectangle struct.
     /// - Maps to: DrawRectangleRec
     @inlinable
-    public static func rectangle(_ rectangle: Rectangle, color: Color) {
+    public static func drawRectangle(_ rectangle: Rectangle, color: Color) {
         CRaylib.DrawRectangleRec(rectangle, color)
     }
 
     /// Draws a filled rectangle with rotation and origin offset.
     /// - Maps to: DrawRectanglePro
     @inlinable
-    public static func rectangle(
+    public static func drawRectangle(
         _ rectangle: Rectangle,
         origin: Vector2,
         rotation: Float,
@@ -418,7 +418,7 @@ extension Graphics {
     /// Draws the outline of a rectangle using coordinates.
     /// - Maps to: DrawRectangleLines
     @inlinable
-    public static func rectangleLines(
+    public static func drawRectangleLines(
         topLeft position: (x: Int32, y: Int32),
         width: Int32,
         height: Int32,
@@ -430,7 +430,7 @@ extension Graphics {
     /// Draws the outline of a rectangle with a specified thickness.
     /// - Maps to: DrawRectangleLinesEx
     @inlinable
-    public static func rectangleLines(
+    public static func drawRectangleLines(
         _ rectangle: Rectangle,
         thickness: Float,
         color: Color
@@ -441,7 +441,7 @@ extension Graphics {
     /// Draws a rectangle with a vertical gradient fill.
     /// - Maps to: DrawRectangleGradientV
     @inlinable
-    public static func rectangleGradient(
+    public static func drawRectangleGradient(
         topLeft position: (x: Int32, y: Int32),
         width: Int32,
         height: Int32,
@@ -454,7 +454,7 @@ extension Graphics {
     /// Draws a rectangle with a horizontal gradient fill.
     /// - Maps to: DrawRectangleGradientH
     @inlinable
-    public static func rectangleGradient(
+    public static func drawRectangleGradient(
         topLeft position: (x: Int32, y: Int32),
         width: Int32,
         height: Int32,
@@ -467,7 +467,7 @@ extension Graphics {
     /// Draws a rectangle with a custom gradient fill using vertex colors.
     /// - Maps to: DrawRectangleGradientEx
     @inlinable
-    public static func rectangleGradient(
+    public static func drawRectangleGradient(
         _ rectangle: Rectangle,
         topLeftColor: Color,
         bottomLeftColor: Color,
@@ -481,7 +481,7 @@ extension Graphics {
     /// Draws a filled rectangle with rounded corners.
     /// - Maps to: DrawRectangleRounded
     @inlinable
-    public static func rectangleRounded(
+    public static func drawRectangleRounded(
         _ rectangle: Rectangle,
         roundness: Float,
         color: Color,
@@ -493,7 +493,7 @@ extension Graphics {
     /// Draws a filled rectangle with rounded corners using optimized segment count.
     /// - Maps to: DrawRectangleRounded
     @inlinable
-    public static func rectangleRounded(
+    public static func drawRectangleRounded(
         _ rectangle: Rectangle,
         roundness: Float,
         color: Color,
@@ -503,7 +503,7 @@ extension Graphics {
         // Zero or near-zero roundness check
         if roundness < Float.ulpOfOne {
             // Fall back to regular rectangle for zero roundness
-            self.rectangle(rectangle, color: color)
+            Self.drawRectangle(rectangle, color: color)
             return
         }
 
@@ -524,7 +524,7 @@ extension Graphics {
     /// Draw rectangle lines with rounded edges.
     /// - Maps to: DrawRectangleRoundedLines
     @inlinable
-    public static func rectangleRoundedLines(
+    public static func drawRectangleRoundedLines(
         _ rectangle: Rectangle,
         roundness: Float,
         color: Color,
@@ -536,7 +536,7 @@ extension Graphics {
     /// Draws the outline of a rectangle with rounded corners using optimized segment count.
     /// - Maps to: DrawRectangleRoundedLines
     @inlinable
-    public static func rectangleRoundedLines(
+    public static func drawRectangleRoundedLines(
         _ rectangle: Rectangle,
         roundness: Float,
         color: Color,
@@ -546,7 +546,7 @@ extension Graphics {
         // Zero or near-zero roundness check
         if roundness < Float.ulpOfOne {
             // Fall back to regular rectangle outlines for zero roundness
-            rectangleLines(
+            Self.drawRectangleLines(
                 topLeft: (Int32(rectangle.x), Int32(rectangle.y)),
                 width: Int32(rectangle.width),
                 height: Int32(rectangle.height),
@@ -572,7 +572,7 @@ extension Graphics {
     /// Draws the outline of a rectangle with rounded corners and specified thickness.
     /// - Maps to: DrawRectangleRoundedLinesEx
     @inlinable
-    public static func rectangleRoundedLines(
+    public static func drawRectangleRoundedLines(
         _ rectangle: Rectangle,
         roundness: Float,
         thickness: Float,
@@ -585,7 +585,7 @@ extension Graphics {
     /// Draws the outline of a rectangle with rounded corners and specified thickness using optimized segment count.
     /// - Maps to: DrawRectangleRoundedLinesEx
     @inlinable
-    public static func rectangleRoundedLines(
+    public static func drawRectangleRoundedLines(
         _ rectangle: Rectangle,
         roundness: Float,
         thickness: Float,
@@ -596,7 +596,7 @@ extension Graphics {
         // Zero or near-zero roundness check
         if roundness < Float.ulpOfOne {
             // Fall back to regular rectangle outlines with thickness for zero roundness
-            rectangleLines(rectangle, thickness: thickness, color: color)
+            Self.drawRectangleLines(rectangle, thickness: thickness, color: color)
             return
         }
 
@@ -619,7 +619,7 @@ extension Graphics {
     /// Draws a filled triangle with vertices in counter-clockwise order.
     /// - Maps to: DrawTriangle
     @inlinable
-    public static func triangle(
+    public static func drawTriangle(
         vertex1: Vector2,
         vertex2: Vector2,
         vertex3: Vector2,
@@ -631,7 +631,7 @@ extension Graphics {
     /// Draws the outline of a triangle with vertices in counter-clockwise order.
     /// - Maps to: DrawTriangleLines
     @inlinable
-    public static func triangleLines(
+    public static func drawTriangleLines(
         vertex1: Vector2,
         vertex2: Vector2,
         vertex3: Vector2,
@@ -643,7 +643,7 @@ extension Graphics {
     /// Draws a filled triangle fan defined by a sequence of points, with the first point as the center.
     /// - Maps to: DrawTriangleFan
     @inlinable
-    public static func triangleFan(_ points: [Vector2], color: Color) {
+    public static func drawTriangleFan(_ points: [Vector2], color: Color) {
         points.withUnsafeBufferPointer { buffer in
             CRaylib.DrawTriangleFan(buffer.baseAddress, Int32(points.count), color)
         }
@@ -652,7 +652,7 @@ extension Graphics {
     /// Draws a filled triangle strip defined by a sequence of points.
     /// - Maps to: DrawTriangleStrip
     @inlinable
-    public static func triangleStrip(_ points: [Vector2], color: Color) {
+    public static func drawTriangleStrip(_ points: [Vector2], color: Color) {
         points.withUnsafeBufferPointer { buffer in
             CRaylib.DrawTriangleStrip(buffer.baseAddress, Int32(points.count), color)
         }
@@ -663,7 +663,7 @@ extension Graphics {
     /// Draws a filled regular polygon with the specified number of sides.
     /// - Maps to: DrawPoly
     @inlinable
-    public static func polygon(
+    public static func drawPolygon(
         center: Vector2,
         numberOfSides: Int32,
         radius: Float,
@@ -676,7 +676,7 @@ extension Graphics {
     /// Draws the outline of a regular polygon with the specified number of sides.
     /// - Maps to: DrawPolyLines
     @inlinable
-    public static func polygonLines(
+    public static func drawPolygonLines(
         center: Vector2,
         numberOfSides: Int32,
         radius: Float,
@@ -689,7 +689,7 @@ extension Graphics {
     /// Draws the outline of a regular polygon with the specified thickness.
     /// - Maps to: DrawPolyLinesEx
     @inlinable
-    public static func polygonLines(
+    public static func drawPolygonLines(
         center: Vector2,
         numberOfSides: Int32,
         radius: Float,

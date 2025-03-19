@@ -7,19 +7,19 @@ extension Texture {
     /// Draw this texture at the specified position with integer coordinates
     @inlinable
     public func draw(at position: (x: Int32, y: Int32), color: Color) {
-        Graphics.texture(self, at: position, color: color)
+        Graphics.drawTexture(self, at: position, color: color)
     }
     
     /// Draw this texture at the specified position
     @inlinable
     public func draw(at position: Vector2, color: Color) {
-        Graphics.texture(self, at: position, color: color)
+        Graphics.drawTexture(self, at: position, color: color)
     }
     
     /// Draw this texture with extended parameters
     @inlinable
     public func draw(at position: Vector2, rotation: Float, scale: Float, color: Color) {
-        Graphics.texture(self, at: position, rotation: rotation, scale: scale, color: color)
+        Graphics.drawTexture(self, at: position, rotation: rotation, scale: scale, color: color)
     }
     
     // MARK: - Region drawing methods
@@ -27,7 +27,7 @@ extension Texture {
     /// Draw a part of this texture defined by a rectangle
     @inlinable
     public func drawRegion(source: Rectangle, at position: Vector2, color: Color) {
-        Graphics.textureRegion(self, source: source, at: position, color: color)
+        Graphics.drawTextureRegion(self, source: source, at: position, color: color)
     }
     
     /// Draw a part of this texture defined by a rectangle with advanced parameters
@@ -39,7 +39,7 @@ extension Texture {
         rotation: Float,
         color: Color
     ) {
-        Graphics.textureRegion(
+        Graphics.drawTextureRegion(
             self,
             source: source,
             destination: destination, 
@@ -60,7 +60,7 @@ extension Texture {
         rotation: Float,
         color: Color
     ) {
-        Graphics.textureNPatch(
+        Graphics.drawTextureNPatch(
             self,
             nPatchInfo: nPatchInfo,
             destination: destination,

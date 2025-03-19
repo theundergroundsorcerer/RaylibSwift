@@ -3,13 +3,13 @@ import CRaylib
 extension Graphics {
     /// Draw current FPS
     @inlinable
-    public static func displayFps(at position: (x: Int32, y: Int32)) {
+    public static func drawFps(at position: (x: Int32, y: Int32)) {
         CRaylib.DrawFPS(position.x, position.y)
     }
 
     /// Draw text (using default font)
     @inlinable
-    public static func text(
+    public static func drawText(
         _ text: String,
         at position: (x: Int32, y: Int32),
         fontSize: Int32,
@@ -22,7 +22,7 @@ extension Graphics {
 
     /// Draw text using font and additional parameters
     @inlinable
-    public static func text(
+    public static func drawText(
         _ text: String,
         using font: Font,
         at position: Vector2,
@@ -37,7 +37,7 @@ extension Graphics {
 
     /// Draw text using Font and pro parameters (rotation)
     @inlinable
-    public static func text(
+    public static func drawText(
         _ text: String,
         using font: Font,
         at position: Vector2,
@@ -54,7 +54,7 @@ extension Graphics {
 
     /// Draw one character (codepoint)
     @inlinable
-    public static func codePoint(
+    public static func drawCodePoint(
         _ codepoint: Int32,
         using font: Font,
         at position: Vector2,
@@ -66,7 +66,7 @@ extension Graphics {
 
     /// Draw multiple characters (codepoints)
     @inlinable
-    public static func codepoints(
+    public static func drawCodePoints(
         _ codepoints: [Int32],
         using font: Font,
         at position: Vector2,
@@ -89,7 +89,7 @@ extension Graphics {
 
     /// Draw multiple characters from array slice
     @inlinable
-    public static func codepoints(
+    public static func drawCodePoints(
         _ codepoints: ArraySlice<Int32>,
         using font: Font,
         at position: Vector2,

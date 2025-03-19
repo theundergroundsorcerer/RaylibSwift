@@ -17,21 +17,21 @@ extension Rectangle {
     /// Maps to DrawRectangleRec() in raylib
     @inlinable
     public func draw(color: Color) {
-        Graphics.rectangle(self, color: color)
+        Graphics.drawRectangle(self, color: color)
     }
     
     /// Draws the outline of a rectangle
     /// Maps to DrawRectangleLinesEx() in raylib
     @inlinable
     public func drawOutline(color: Color, thickness: Float = 1.0) {
-        Graphics.rectangleLines(self, thickness: thickness, color: color)
+        Graphics.drawRectangleLines(self, thickness: thickness, color: color)
     }
     
     /// Draws a rectangle with rotation around an origin point
     /// Maps to DrawRectanglePro() in raylib
     @inlinable
     public func draw(origin: Vector2, rotation: Float, color: Color) {
-        Graphics.rectangle(self, origin: origin, rotation: rotation, color: color)
+        Graphics.drawRectangle(self, origin: origin, rotation: rotation, color: color)
     }
     
     /// Draws a rectangle with a custom gradient fill
@@ -43,7 +43,7 @@ extension Rectangle {
         topRightColor: Color,
         bottomRightColor: Color
     ) {
-        Graphics.rectangleGradient(
+        Graphics.drawRectangleGradient(
             self,
             topLeftColor: topLeftColor,
             bottomLeftColor: bottomLeftColor,
@@ -55,7 +55,7 @@ extension Rectangle {
     /// Maps to DrawRectangleGradientV() in raylib
     @inlinable
     public func drawGradient(topColor: Color, bottomColor: Color) {
-        Graphics.rectangleGradient(
+        Graphics.drawRectangleGradient(
             topLeft: (Int32(x), Int32(y)),
             width: Int32(width),
             height: Int32(height),
@@ -67,7 +67,7 @@ extension Rectangle {
     /// Maps to DrawRectangleGradientH() in raylib
     @inlinable
     public func drawGradient(leftColor: Color, rightColor: Color) {
-        Graphics.rectangleGradient(
+        Graphics.drawRectangleGradient(
             topLeft: (Int32(x), Int32(y)),
             width: Int32(width),
             height: Int32(height),
@@ -79,7 +79,7 @@ extension Rectangle {
     /// Maps to DrawRectangleRounded() in raylib
     @inlinable
     public func drawRounded(roundness: Float, color: Color, segments: Int32 = 9) {
-        Graphics.rectangleRounded(self, roundness: roundness, color: color, segments: segments)
+        Graphics.drawRectangleRounded(self, roundness: roundness, color: color, segments: segments)
     }
     
     /// Draws the outline of a rectangle with rounded corners
@@ -90,7 +90,7 @@ extension Rectangle {
         color: Color,
         segments: Int32 = 9
     ) {
-        Graphics.rectangleRoundedLines(
+        Graphics.drawRectangleRoundedLines(
             self,
             roundness: roundness,
             color: color,
@@ -106,7 +106,7 @@ extension Rectangle {
         color: Color,
         segments: Int32 = 9
     ) {
-        Graphics.rectangleRoundedLines(
+        Graphics.drawRectangleRoundedLines(
             self,
             roundness: roundness,
             thickness: thickness,
@@ -123,7 +123,7 @@ extension Rectangle {
         segmentPixelLength: Float,
         scale: Float = 1.0
     ) {
-        Graphics.rectangleRounded(
+        Graphics.drawRectangleRounded(
             self,
             roundness: roundness,
             color: color,
@@ -140,7 +140,7 @@ extension Rectangle {
         segmentPixelLength: Float,
         scale: Float = 1.0
     ) {
-        Graphics.rectangleRoundedLines(
+        Graphics.drawRectangleRoundedLines(
             self,
             roundness: roundness,
             color: color,
@@ -158,7 +158,7 @@ extension Rectangle {
         segmentPixelLength: Float,
         scale: Float = 1.0
     ) {
-        Graphics.rectangleRoundedLines(
+        Graphics.drawRectangleRoundedLines(
             self,
             roundness: roundness,
             thickness: thickness,
