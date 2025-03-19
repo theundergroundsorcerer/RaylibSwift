@@ -3,7 +3,7 @@ import CRaylib
 extension Graphics {
     /// Draw current FPS
     @inlinable
-    public static func fps(at position: (x: Int32, y: Int32)) {
+    public static func displayFps(at position: (x: Int32, y: Int32)) {
         CRaylib.DrawFPS(position.x, position.y)
     }
 
