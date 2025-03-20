@@ -1,6 +1,12 @@
 # RaylibSwift
 
-Experimental bindings for Raylib for modern Swift and recent versions of Raylib. At the moment of writing, this is used for personal hobby projects by the author.
+Experimental bindings for Raylib for modern Swift and recent versions of Raylib.
+
+## ⚠️ IMPORTANT: Development Status
+
+**EARLY DEVELOPMENT - NOT RECOMMENDED FOR PRODUCTION USE**
+
+This project is in active, early-stage development with frequent breaking changes. The API is unstable and subject to significant modifications without notice. It is currently used primarily for the author's personal hobby projects.
 
 ## Acknowledgments
 
@@ -17,17 +23,28 @@ This project differs from [STREGAsGate's Raylib](https://github.com/STREGAsGate/
 - An attempt is made to make writing code more "Swift idiomatic."
 - A cheatsheet that translates C Raylib API to RaylibSwift will be provided (once most of raylib functionality has been ported).
 
+## Currently Ported API Components (v0.2.0)
 
-## Current Status
+- **Window Management**: Basic window creation, configuration, and state management
+- **Input Handling**: Keyboard, mouse, gamepad input detection
+- **Graphics**: 
+  - Shape drawing (rectangles, circles, triangles, polygons, lines)
+  - Text rendering with various options
+  - Texture loading and rendering
+  - Color manipulation and blending
+- **Collision Detection**: Basic collision detection between geometric shapes
+- **Core Utilities**: Time functions, logging, configuration
 
-- **Pre-Alpha Stage**: The project is in very early development. Most functionality has not been implemented yet, and the library is not usable for production.
-- **Platform Support**: 
-  - macOS with raylib installed via Homebrew
-  - Linux with manually installed raylib
+Many Raylib features are still being ported, including 3D functionality, audio, and more advanced graphics features.
+
+## Platform Support
+
+- **macOS**: Supported with raylib installed via Homebrew
+- **Linux**: Supported with manually installed raylib
 - **Future Plans**: 
     - Bundle raylib files to make the package self-contained
     - Add support for Windows platforms
-    - Note: No mobile platform support is planned at the moment. Swift currently lacks stable Android development capabilities, and there is no stable port of Raylib to iOS
+    - Note: No mobile platform support is planned at the moment
 
 ## Requirements
 
@@ -51,8 +68,9 @@ Install raylib manually by following the instructions on the [official raylib we
 
 ### 2. Add the following dependency in your Package.swift file
 ```swift
-.package(url: "https://github.com/theundergroundsorcerer/RaylibSwift.git", branch: "v0.2.0-with-linux-support")
+.package(url: "https://github.com/theundergroundsorcerer/RaylibSwift.git", branch: "main")
 ```
+
 
 Your Package.swift should look something like this:
 ```swift
@@ -62,7 +80,7 @@ import PackageDescription
 let package = Package(
         name: "MyProject",
         dependencies: [
-                .package(url: "https://github.com/theundergroundsorcerer/RaylibSwift.git", branch: "develop")
+                .package(url: "https://github.com/theundergroundsorcerer/RaylibSwift.git", .exact: "0.2.0")
         ],
         targets: [
                 .executableTarget(
