@@ -80,7 +80,7 @@ import PackageDescription
 let package = Package(
         name: "MyProject",
         dependencies: [
-                .package(url: "https://github.com/theundergroundsorcerer/RaylibSwift.git", .exact: "0.2.0")
+                .package(url: "https://github.com/theundergroundsorcerer/RaylibSwift.git", exact: "0.2.0")
         ],
         targets: [
                 .executableTarget(
