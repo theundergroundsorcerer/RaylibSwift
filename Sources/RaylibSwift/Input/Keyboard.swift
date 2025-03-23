@@ -267,7 +267,7 @@ public enum Keyboard {
     /// returns 0 when the queue is empty
     @inlinable
     public static func keyPressed() -> Key {
-        let keyCode = CRaylib.GetKeyPressed()
+        let keyCode: Int32 = CRaylib.GetKeyPressed()
         return Key(rawValue: keyCode) ?? Key.null
     }
 
@@ -275,9 +275,9 @@ public enum Keyboard {
     /// call it multiple times for chars queued, returns 0 when the queue is empty
     @inlinable
     public static func charPressed() -> Character? {
-        let charCode = CRaylib.GetCharPressed()
+        let charCode: Int32 = CRaylib.GetCharPressed()
 
-        guard let unicodeScalar = UnicodeScalar(Int(charCode)) else {
+        guard let unicodeScalar: Unicode.Scalar = UnicodeScalar(Int(charCode)) else {
             return nil
         }
 

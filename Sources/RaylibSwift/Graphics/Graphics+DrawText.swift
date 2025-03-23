@@ -15,7 +15,7 @@ extension Graphics {
         fontSize: Int32,
         color: Color
     ) {
-        text.withCString { cText in
+        text.withCString { (cText: UnsafePointer<Int8>) in
             CRaylib.DrawText(cText, position.x, position.y, fontSize, color)
         }
     }
@@ -30,7 +30,7 @@ extension Graphics {
         spacing: Float,
         color: Color
     ) {
-        text.withCString { cText in
+        text.withCString { (cText: UnsafePointer<Int8>) in
             CRaylib.DrawTextEx(font, cText, position, fontSize, spacing, color)
         }
     }
@@ -47,7 +47,7 @@ extension Graphics {
         spacing: Float,
         color: Color
     ) {
-        text.withCString { cText in
+        text.withCString { (cText: UnsafePointer<Int8>)  in
             CRaylib.DrawTextPro(font, cText, position, origin, rotation, fontSize, spacing, color)
         }
     }
@@ -74,7 +74,7 @@ extension Graphics {
         spacing: Float,
         color: Color
     ) {
-        codepoints.withUnsafeBufferPointer { buffer in
+        codepoints.withUnsafeBufferPointer { (buffer: UnsafeBufferPointer<Int32>) in
             CRaylib.DrawTextCodepoints(
                 font,
                 buffer.baseAddress,
@@ -97,7 +97,7 @@ extension Graphics {
         spacing: Float,
         color: Color
     ) {
-        codepoints.withUnsafeBufferPointer { buffer in
+        codepoints.withUnsafeBufferPointer { (buffer: UnsafeBufferPointer<Int32>) in
             CRaylib.DrawTextCodepoints(
                 font,
                 buffer.baseAddress,

@@ -218,7 +218,7 @@ extension Graphics {
         segmentPixelLength: Float,
         scale: Float = 1.0
     ) {
-        let segments = optimalSegmentCount(
+        let segments: Int32 = optimalSegmentCount(
             radius: radius,
             startAngle: startAngle,
             endAngle: endAngle,
@@ -360,8 +360,8 @@ extension Graphics {
         scale: Float = 1.0
     ) {
         // Use the larger radius for segment calculation
-        let maxRadius = max(innerRadius, outerRadius)
-        let segments = optimalSegmentCount(
+        let maxRadius: Float = max(innerRadius, outerRadius)
+        let segments: Int32 = optimalSegmentCount(
             radius: maxRadius,
             startAngle: startAngle,
             endAngle: endAngle,
@@ -556,7 +556,7 @@ extension Graphics {
         }
 
         // Calculate corner radius from rectangle dimensions and roundness
-        let cornerRadius = min(rectangle.width, rectangle.height) * roundness * 0.5
+        let cornerRadius: Float = min(rectangle.width, rectangle.height) * roundness * 0.5
 
         // Each corner is a 90° arc
         let segments = optimalSegmentCount(
@@ -776,7 +776,7 @@ extension Graphics {
             segmentPixelLength >= 1 && segmentPixelLength <= 20 ? segmentPixelLength : 4
 
         // Calculate arc length
-        let arcLength = abs(arcAngle) * Float.pi / 180.0 * radius * correctedScale
+        let arcLength: Float = abs(arcAngle) * Float.pi / 180.0 * radius * correctedScale
 
         // Calculate segments based on pixel length
         let rawSegmentCount = Int32((arcLength / correctedSegmentLength).rounded(.up))
@@ -795,7 +795,7 @@ extension Graphics {
         minimum: Int32 = 1,
         maximum: Int32 = 100
     ) -> Int32 {
-        let arcAngle = abs(endAngle - startAngle)
+        let arcAngle: Float = abs(endAngle - startAngle)
         return optimalSegmentCount(
             radius: radius,
             arcAngle: arcAngle,
@@ -821,7 +821,7 @@ extension Graphics {
 
         // Calculate segments proportionally to angle
         // Full circle (360°) gets segmentsPerFullCircle segments
-        let segmentCount =
+        let segmentCount: Int32 =
             Int32((abs(arcAngle) / 360.0 * Float(segmentsPerFullCircle)).rounded(.up))
 
         // Ensure at least 1 segment
@@ -836,7 +836,7 @@ extension Graphics {
         endAngle: Float,
         segmentsPerFullCircle: Int32 = 36
     ) -> Int32 {
-        let arcAngle = abs(endAngle - startAngle)
+        let arcAngle: Float = abs(endAngle - startAngle)
         return defaultSegmentCount(
             arcAngle: arcAngle,
             segmentsPerFullCircle: segmentsPerFullCircle
