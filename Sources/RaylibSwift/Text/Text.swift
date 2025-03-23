@@ -36,40 +36,30 @@ extension Text {
     }
 
     /// Get glyph index position in font for a codepoint (unicode character)
-    /// Returns nil if not found
+    /// Fallback to "?" if not found
     /// Maps to: GetGlyphIndex
     @inlinable
-    public static func glyphIndex(ofCodePoint codePoint: Int32, in font: Font) -> Int32? {
-        let index: Int32 = CRaylib.GetGlyphIndex(font, codePoint)
-
-        guard index >= 0 && index < font.glyphCount && font.glyphs[Int(index)].value == codePoint
-        else {
-            return nil
-        }
-
-        return index
+    public static func glyphIndex(ofCodePoint codePoint: Int32, in font: Font) -> Int32 {
+        CRaylib.GetGlyphIndex(font, codePoint)
     }
 
-    /// Get glyph font info data for a codepoint (unicode character). Returns nil if not found
-    /// Equivalent to GetGlyphInfo but uses glyphIndex under the hood.
+    /// Get glyph font info data for a codepoint (unicode character). 
+    // Fallback to "?" if not found
+    /// Maps to: GetGlyphInfo
     @inlinable
-    public static func glyphInfo(ofCodePoint codePoint: Int32, in font: Font) -> GlyphInfo? {
-        Self.glyphIndex(ofCodePoint: codePoint, in: font).map { (index: Int32) in
-            font.glyphs[Int(index)]
-        }
+    public static func glyphInfo(ofCodePoint codePoint: Int32, in font: Font) -> GlyphInfo {
+        CRaylib.GetGlyphInfo(font, codePoint)
     }
 
     /// Get glyph rectangle in font atlas for a codepoint (unicode character).
-    /// Returns nil if not found
-    /// Equivalent to GetGlyphAtlasRectangle but uses glyphIndex under the hood
+    /// Fallback to "?" if not found
+    /// Maps to: GetGlyphAtlasRectangle 
     @inlinable
     public static func glyphAtlasRectangle(
         ofCodePoint codePoint: Int32,
         in font: Font
-    ) -> Rectangle? {
-        Self.glyphIndex(ofCodePoint: codePoint, in: font).map { (index: Int32) in
-            font.recs[Int(index)]
-        }
+    ) -> Rectangle {
+        return CRaylib.GetGlyphAtlasRec(font, codePoint)
     }
 
 }
