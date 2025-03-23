@@ -5,6 +5,12 @@ import CRaylib
 public typealias Rectangle = CRaylib.Rectangle
 
 extension Rectangle {
+    /// Initializes a rectangle with top-left position and dimensions
+    @inlinable
+    public init(topLeft: Vector2, width: Float, height: Float) {
+        self.init(x: topLeft.x, y: topLeft.y, width: width, height: height)
+    }
+
     /// Moves the rectangle by the given offset
     /// Translates position while maintaining size
     @inlinable
