@@ -32,8 +32,8 @@ public enum Window {
 
     /// Run game loop in the window
     @inlinable
-    public static func loop(targetFps: Int32, _ body: () -> ()) {
-        Time.setFps(targetFps)
+    public static func loop(initialTargetFps: Int32, _ body: () -> ()) {
+        Time.setFps(initialTargetFps)
         while !shouldClose {
             body()
         }
