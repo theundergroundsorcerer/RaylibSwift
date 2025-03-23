@@ -46,6 +46,12 @@ public struct Circle {
         self.center = self.center + offset
     }
 
+    /// Moves the circle center to the given point (no raylib equivalent)
+    @inlinable
+    public mutating func move(to center: Vector2) {
+        self.center = center
+    }
+
     /// Changes the radius of the circle
     /// If the value is negative - radius is set to 0
     @inlinable
