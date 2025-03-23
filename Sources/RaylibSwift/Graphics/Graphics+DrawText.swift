@@ -1,10 +1,21 @@
 import CRaylib
+import Foundation
+
 // Text Drawing functions
 extension Graphics {
     /// Draw current FPS
     @inlinable
     public static func drawFps(at position: (x: Int32, y: Int32)) {
-        CRaylib.DrawFPS(position.x, position.y)
+        let fps = Time.fps
+        let fpsColor: Color =
+            switch fps {
+            case ..<15:
+                .red
+            case 15..<30:
+                .orange
+            default: .lime
+            }
+        Text(format: "%2i FPS", fps).draw(at: position, fontSize: 20, color: fpsColor)
     }
 
     /// Draw text (using default font)
@@ -47,7 +58,7 @@ extension Graphics {
         spacing: Float,
         color: Color
     ) {
-        text.withCString { (cText: UnsafePointer<Int8>)  in
+        text.withCString { (cText: UnsafePointer<Int8>) in
             CRaylib.DrawTextPro(font, cText, position, origin, rotation, fontSize, spacing, color)
         }
     }
