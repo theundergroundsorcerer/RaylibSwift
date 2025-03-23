@@ -61,5 +61,25 @@ extension Text {
     ) -> Rectangle {
         return CRaylib.GetGlyphAtlasRec(font, codePoint)
     }
+}
 
+/// Instance methods
+extension Text {
+    /// Measure width of this text string with default font
+    /// Maps to: MeasureText
+    @inlinable
+    public func measureWidth(fontSize: Int32) -> Int32 {
+        return Text.measureWidth(of: self, fontSize: fontSize)
+    }
+    
+    /// Measure size of this text string with custom font
+    /// Maps to: MeasureTextEx
+    @inlinable
+    public func measure(
+        using font: Font,
+        fontSize: Float,
+        spacing: Float
+    ) -> Vector2 {
+        return Text.measure(self, font: font, fontSize: fontSize, spacing: spacing)
+    }
 }
