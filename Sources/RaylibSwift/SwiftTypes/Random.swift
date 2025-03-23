@@ -16,7 +16,7 @@ public enum Random {
     @inlinable 
     public static func loadSequence(_ count: UInt32, _ min: Int32, _ max: Int32) -> [Int32]? {
         guard
-            let loadedSeuqnce = CRaylib.LoadRandomSequence(count, min, max)
+            let loadedSeuqnce: UnsafeMutablePointer<Int32> = CRaylib.LoadRandomSequence(count, min, max)
         else {
             return nil
         }
