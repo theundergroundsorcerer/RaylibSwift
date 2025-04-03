@@ -90,3 +90,10 @@ public typealias AutomationEvent = CRaylib.AutomationEvent
 
 /// AutomationEventList, automation event list
 public typealias AutomationEventList = CRaylib.AutomationEventList
+
+
+/// Short Alias of Float type, mostly to be used with literals
+public typealias F = Float
+
+/// Short Alias for Int32, mostly to be used with literals.
+public typealias I32 = Int32
