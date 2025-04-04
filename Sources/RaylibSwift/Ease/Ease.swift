@@ -72,7 +72,7 @@ public enum Ease {
     {
         applyFormula(start, end, progress) { fraction in
             let t = 2 * fraction
-            return t < 1 ? (1 - sqrt(1 - t * t)) / 2 : 1 + sqrt(1 - (2 - t) * (2 - t)) / 2
+            return t < 1 ? (1 - sqrt(1 - t * t)) * 0.5 : (1 + sqrt(1 - (2 - t) * (2 - t)) ) * 0.5
         }
     }
 
