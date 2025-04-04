@@ -90,7 +90,7 @@ public enum Ease {
     public static func cubicOut(from start: Float, to end: Float, progress: Progress) -> Float {
         applyFormula(start, end, progress) { fraction in
             let t: Float = 1 - fraction
-            return t * t * t
+            return 1 - t * t * t
         }
     }
 
