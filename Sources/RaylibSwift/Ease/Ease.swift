@@ -19,7 +19,7 @@ public enum Ease {
     /// Ease: Linear
     @inlinable
     public static func linear(from start: Float, to end: Float, progress: Progress) -> Float {
-        progress.fraction > 0 ? start + progress.fraction * (start - end) : end
+        progress.fraction > 0 ? start + progress.fraction * end - start) : end
     }
 
     // MARK: - Sine easing functions
