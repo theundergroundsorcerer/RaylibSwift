@@ -126,7 +126,7 @@ public enum Ease {
     {
         applyFormula(start, end, progress) { fraction in
             let t = 2 * fraction < 1 ? 2 * fraction : 2 - 2 * fraction
-            return 2 * fraction < 1 ? (t * t) / 2 : (1 - (1 - t) * (3 - t)) / 2
+            return 2 * fraction < 1 ? (t * t) / 2 : (1 - (t-1) * (3 - t)) / 2
         }
     }
 
