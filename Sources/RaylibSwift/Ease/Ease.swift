@@ -125,8 +125,8 @@ public enum Ease {
     public static func quadraticInOut(from start: Float, to end: Float, progress: Progress) -> Float
     {
         applyFormula(start, end, progress) { fraction in
-            let t = 2 * fraction < 1 ? 2 * fraction : 2 - 2 * fraction
-            return 2 * fraction < 1 ? (t * t) * 0.5 : ( (1-t) * (3 - t) + 1) * 0.5
+            let t = 2 * fraction
+            return 2 * fraction < 1 ? (t * t) * 0.5 : (1 - (1 - t) * (3 - t)) * 0.5
         }
     }
 
@@ -145,7 +145,7 @@ public enum Ease {
     public static func exponentialOut(from start: Float, to end: Float, progress: Progress) -> Float
     {
         applyFormula(start, end, progress) { fraction in
-            fraction == 1 ? 1 : 1 - pow(2, 10 * (fraction - 1))
+            fraction == 1 ? 1 : 1 - pow(2, -10 * fraction)
         }
     }
     /// Ease: Exponential In Out
@@ -170,7 +170,7 @@ public enum Ease {
     @inlinable
     public static func backIn(from start: Float, to end: Float, progress: Progress) -> Float {
         applyFormula(start, end, progress) { fraction in
-            fraction * fraction * (overshoot + 1) * fraction - overshoot
+            fraction * fraction * ((overshoot + 1) * fraction - overshoot)
         }
     }
 
@@ -187,11 +187,11 @@ public enum Ease {
     @inlinable
     public static func backInOut(from start: Float, to end: Float, progress: Progress) -> Float {
         applyFormula(start, end, progress) { fraction in
-            let scaledOvershoot = 1.525 * overshoot
-            let t: Float = 2 * fraction > 1 ? 2 * fraction : 2 - 2 * fraction
-            return 2 * fraction > 1
-                ? (t * t * ((scaledOvershoot + 1) * t - scaledOvershoot)) / 2
-                : (2 - t * t * ((scaledOvershoot + 1) * t - scaledOvershoot)) / 2
+            let scaledOvershoot: Float = overshoot * 1.525
+            let t: Float = fraction < 0.5 ? 2 * fraction : 2 - 2 * fraction
+            return fraction < 0.5 
+            ? 0.5 * (t * t * ((scaledOvershoot + 1) * t - scaledOvershoot))
+            : 0.5 * (t * t * (scaledOvershoot - (scaledOvershoot + 1) * t) + 2)
         }
     }
 
