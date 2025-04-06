@@ -4,11 +4,10 @@ import PackageDescription
 
 /// Required for linking on linux at the moment
 #if os(Linux)
-let linkerSettings: [LinkerSetting] = [.linkedLibrary("m")]
+    let linkerSettings: [LinkerSetting] = [.linkedLibrary("m")]
 #else
-let linkerSettings: [LinkerSetting]? = nil
+    let linkerSettings: [LinkerSetting]? = nil
 #endif
-
 
 let package = Package(
     name: "RaylibSwift",
@@ -16,7 +15,7 @@ let package = Package(
         // Products define the executables and libraries a package produces, making them visible to other packages.
         .library(
             name: "RaylibSwift",
-            targets: ["RaylibSwift"]),
+            targets: ["RaylibSwift"])
     ],
     targets: [
         // Targets are the basic building blocks of a package, defining a module or a test suite.
@@ -26,6 +25,12 @@ let package = Package(
             pkgConfig: "raylib"
         ),
         .target(
+            name: "CRaygui",
+            dependencies: ["CRaylib"],  // CRaygui depends on CRaylib
+            sources: ["raygui_impl.c"],
+            publicHeadersPath: "include"
+        ),
+        .target(
             name: "CRaylibExtensions",
             dependencies: ["CRaylib"],
             sources: ["raylib_extensions.c"],
@@ -33,7 +38,7 @@ let package = Package(
         ),
         .target(
             name: "RaylibSwift",
-            dependencies: ["CRaylib", "CRaylibExtensions"],
+            dependencies: ["CRaylib", "CRaylibExtensions", "CRaygui"],
             linkerSettings: linkerSettings
         ),
         .testTarget(

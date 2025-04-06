@@ -1,0 +1,8 @@
+module CRaygui {
+    header "raygui.h"
+    export *
+    link "CRaygui"
+    
+    // Make sure raylib symbols are available but not re-exported
+    requires !exported
+}

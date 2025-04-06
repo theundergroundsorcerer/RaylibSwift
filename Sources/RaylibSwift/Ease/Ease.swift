@@ -72,7 +72,7 @@ public enum Ease {
     {
         applyFormula(start, end, progress) { fraction in
             let t = 2 * fraction
-            return t < 1 ? (1 - sqrt(1 - t * t)) * 0.5 : (1 + sqrt(1 - (2 - t) * (2 - t)) ) * 0.5
+            return t < 1 ? (1 - sqrt(1 - t * t)) * 0.5 : (1 + sqrt(1 - (2 - t) * (2 - t))) * 0.5
         }
     }
 
@@ -189,9 +189,9 @@ public enum Ease {
         applyFormula(start, end, progress) { fraction in
             let scaledOvershoot: Float = overshoot * 1.525
             let t: Float = fraction < 0.5 ? 2 * fraction : 2 - 2 * fraction
-            return fraction < 0.5 
-            ? 0.5 * (t * t * ((scaledOvershoot + 1) * t - scaledOvershoot))
-            : 0.5 * (t * t * (scaledOvershoot - (scaledOvershoot + 1) * t) + 2)
+            return fraction < 0.5
+                ? 0.5 * (t * t * ((scaledOvershoot + 1) * t - scaledOvershoot))
+                : 0.5 * (t * t * (scaledOvershoot - (scaledOvershoot + 1) * t) + 2)
         }
     }
 
@@ -236,7 +236,7 @@ public enum Ease {
     public static func bounceInOut(from start: Float, to end: Float, progress: Progress) -> Float {
         applyFormula(start, end, progress) { fraction in
             let t: Float = 2 * fraction
-            return t < 1 ? (1 - bounceOutFormula(1 - t)) / 2 : (bounceOutFormula(t - 1) + 1) / 2
+            return t < 1 ? (1 - bounceOutFormula(1 - t)) * 0.5 : (bounceOutFormula(t - 1) + 1) * 0.5
         }
     }
 
@@ -282,9 +282,9 @@ public enum Ease {
                 return fraction
             }
 
-            let p: Float = 0.3 * 1.5 
+            let p: Float = 0.3 * 1.5
             let s: Float = p / 4.0
-            
+
             if fraction < 0.5 {
                 let t: Float = 1 - 2 * fraction
                 let postFix: Float = pow(2, -10 * t)
