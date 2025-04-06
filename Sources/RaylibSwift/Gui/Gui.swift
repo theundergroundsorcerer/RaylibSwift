@@ -2,6 +2,7 @@ import CRaygui
 
 public enum Gui {
     /// Slider Bar control
+    @discardableResult
     public static func sliderBar(
         bounds: Rectangle,
         textLeft: Text,
@@ -21,6 +22,7 @@ public enum Gui {
     }
 
     /// Check Box control, returns true when active
+    @discardableResult
     public static func checkBox(bounds: Rectangle, text: Text, checked: inout Bool) -> Int32 {
         text.withCString { textPtr in
             withUnsafeMutablePointer(to: &checked) { checkedPtr in
