@@ -72,7 +72,7 @@ extension Circle {
     /// Useful for interoperating with raylib functions that use int coordinates
     @inlinable
     public init(center: (x: Int32, y: Int32), radius: Float) {
-        self.init(Vector2(Float(center.x), Float(center.y)), radius)
+        self.init(Vector2(F(center.x), F(center.y)), radius)
     }
 
     /// Creates a circle with separate x/y coordinates and radius
@@ -174,7 +174,7 @@ extension Circle {
     @inlinable
     public func drawGradient(innerColor: Color, outerColor: Color) {
         Graphics.drawCircleGradient(
-            at: (Int32(self.center.x), Int32(self.center.y)),
+            at: (I(self.center.x), I(self.center.y)),
             radius: radius,
             innerColor: innerColor,
             outerColor: outerColor

@@ -69,7 +69,7 @@ public struct Gesture: OptionSet {
     /// Get latest detected gesture
     @inlinable
     public static var currentDetected: Gesture {
-        Gesture(rawValue: UInt32(CRaylib.GetGestureDetected()))
+        Gesture(rawValue: UI(CRaylib.GetGestureDetected()))
     }
 
     /// Get gesture hold time in seconds

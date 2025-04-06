@@ -73,7 +73,7 @@ public struct RegularPolygon {
         var result = [Vector2]()
         result.reserveCapacity(Int(numberOfSides))
         for i in 0..<numberOfSides {
-            let angle = rotation + Float(i) * 2.0 * Float.pi / Float(numberOfSides)
+            let angle = rotation + F(i) * 2.0 * F.pi / F(numberOfSides)
             result.append(
                 Vector2(
                     x: center.x + radius * cos(angle),

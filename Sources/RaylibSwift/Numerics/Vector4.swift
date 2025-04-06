@@ -115,7 +115,7 @@ extension Vector4 {
     /// Returns normalized copy of vector (unit length)
     @inlinable 
     public var normalized: Vector4 {
-        if self.magnitude < Float.ulpOfOne {
+        if self.magnitude < F.ulpOfOne {
             return self
         }
         return self / magnitude
@@ -124,7 +124,7 @@ extension Vector4 {
     /// Normalizes this vector in-place to unit length
     @inlinable 
     public mutating func normalize() {
-        if self.magnitude < Float.ulpOfOne {
+        if self.magnitude < F.ulpOfOne {
             return
         }
         else {

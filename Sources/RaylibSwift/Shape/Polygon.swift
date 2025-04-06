@@ -45,7 +45,7 @@ extension Polygon {
         }
         
         vertices.withUnsafeBufferPointer { buffer in
-            CRaylib.DrawTriangleFan(buffer.baseAddress, Int32(vertices.count), color)
+            CRaylib.DrawTriangleFan(buffer.baseAddress, I(vertices.count), color)
         }
     }
     
@@ -65,7 +65,7 @@ extension Polygon {
         
         // Draw the line strip for all vertices
         vertices.withUnsafeBufferPointer { buffer in
-            CRaylib.DrawLineStrip(buffer.baseAddress, Int32(vertices.count), color)
+            CRaylib.DrawLineStrip(buffer.baseAddress, I(vertices.count), color)
         }
         
         // Close the polygon by drawing the final line if there are at least 3 vertices
@@ -84,7 +84,7 @@ extension Polygon {
         }
         
         vertices.withUnsafeBufferPointer { buffer in
-            CRaylib.DrawTriangleStrip(buffer.baseAddress, Int32(vertices.count), color)
+            CRaylib.DrawTriangleStrip(buffer.baseAddress, I(vertices.count), color)
         }
     }
 

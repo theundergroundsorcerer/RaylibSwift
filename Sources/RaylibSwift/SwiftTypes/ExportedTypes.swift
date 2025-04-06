@@ -92,8 +92,33 @@ public typealias AutomationEvent = CRaylib.AutomationEvent
 public typealias AutomationEventList = CRaylib.AutomationEventList
 
 
-/// Short Alias of Float type, mostly to be used with literals
+/// Short Alias of Float type, mostly to be used with literals and type conversions
 public typealias F = Float
 
-/// Short Alias for Int32, mostly to be used with literals.
-public typealias I32 = Int32
+/// Short Alias for Double type, mostly to be used with literals and type conversions
+public typealias D = Double
+
+/// Short Alias for UInt8 (Byte), commonly used for binary data
+public typealias B = UInt8
+
+/// Short Alias for Int8 (Signed Byte)
+public typealias SB = Int8
+
+/// Short Alias for Int16 (Short integer)
+public typealias S = Int16
+
+/// Short Alias for UInt16 (Unsigned Short)
+public typealias US = UInt16
+
+/// Short Alias for Int32, mostly to be used with literals and type conversions
+/// It differs from Swift Int, since int is assumed to be Int32 in Raylib API
+public typealias I = Int32
+
+/// Short Alias for UInt32 (Unsigned Integer)
+public typealias UI = UInt32
+
+/// Short Alias for Int64 (Long integer), mostly to be used with literals and type conversions
+public typealias L = Int64
+
+/// Short Alias for UInt64 (Unsigned Long)
+public typealias UL = UInt64

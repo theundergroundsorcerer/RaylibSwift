@@ -208,7 +208,7 @@ extension Shader {
      * Usage:
      * ```swift
      * // Instead of: SetShaderValue(shader, location, &value, SHADER_UNIFORM_FLOAT)
-     * SetShaderValue(shader, location, &value, Shader.UniformDataType.float.rawValue)
+     * SetShaderValue(shader, location, &value, Shader.UniformDataType.F.rawValue)
      * ```
      */
     public enum UniformDataType: Int32 {

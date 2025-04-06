@@ -82,9 +82,9 @@ extension Rectangle {
     @inlinable
     public func drawGradient(topColor: Color, bottomColor: Color) {
         Graphics.drawRectangleGradient(
-            topLeft: (Int32(x), Int32(y)),
-            width: Int32(width),
-            height: Int32(height),
+            topLeft: (I(x), I(y)),
+            width: I(width),
+            height: I(height),
             topColor: topColor,
             bottomColor: bottomColor)
     }
@@ -94,9 +94,9 @@ extension Rectangle {
     @inlinable
     public func drawGradient(leftColor: Color, rightColor: Color) {
         Graphics.drawRectangleGradient(
-            topLeft: (Int32(x), Int32(y)),
-            width: Int32(width),
-            height: Int32(height),
+            topLeft: (I(x), I(y)),
+            width: I(width),
+            height: I(height),
             leftColor: leftColor,
             rightColor: rightColor)
     }

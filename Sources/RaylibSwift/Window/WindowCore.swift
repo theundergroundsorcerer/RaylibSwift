@@ -172,7 +172,7 @@ public enum Window {
     public static func setIcons(_ images: inout [Image]) {
         guard !images.isEmpty else { return }
 
-        let count: Int32 = Int32(images.count)
+        let count: Int32 = I(images.count)
         images.withUnsafeMutableBufferPointer { buffer in 
             guard let baseAddress = buffer.baseAddress else { return }
             CRaylib.SetWindowIcons(baseAddress, count)
