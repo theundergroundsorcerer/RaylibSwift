@@ -80,7 +80,7 @@ extension Graphics {
             CRaylib.DrawTextCodepoints(
                 font,
                 buffer.baseAddress,
-                Int32(buffer.count),
+                I(buffer.count),
                 position,
                 fontSize,
                 spacing,
@@ -103,7 +103,7 @@ extension Graphics {
             CRaylib.DrawTextCodepoints(
                 font,
                 buffer.baseAddress,
-                Int32(buffer.count),
+                I(buffer.count),
                 position,
                 fontSize,
                 spacing,

@@ -110,7 +110,7 @@ public enum Shapes {
         point: Vector2
     ) -> Bool {
         polygon.vertices.withUnsafeBufferPointer { pointsPtr in
-            CRaylib.CheckCollisionPointPoly(point, pointsPtr.baseAddress, Int32(pointsPtr.count))
+            CRaylib.CheckCollisionPointPoly(point, pointsPtr.baseAddress, I(pointsPtr.count))
         }
     }
 

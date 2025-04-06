@@ -126,7 +126,7 @@ extension Vector2 {
     /// Returns zero vector if magnitude is near zero
     @inlinable 
     public var normalized: Vector2 {
-        if self.magnitude < Float.ulpOfOne {
+        if self.magnitude < F.ulpOfOne {
             return Vector2(x: 0, y: 0)
         }
         return self / magnitude
@@ -136,7 +136,7 @@ extension Vector2 {
     /// Does nothing if magnitude is near zero
     @inlinable 
     public mutating func normalize() {
-        if self.magnitude < Float.ulpOfOne {
+        if self.magnitude < F.ulpOfOne {
             return
         }
         else {

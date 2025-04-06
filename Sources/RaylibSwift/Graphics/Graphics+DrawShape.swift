@@ -73,7 +73,7 @@ extension Graphics {
     @inlinable
     public static func drawLineStrip(_ points: [Vector2], color: Color) {
         points.withUnsafeBufferPointer { buffer in
-            CRaylib.DrawLineStrip(buffer.baseAddress, Int32(points.count), color)
+            CRaylib.DrawLineStrip(buffer.baseAddress, I(points.count), color)
         }
     }
 
@@ -138,7 +138,7 @@ extension Graphics {
         segments: Int32? = nil
     ) {
         // Zero or near-zero angle check
-        if abs(endAngle - startAngle) < Float.ulpOfOne {
+        if abs(endAngle - startAngle) < F.ulpOfOne {
             return  // Nothing to draw for zero angle
         }
 
@@ -190,7 +190,7 @@ extension Graphics {
         segments: Int32? = nil
     ) {
         // Zero or near-zero angle check
-        if abs(endAngle - startAngle) < Float.ulpOfOne {
+        if abs(endAngle - startAngle) < F.ulpOfOne {
             return  // Nothing to draw for zero angle
         }
 
@@ -272,7 +272,7 @@ extension Graphics {
         segments: Int32? = nil
     ) {
         // Zero or near-zero angle check
-        if abs(endAngle - startAngle) < Float.ulpOfOne {
+        if abs(endAngle - startAngle) < F.ulpOfOne {
             return  // Nothing to draw for zero angle
         }
 
@@ -330,7 +330,7 @@ extension Graphics {
         segments: Int32? = nil
     ) {
         // Zero or near-zero angle check
-        if abs(endAngle - startAngle) < Float.ulpOfOne {
+        if abs(endAngle - startAngle) < F.ulpOfOne {
             return  // Nothing to draw for zero angle
         }
 
@@ -501,7 +501,7 @@ extension Graphics {
         scale: Float = 1.0
     ) {
         // Zero or near-zero roundness check
-        if roundness < Float.ulpOfOne {
+        if roundness < F.ulpOfOne {
             // Fall back to regular rectangle for zero roundness
             Self.drawRectangle(rectangle, color: color)
             return
@@ -544,12 +544,12 @@ extension Graphics {
         scale: Float = 1.0
     ) {
         // Zero or near-zero roundness check
-        if roundness < Float.ulpOfOne {
+        if roundness < F.ulpOfOne {
             // Fall back to regular rectangle outlines for zero roundness
             Self.drawRectangleLines(
-                topLeft: (Int32(rectangle.x), Int32(rectangle.y)),
-                width: Int32(rectangle.width),
-                height: Int32(rectangle.height),
+                topLeft: (I(rectangle.x), I(rectangle.y)),
+                width: I(rectangle.width),
+                height: I(rectangle.height),
                 color: color
             )
             return
@@ -594,7 +594,7 @@ extension Graphics {
         scale: Float = 1.0
     ) {
         // Zero or near-zero roundness check
-        if roundness < Float.ulpOfOne {
+        if roundness < F.ulpOfOne {
             // Fall back to regular rectangle outlines with thickness for zero roundness
             Self.drawRectangleLines(rectangle, thickness: thickness, color: color)
             return
@@ -645,7 +645,7 @@ extension Graphics {
     @inlinable
     public static func drawTriangleFan(_ points: [Vector2], color: Color) {
         points.withUnsafeBufferPointer { buffer in
-            CRaylib.DrawTriangleFan(buffer.baseAddress, Int32(points.count), color)
+            CRaylib.DrawTriangleFan(buffer.baseAddress, I(points.count), color)
         }
     }
 
@@ -654,7 +654,7 @@ extension Graphics {
     @inlinable
     public static func drawTriangleStrip(_ points: [Vector2], color: Color) {
         points.withUnsafeBufferPointer { buffer in
-            CRaylib.DrawTriangleStrip(buffer.baseAddress, Int32(points.count), color)
+            CRaylib.DrawTriangleStrip(buffer.baseAddress, I(points.count), color)
         }
     }
 
@@ -766,7 +766,7 @@ extension Graphics {
         maximum: Int32 = 100
     ) -> Int32 {
         // Zero or near-zero angle special case
-        if abs(arcAngle) < Float.ulpOfOne {
+        if abs(arcAngle) < F.ulpOfOne {
             return 0  // Return 0 segments for zero angle (nothing to draw)
         }
 
@@ -776,10 +776,10 @@ extension Graphics {
             segmentPixelLength >= 1 && segmentPixelLength <= 20 ? segmentPixelLength : 4
 
         // Calculate arc length
-        let arcLength: Float = abs(arcAngle) * Float.pi / 180.0 * radius * correctedScale
+        let arcLength: Float = abs(arcAngle) * F.pi / 180.0 * radius * correctedScale
 
         // Calculate segments based on pixel length
-        let rawSegmentCount = Int32((arcLength / correctedSegmentLength).rounded(.up))
+        let rawSegmentCount = I((arcLength / correctedSegmentLength).rounded(.up))
         return max(minimum, min(rawSegmentCount, maximum))
     }
 
@@ -815,14 +815,14 @@ extension Graphics {
         segmentsPerFullCircle: Int32 = 36
     ) -> Int32 {
         // Zero or near-zero angle special case
-        if abs(arcAngle) < Float.ulpOfOne {
+        if abs(arcAngle) < F.ulpOfOne {
             return 0  // Return 0 segments for zero angle (nothing to draw)
         }
 
         // Calculate segments proportionally to angle
         // Full circle (360°) gets segmentsPerFullCircle segments
         let segmentCount: Int32 =
-            Int32((abs(arcAngle) / 360.0 * Float(segmentsPerFullCircle)).rounded(.up))
+            I((abs(arcAngle) / 360.0 * F(segmentsPerFullCircle)).rounded(.up))
 
         // Ensure at least 1 segment
         return max(1, segmentCount)

@@ -27,7 +27,7 @@ public enum Ease {
     @inlinable
     public static func sineIn(from start: Float, to end: Float, progress: Progress) -> Float {
         applyFormula(start, end, progress) { fraction in
-            1 - cos(fraction * Float.pi / 2)
+            1 - cos(fraction * F.pi / 2)
         }
     }
 
@@ -35,7 +35,7 @@ public enum Ease {
     @inlinable
     public static func sineOut(from start: Float, to end: Float, progress: Progress) -> Float {
         applyFormula(start, end, progress) { fraction in
-            sin(fraction * Float.pi / 2.0)
+            sin(fraction * F.pi / 2.0)
         }
     }
 
@@ -43,7 +43,7 @@ public enum Ease {
     @inlinable
     public static func sineInOut(from start: Float, to end: Float, progress: Progress) -> Float {
         applyFormula(start, end, progress) { fraction in
-            (1.0 - cos(Float.pi * fraction)) / 2
+            (1.0 - cos(F.pi * fraction)) / 2
         }
     }
 
@@ -254,7 +254,7 @@ public enum Ease {
             let t: Float = 1 - fraction
             let postFix: Float = pow(2, -10 * t)
 
-            return postFix * sin((t + s) * 2 * Float.pi / p)
+            return postFix * sin((t + s) * 2 * F.pi / p)
         }
     }
 
@@ -270,7 +270,7 @@ public enum Ease {
             let s: Float = p / 4
             let t: Float = fraction
 
-            return 1 + pow(2, -10 * t) * sin((t - s) * 2 * Float.pi / p)
+            return 1 + pow(2, -10 * t) * sin((t - s) * 2 * F.pi / p)
         }
     }
 
@@ -288,11 +288,11 @@ public enum Ease {
             if fraction < 0.5 {
                 let t: Float = 1 - 2 * fraction
                 let postFix: Float = pow(2, -10 * t)
-                return 0.5 * postFix * sin((t + s) * 2 * Float.pi / p)
+                return 0.5 * postFix * sin((t + s) * 2 * F.pi / p)
             } else {
                 let t: Float = 2 * fraction - 1
                 let postFix: Float = pow(2, -10 * t)
-                return 0.5 * (postFix * sin((t - s) * 2 * Float.pi / p)) + 1
+                return 0.5 * (postFix * sin((t - s) * 2 * F.pi / p)) + 1
             }
         }
     }

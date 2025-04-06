@@ -104,7 +104,7 @@ public enum Mouse {
             CRaylib.GetMousePosition()
         }
         set {
-            CRaylib.SetMousePosition(Int32(newValue.x.rounded()), Int32(newValue.y.rounded()))
+            CRaylib.SetMousePosition(I(newValue.x.rounded()), I(newValue.y.rounded()))
         }
     }
 
