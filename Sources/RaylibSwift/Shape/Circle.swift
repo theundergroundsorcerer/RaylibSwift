@@ -2,41 +2,20 @@ import CRaylib
 
 /// A convenience type for describing a circle in raylib
 public struct Circle {
-    /// Backing storage for center point
-    @usableFromInline
-    internal var _center: Vector2
+    /// Center of the circle
+    public var center: Vector2
 
-    /// Backing storage for radius
-    @usableFromInline
-    internal var _radius: Float
+    /// Radius of the circle - assumed not be negative
 
-    /// The center point of the circle
-    /// Direct access to circle's position with internal-only mutation
-    @inlinable
-    public internal(set) var center: Vector2 {
-        get { _center }
-        @usableFromInline
-        set { _center = newValue }
-    }
+    @NonNegative public var radius: Float
+
     
-    /// The radius of the circle
-    /// Provides automatic validation ensuring radius is never negative
-    @inlinable
-    public internal(set) var radius: Float {
-        get {
-            _radius
-        }
-        @usableFromInline
-        set {
-            _radius = newValue < 0 ? 0 : newValue
-        }
-    }
 
     /// Creates a circle with a center point and radius
     /// Maps to manual construction as CircleShape isn't in raylib C API
     public init(center: Vector2, radius: Float) {
-        self._center = center
-        self._radius = radius < 0 ? 0 : radius
+        self.center = center
+        self.radius = radius < 0 ? 0 : radius
     }
 
     /// Moves the circle in given direction
