@@ -19,7 +19,7 @@ public struct Polygon {
     public init(vertices: [Vector2]) {
         self._vertices = vertices
     }
-    
+
     /// Moves the polygon by the given offset
     /// Translates all vertices by the specified amount
     @inlinable
@@ -35,7 +35,7 @@ extension Polygon {
     public init(vertices: Vector2...) {
         self._vertices = vertices
     }
-    
+
     /// Draws a filled polygon using triangle fan technique
     /// Maps to DrawTriangleFan() in raylib
     @inlinable
@@ -43,12 +43,9 @@ extension Polygon {
         if vertices.count == 0 {
             return
         }
-        
-        vertices.withUnsafeBufferPointer { buffer in
-            CRaylib.DrawTriangleFan(buffer.baseAddress, I(vertices.count), color)
-        }
+        CRaylib.DrawTriangleFan(vertices, I(vertices.count), color)
     }
-    
+
     /// Draws the outline of a polygon
     /// Maps to DrawLineStrip() in raylib with manual closing
     @inlinable
@@ -56,25 +53,23 @@ extension Polygon {
         if vertices.count == 0 {
             return
         }
-        
+
         if vertices.count == 1 {
             // For a single vertex, just draw a point
             CRaylib.DrawPixelV(vertices[0], color)
             return
         }
-        
+
         // Draw the line strip for all vertices
-        vertices.withUnsafeBufferPointer { buffer in
-            CRaylib.DrawLineStrip(buffer.baseAddress, I(vertices.count), color)
-        }
-        
+        CRaylib.DrawLineStrip(vertices, I(vertices.count), color)
+
         // Close the polygon by drawing the final line if there are at least 3 vertices
         // and the first and last vertices aren't the same
         if vertices.count >= 3 && vertices.first != vertices.last {
             CRaylib.DrawLineV(vertices.last!, vertices.first!, color)
         }
     }
-    
+
     /// Draws a polygon as a triangle strip
     /// Maps to DrawTriangleStrip() in raylib
     @inlinable
@@ -82,10 +77,8 @@ extension Polygon {
         if vertices.count == 0 {
             return
         }
-        
-        vertices.withUnsafeBufferPointer { buffer in
-            CRaylib.DrawTriangleStrip(buffer.baseAddress, I(vertices.count), color)
-        }
+
+        CRaylib.DrawTriangleStrip(vertices, I(vertices.count), color)
     }
 
     /// Checks if this polygon contains a point

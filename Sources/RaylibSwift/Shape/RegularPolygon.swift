@@ -36,7 +36,7 @@ public struct RegularPolygon {
         _radius = radius > 0 ? radius : 0
         _rotation = rotation
     }
-    
+
     /// The number of sides of the polygon
     /// Automatically enforces a minimum of 3 sides
     @inlinable
@@ -94,7 +94,7 @@ public struct RegularPolygon {
     @inlinable
     public mutating func resize(radius: Float) {
         /// check for valid range is performed in radius setter
-        self.radius = radius 
+        self.radius = radius
     }
 
     /// Changes the number of sides of the polygon
@@ -111,7 +111,7 @@ extension RegularPolygon {
     @inlinable
     public func draw(color: Color) {
         Graphics.drawPolygon(
-            center: self.center, 
+            center: self.center,
             numberOfSides: self.numberOfSides,
             radius: self.radius,
             rotation: self.rotation,
@@ -149,9 +149,6 @@ extension RegularPolygon {
     /// Maps to CheckCollisionPointPoly() in raylib
     @inlinable
     public func contains(_ point: Vector2) -> Bool {
-        return self.vertices().withUnsafeBufferPointer { verticesPtr in 
-            CRaylib.CheckCollisionPointPoly(point, verticesPtr.baseAddress, self.numberOfSides)
-        }
+        return CRaylib.CheckCollisionPointPoly(point, self.vertices(), self.numberOfSides)
     }
 }
-

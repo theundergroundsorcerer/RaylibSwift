@@ -70,17 +70,8 @@ extension Graphics {
         spacing: Float,
         color: Color
     ) {
-        codepoints.withUnsafeBufferPointer { (buffer: UnsafeBufferPointer<Int32>) in
-            CRaylib.DrawTextCodepoints(
-                font,
-                buffer.baseAddress,
-                I(buffer.count),
-                position,
-                fontSize,
-                spacing,
-                color
-            )
-        }
+        CRaylib.DrawTextCodepoints(
+            font, codepoints, I(codepoints.count), position, fontSize, spacing, color)
     }
 
     /// Draw multiple characters from array slice

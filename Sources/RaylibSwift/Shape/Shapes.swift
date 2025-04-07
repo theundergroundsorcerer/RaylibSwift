@@ -109,9 +109,7 @@ public enum Shapes {
         of polygon: Polygon,
         point: Vector2
     ) -> Bool {
-        polygon.vertices.withUnsafeBufferPointer { pointsPtr in
-            CRaylib.CheckCollisionPointPoly(point, pointsPtr.baseAddress, I(pointsPtr.count))
-        }
+            CRaylib.CheckCollisionPointPoly(point, polygon.vertices, I(polygon.vertices.count))
     }
 
     /// Check intersection between two lines, returns intersection point
