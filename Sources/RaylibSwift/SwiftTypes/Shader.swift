@@ -326,7 +326,7 @@ extension Shader {
         case (nil, let .some(fs)):
             Shader(CRaylib.LoadShaderFromMemory(nil, fs), true)
         case (let .some(vs), nil):
-            Shader(CRaylib.LoadShaderFromMemory(vs, nil),true)
+            Shader(CRaylib.LoadShaderFromMemory(vs, nil), true)
         case let (.some(vs), .some(fs)):
             Shader(CRaylib.LoadShaderFromMemory(vs, fs), true)
         }
@@ -351,9 +351,7 @@ extension Shader {
     @inline(__always)
     public func getLocation(_ uniformName: String) -> LocationIndex? {
         LocationIndex(
-            rawValue: uniformName.withCString { cString in
-                CRaylib.GetShaderLocation(self.cShader, cString)
-            })
+            rawValue: CRaylib.GetShaderLocation(self.cShader, uniformName))
     }
 
     /**
@@ -365,9 +363,7 @@ extension Shader {
     @inline(__always)
     public func getLocationAttrib(_ attribName: String) -> LocationIndex? {
         LocationIndex(
-            rawValue: attribName.withCString { cString in
-                CRaylib.GetShaderLocationAttrib(self.cShader, cString)
-            })
+            rawValue: CRaylib.GetShaderLocationAttrib(self.cShader, attribName))
     }
 
     /**

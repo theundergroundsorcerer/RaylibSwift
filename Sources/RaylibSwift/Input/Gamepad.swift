@@ -163,9 +163,7 @@ public enum Gamepad {
     /// Set internal gamepad mappings (SDL_GameControllerDB)
     @inlinable
     public static func setMappings(_ mappings: String) -> Int32 {
-        mappings.withCString { mappingsCStr in
-            CRaylib.SetGamepadMappings(mappingsCStr)
-        }
+        CRaylib.SetGamepadMappings(mappings)
     }
 
     /// Set gamepad vibration for both motors (duration in seconds)

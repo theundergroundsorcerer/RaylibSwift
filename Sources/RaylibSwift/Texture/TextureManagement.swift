@@ -5,9 +5,7 @@ extension Texture {
     /// Load texture from file into GPU memory (VRAM)
     @inlinable
     public static func load(from fileName: String) -> Texture2D {
-        fileName.withCString { cString in
-            Texture2D(CRaylib.LoadTexture(fileName))
-        }
+        Texture2D(CRaylib.LoadTexture(fileName))
     }
 
     /// Load texture from image data
@@ -23,8 +21,6 @@ extension Texture {
         Texture2D(CRaylib.LoadTextureCubemap(image, layout.rawValue))
     }
 
-    
-
     /// Check if a texture is valid (loaded in GPU)
     @inlinable
     public static func isValid(_ texture: Texture2D) -> Bool {
@@ -37,7 +33,6 @@ extension Texture {
         CRaylib.UnloadTexture(texture.cTexture)
     }
 
-   
 }
 
 extension Texture {
