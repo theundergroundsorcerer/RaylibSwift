@@ -148,7 +148,7 @@ extension RegularPolygon {
     /// Checks if a point is inside the polygon
     /// Maps to CheckCollisionPointPoly() in raylib
     @inlinable
-    public func contains(_ point: Vector2) -> Bool {
+    public func contains(point: Vector2) -> Bool {
         return CRaylib.CheckCollisionPointPoly(point, self.vertices(), self.numberOfSides)
     }
 }

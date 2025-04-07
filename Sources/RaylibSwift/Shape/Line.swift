@@ -67,7 +67,7 @@ extension Line {
     /// Checks if this line contains a point within specified threshold
     /// Maps to CheckCollisionPointLine() in raylib
     @inlinable
-    public func contains(_ point: Vector2, threshold: Int32 = 1) -> Bool {
+    public func contains(point: Vector2, threshold: Int32 = 1) -> Bool {
         return Shapes.isInside(of: self, point: point, threshold: threshold)
     }
     

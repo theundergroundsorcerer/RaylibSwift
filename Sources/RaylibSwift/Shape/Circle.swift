@@ -279,7 +279,7 @@ extension Circle {
     /// Checks if this circle contains a point
     /// Maps to CheckCollisionPointCircle() in raylib
     @inlinable
-    public func contains(_ point: Vector2) -> Bool {
+    public func contains(point: Vector2) -> Bool {
         return Shapes.isInside(of: self, point: point)
     }
 }
