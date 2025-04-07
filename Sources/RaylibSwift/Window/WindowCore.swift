@@ -1,45 +1,42 @@
 import CRaylib
 
-/**
- * Window management functionality
- *
- * This namespace provides Swift-friendly access to Raylib's window management functions,
- * with properties for state queries and methods for operations that change window state.
- *
- * Example usage:
- * ```swift
- * // Initialize a window
- * Window.initialize(800, 600, "My Raylib App")
- *
- * // Game loop
- * while !Window.shouldClose {
- *     // Game logic and drawing
- * }
- *
- * // Clean up
- * Window.close()
- * ```
- */
+/// Window management functionality
+///
+/// This namespace provides Swift-friendly access to Raylib's window management functions,
+/// with properties for state queries and methods for operations that change window state.
+///
+/// Example usage:
+/// ```swift
+/// // Initialize a window
+/// Window.initialize(800, 600, "My Raylib App")
+///
+/// // Game loop
+/// while !Window.shouldClose {
+///     // Game logic and drawing
+/// }
+///
+/// // Clean up
+/// Window.close()
+/// ```
 public enum Window {
     /// Initialize window and OpenGL context
     /// Maps to: InitWindow
     @inlinable
     public static func initialize(width: Int32, height: Int32, title: String) {
-        title.withCString { cString in
-            CRaylib.InitWindow(width, height, cString)
-        }
+        CRaylib.InitWindow(width, height, title)
+
     }
 
     /// Run game loop in the window
     @inlinable
-    public static func loop(initialTargetFps: Int32, _ body: () -> ()) {
+    public static func loop(initialTargetFps: Int32, _ body: () -> Void) {
         Time.setFps(initialTargetFps)
         while !shouldClose {
             body()
         }
         close()
-    } 
-    
+    }
+
     /// Close window and unload OpenGL context
     /// Maps to: CloseWindow
     @inlinable
@@ -173,7 +170,7 @@ public enum Window {
         guard !images.isEmpty else { return }
 
         let count: Int32 = I(images.count)
-        images.withUnsafeMutableBufferPointer { buffer in 
+        images.withUnsafeMutableBufferPointer { buffer in
             guard let baseAddress = buffer.baseAddress else { return }
             CRaylib.SetWindowIcons(baseAddress, count)
         }
@@ -181,11 +178,9 @@ public enum Window {
 
     /// Set title for window
     /// Maps to: SetWindowTitle
-    @inlinable 
+    @inlinable
     public static func setTitle(_ title: String) {
-        title.withCString { cString in
-            CRaylib.SetWindowTitle(cString)
-        }
+        CRaylib.SetWindowTitle(title)
     }
 
     /// Set window position on screen
@@ -281,7 +276,7 @@ public enum Window {
 
     /// Get current monitor
     /// Maps to: GetCurrentMonitor
-    @inlinable 
+    @inlinable
     public static var currentMonitor: Int32 {
         CRaylib.GetCurrentMonitor()
     }
@@ -344,28 +339,26 @@ public enum Window {
 
     /// Get the human-readable, UTF-8 encoded name of the specified monitor
     /// Maps to: GetMonitorName
-    @inlinable 
+    @inlinable
     public static func monitorName(withIndex index: Int32) -> String {
         String(cString: CRaylib.GetMonitorName(index))
     }
 
     /// Get/set clipboard text content
     /// Maps to: GetClipboardText/SetClipboardText
-    @inlinable 
+    @inlinable
     public static var clipboardText: String {
         get {
             String(cString: CRaylib.GetClipboardText())
         }
         set {
-            newValue.withCString { cString in
-                CRaylib.SetClipboardText(cString)
-            }
+            CRaylib.SetClipboardText(newValue)
         }
     }
 
     /// Get clipboard image content
     /// Maps to: GetClipboardImage
-    @inlinable 
+    @inlinable
     public static var clipboardImage: Image {
         CRaylib.GetClipboardImage()
     }
@@ -379,7 +372,7 @@ public enum Window {
 
     /// Disable waiting for events on EndDrawing()
     /// Maps to: DisableEventWaiting
-    @inlinable 
+    @inlinable
     public static func disableEventWaiting() {
         CRaylib.DisableEventWaiting()
     }

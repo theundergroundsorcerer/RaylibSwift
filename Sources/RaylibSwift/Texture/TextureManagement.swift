@@ -6,7 +6,7 @@ extension Texture {
     @inlinable
     public static func load(from fileName: String) -> Texture2D {
         fileName.withCString { cString in
-            Texture2D(CRaylib.LoadTexture(cString))
+            Texture2D(CRaylib.LoadTexture(fileName))
         }
     }
 

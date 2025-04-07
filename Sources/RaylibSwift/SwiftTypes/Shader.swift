@@ -299,19 +299,13 @@ extension Shader {
             case (nil, nil):
                 CRaylib.LoadShader(nil, nil)
             case (nil, let .some(fs)):
-                fs.withCString { fsPtr in
-                    CRaylib.LoadShader(nil, fsPtr)
-                }
+                CRaylib.LoadShader(nil, fs)
+
             case (let .some(vs), nil):
-                vs.withCString { vsPtr in
-                    CRaylib.LoadShader(vsPtr, nil)
-                }
+                CRaylib.LoadShader(vs, nil)
+
             case let (.some(vs), .some(fs)):
-                vs.withCString { vsPtr in
-                    fs.withCString { fsPtr in
-                        CRaylib.LoadShader(vsPtr, fsPtr)
-                    }
-                }
+                CRaylib.LoadShader(vs, fs)
             }
         return Shader(shader, true)
     }
@@ -330,23 +324,11 @@ extension Shader {
         case (nil, nil):
             Shader(CRaylib.LoadShaderFromMemory(nil, nil), true)
         case (nil, let .some(fs)):
-            Shader(
-                fs.withCString { fsCstring in
-                    CRaylib.LoadShaderFromMemory(nil, fsCstring)
-                }, true)
+            Shader(CRaylib.LoadShaderFromMemory(nil, fs), true)
         case (let .some(vs), nil):
-            Shader(
-                vs.withCString { vsCString in
-                    CRaylib.LoadShaderFromMemory(vsCString, nil)
-                }, true)
+            Shader(CRaylib.LoadShaderFromMemory(vs, nil),true)
         case let (.some(vs), .some(fs)):
-            Shader(
-                vs.withCString { vsCString in
-                    fs.withCString { fsCString in
-                        CRaylib.LoadShaderFromMemory(vsCString, fsCString)
-                    }
-                }, true)
-
+            Shader(CRaylib.LoadShaderFromMemory(vs, fs), true)
         }
     }
 

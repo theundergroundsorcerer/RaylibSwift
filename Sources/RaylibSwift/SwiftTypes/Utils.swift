@@ -130,16 +130,12 @@ extension Utils {
     /// Takes a screenshot of current screen (filename extension defines format)
     @inlinable
     public static func takeScreenshot(fileName: String) {
-        fileName.withCString { cFileName in
-            CRaylib.TakeScreenshot(cFileName)
-        }
+        CRaylib.TakeScreenshot(fileName)
     }
 
     /// Open URL with default system browser (if available)
     public static func OpenURL(url: String) {
-        url.withCString { cURL in
-            CRaylib.OpenURL(cURL)
-        }
+        CRaylib.OpenURL(url)
     }
 }
 
@@ -173,10 +169,7 @@ extension Utils {
     /// Show trace log messages (LOG_DEBUG, LOG_INFO, LOG_WARNING, LOG_ERROR...)
     @inlinable
     public static func traceLog(_ logLevel: TraceLogLevel, _ message: String) {
-        message.withCString { cMessage in
-            CRaylibExtensions.TraceLogSwift(logLevel.rawValue, cMessage)
-        }
-
+        CRaylibExtensions.TraceLogSwift(logLevel.rawValue, message)
     }
 
     /// Set the current threshold (minimum) log level

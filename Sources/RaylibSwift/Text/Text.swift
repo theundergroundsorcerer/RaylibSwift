@@ -16,9 +16,8 @@ extension Text {
     /// Maps to: MeasureText
     @inlinable
     public static func measureWidth(of text: Text, fontSize: Int32) -> Int32 {
-        text.withCString { (textPtr: UnsafePointer<CChar>) in
-            CRaylib.MeasureText(textPtr, fontSize)
-        }
+            CRaylib.MeasureText(text, fontSize)
+
     }
 
     /// Measure string size for Font
@@ -30,9 +29,7 @@ extension Text {
         fontSize: Float,
         spacing: Float
     ) -> Vector2 {
-        text.withCString { (textPtr: UnsafePointer<CChar>) in
-            CRaylib.MeasureTextEx(font, textPtr, fontSize, spacing)
-        }
+        CRaylib.MeasureTextEx(font, text, fontSize, spacing)
     }
 
     /// Get glyph index position in font for a codepoint (unicode character)

@@ -17,9 +17,7 @@ extension Graphics {
         fontSize: Int32,
         color: Color
     ) {
-        text.withCString { (cText: UnsafePointer<Int8>) in
-            CRaylib.DrawText(cText, position.x, position.y, fontSize, color)
-        }
+        CRaylib.DrawText(text, position.x, position.y, fontSize, color)
     }
 
     /// Draw text using font and additional parameters
@@ -32,9 +30,7 @@ extension Graphics {
         spacing: Float,
         color: Color
     ) {
-        text.withCString { (cText: UnsafePointer<Int8>) in
-            CRaylib.DrawTextEx(font, cText, position, fontSize, spacing, color)
-        }
+        CRaylib.DrawTextEx(font, text, position, fontSize, spacing, color)
     }
 
     /// Draw text using Font and pro parameters (rotation)
@@ -49,9 +45,7 @@ extension Graphics {
         spacing: Float,
         color: Color
     ) {
-        text.withCString { (cText: UnsafePointer<Int8>) in
-            CRaylib.DrawTextPro(font, cText, position, origin, rotation, fontSize, spacing, color)
-        }
+        CRaylib.DrawTextPro(font, text, position, origin, rotation, fontSize, spacing, color)
     }
 
     /// Draw one character (codepoint)
