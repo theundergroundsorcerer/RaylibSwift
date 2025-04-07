@@ -72,9 +72,7 @@ extension Graphics {
     /// - Maps to: DrawLineStrip
     @inlinable
     public static func drawLineStrip(_ points: [Vector2], color: Color) {
-        points.withUnsafeBufferPointer { buffer in
-            CRaylib.DrawLineStrip(buffer.baseAddress, I(points.count), color)
-        }
+        CRaylib.DrawLineStrip(points, I(points.count), color)
     }
 
     // MARK: - Circles and Ellipses
@@ -644,18 +642,14 @@ extension Graphics {
     /// - Maps to: DrawTriangleFan
     @inlinable
     public static func drawTriangleFan(_ points: [Vector2], color: Color) {
-        points.withUnsafeBufferPointer { buffer in
-            CRaylib.DrawTriangleFan(buffer.baseAddress, I(points.count), color)
-        }
+        CRaylib.DrawTriangleFan(points, I(points.count), color)
     }
 
     /// Draws a filled triangle strip defined by a sequence of points.
     /// - Maps to: DrawTriangleStrip
     @inlinable
     public static func drawTriangleStrip(_ points: [Vector2], color: Color) {
-        points.withUnsafeBufferPointer { buffer in
-            CRaylib.DrawTriangleStrip(buffer.baseAddress, I(points.count), color)
-        }
+        CRaylib.DrawTriangleStrip(points, I(points.count), color)
     }
 
     // MARK: - Polygons
