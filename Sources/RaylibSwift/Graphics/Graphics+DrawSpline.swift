@@ -52,8 +52,8 @@ extension Graphics {
         CRaylib.DrawSplineSegmentLinear(points.0, points.1, thickness, color)
     }
 
-    /// RLAPI void DrawSplineSegmentBasis(Vector2 p1, Vector2 p2, Vector2 p3, Vector2 p4, float thick, Color color);
     /// Draw spline segment: B-Spline, 4 points
+    /// Maps to DrawSplineSegmentBasis
     @inlinable
     public static func drawSplineSegmentBasis(
         points: (Vector2, Vector2, Vector2, Vector2),
