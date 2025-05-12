@@ -26,16 +26,16 @@ public enum Gui {
         CRaygui.GuiLabel(bounds, text)
     }
 
-    /// Dropdown Box control
+    /// Dropdown Box control - returns true if mouse was clicked
     @discardableResult
     public static func dropdownBox(
         bounds: Rectangle,
         text: Text,
         active: inout Int32,
         editMode: Bool
-    ) -> Int32 {
+    ) -> Bool {
         CRaygui.GuiDropdownBox(
-            bounds, text, &active, editMode)
+            bounds, text, &active, editMode) == 1
     }
     /// int GuiDropdownBox(Rectangle bounds, const char *text, int *active, bool editMode);
 
