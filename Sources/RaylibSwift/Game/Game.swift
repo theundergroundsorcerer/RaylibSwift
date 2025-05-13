@@ -5,7 +5,7 @@ public protocol Game: AnyObject {
     func loadData() throws(LoadingError)
 
     /// Creates game window and runs sets the neccessary raylib configuration flags
-    func beginGame()
+    func start()
 
     /// runs the game loop at target fps
     func loop(targetFPS: Int32)
@@ -53,7 +53,7 @@ extension Game {
         let game = make()
         do {
             try game.loadData()
-            game.beginGame()
+            game.startGame()
             game.loop(targetFPS: 60)
             game.close()
         } catch let loadingError {
