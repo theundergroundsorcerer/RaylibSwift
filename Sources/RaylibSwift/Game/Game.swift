@@ -53,7 +53,7 @@ extension Game {
         let game = make()
         do {
             try game.loadData()
-            game.startGame()
+            game.start()
             game.loop(targetFPS: 60)
             game.close()
         } catch let loadingError {
