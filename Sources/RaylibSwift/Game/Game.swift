@@ -32,11 +32,11 @@ public protocol Game: AnyObject {
 
 /// default implementations of some game function
 extension Game {
-    func loadData() throws(LoadingError) {}
+    public func loadData() throws(LoadingError) {}
 
-    func handleInput() {}
+    public func handleInput() {}
 
-    func loop(targetFPS: Int32) {
+    public func loop(targetFPS: Int32) {
         Time.setFps(targetFPS)
         while !Window.shouldClose {
             handleInput()
@@ -45,11 +45,11 @@ extension Game {
         }
     }
     
-    func close() {
+    public func close() {
         if Window.shouldClose { Window.close() }
     }
 
-    static func run() {
+    public static func run() {
         let game = make()
         do {
             try game.loadData()
