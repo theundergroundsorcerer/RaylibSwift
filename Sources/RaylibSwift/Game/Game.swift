@@ -16,12 +16,8 @@ public protocol Game: AnyObject {
 
     /// update the game state
     func update()
-    
-    /// displays the game state for a given frame
-    func displayFrame()
 
-    /// by default, it is just a call back to display frame. soemtimes, additional things 
-    /// not related to game state can be drawn
+    /// Draws the game world
     func draw()
 
     /// cleans up the game and closes the window
@@ -48,13 +44,7 @@ extension Game {
             draw()
         }
     }
-
-    func draw() {
-        Graphics.beginDrawing()
-        displayFrame()
-        Graphics.endDrawing()
-    }
-
+    
     func close() {
         if Window.shouldClose { Window.close() }
     }
